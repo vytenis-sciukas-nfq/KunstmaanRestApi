@@ -15,8 +15,22 @@ Kunstmaan\NodeBundle\Entity\Node:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\Node'
       groups: [create]
+    lft:
+      expose: true
+      groups: [edit, create]
+    rgt:
+      expose: true
+      groups: [edit, create]
+    lvl:
+      expose: true
+      groups: [edit, create]
 
   relations:
     -
       rel: self
       href: expr('/api/nodes/' ~ object.getId())
+    -
+      rel: node_translations
+      href: expr('/api/nodes/' ~ object.getId() ~ '/translations')
+      embedded:
+          content: expr(object.getNodeTranslations())

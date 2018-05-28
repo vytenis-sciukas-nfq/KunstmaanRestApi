@@ -22,3 +22,8 @@ Kunstmaan\NodeBundle\Entity\NodeTranslation:
       expose: true
     slug:
       expose: true
+
+  relations:
+    -
+      rel: self
+      href: expr('/api/nodes/' ~ object.getNode().getId() ~ '/translations')

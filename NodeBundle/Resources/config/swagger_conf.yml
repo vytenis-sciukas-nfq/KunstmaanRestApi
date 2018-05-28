@@ -18,6 +18,12 @@ nelmio_api_doc:
             type: "string"
           url:
             type: "string"
+          lft:
+            type: "integer"
+          rgt:
+            type: "integer"
+          lvl:
+            type: "integer"
 
       NodeTranslation:
         properties:
@@ -57,6 +63,7 @@ nelmio_api_doc:
                 type: "object"
                 allOf:
                   - $ref: '#/definitions/Node'
+
       PostNode:
         allOf:
           - $ref: '#/definitions/Node'

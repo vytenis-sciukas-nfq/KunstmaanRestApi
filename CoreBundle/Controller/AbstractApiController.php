@@ -16,6 +16,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Hateoas\Representation\CollectionRepresentation;
 use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\Rest\CoreBundle\Model\PaginatedCollection;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 
@@ -37,6 +38,32 @@ abstract class AbstractApiController extends FOSRestController
     protected function createORMPaginatedCollection(QueryBuilder $qb, $page, $limit, \Closure $decorator = null)
     {
         $adapter = new DoctrineORMAdapter($qb);
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setMaxPerPage($limit);
+        $pagerfanta->setCurrentPage($page);
+
+        $items = [];
+        foreach ($pagerfanta->getCurrentPageResults() as $result) {
+            $items[] = $decorator !== null ? $decorator($result) : $result;
+        }
+
+        return new PaginatedRepresentation(
+            new CollectionRepresentation($items),
+            'get_nodes',
+            [],
+            $page,
+            $limit,
+            $pagerfanta->getNbPages(),
+            null,
+            null,
+            false,
+            $pagerfanta->getNbResults()
+        );
+    }
+
+    protected function createArrayPaginatedCollection(array $data, $page, $limit, \Closure $decorator = null)
+    {
+        $adapter = new ArrayAdapter($data->toArray());
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage($limit);
         $pagerfanta->setCurrentPage($page);
