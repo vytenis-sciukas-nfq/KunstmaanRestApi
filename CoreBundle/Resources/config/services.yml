@@ -2,6 +2,10 @@ services:
     kunstmaan_rest_core.service.data_transformer:
         class: Kunstmaan\Rest\CoreBundle\Service\DataTransformerService
 
+    kunstmaan_rest_core.helper.controller.paginator:
+        class: Kunstmaan\Rest\CoreBundle\Helper\Controller\Paginator
+        public: true
+
     jms_serializer.object_constructor:
         alias: jms_serializer.doctrine_object_constructor
         public: false

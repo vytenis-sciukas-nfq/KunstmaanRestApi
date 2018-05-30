@@ -13,10 +13,14 @@ namespace Kunstmaan\Rest\NodeBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Put;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcher;
+use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
 use Kunstmaan\NodeBundle\Entity\HasNodeInterface;
 use Kunstmaan\NodeBundle\Entity\Node;
@@ -103,14 +107,35 @@ class PagesController extends AbstractApiController
      *         in="query",
      *         type="string",
      *         description="The FQCN of the page",
-     *         required=true,
+     *         required=false,
      *     ),
      *     @SWG\Parameter(
      *         name="locale",
      *         in="query",
      *         type="string",
      *         description="The language of your content",
-     *         required=true,
+     *         required=false,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="internalName",
+     *         in="query",
+     *         type="string",
+     *         description="The internal name of the page",
+     *         required=false,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="online",
+     *         in="query",
+     *         type="boolean",
+     *         description="Include only online nodes",
+     *         required=false,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="versionType",
+     *         in="query",
+     *         type="string",
+     *         description="VersionType (public or draft)",
+     *         required=false,
      *     ),
      *     @SWG\Response(
      *         response=200,
@@ -129,33 +154,52 @@ class PagesController extends AbstractApiController
      *     )
      * )
      *
-     * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")
-     * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
+     * @Get("/pages")
+     * @View(statusCode=200)
      *
-     * @param Request      $request
+     * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page", strict=true)
+     * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results", strict=true)
+     * @QueryParam(name="type", nullable=true, requirements="[\d\w\\]+", description="fqcn of the page", strict=true)
+     * @QueryParam(name="locale", nullable=true, requirements="[A-Za-z_-]+", description="locale", strict=true)
+     * @QueryParam(name="internalName", nullable=true, requirements="[\w_-]+", description="Internal name of the page", strict=true)
+     * @QueryParam(name="online", nullable=true, allowBlank=true, default="true", requirements="(true|false)", description="Online node translations")
+     * @QueryParam(name="versionType", nullable=true, allowBlank=true, requirements="(public|draft)", description="Version type (public or draft)", strict=true)
+     *
      * @param ParamFetcher $paramFetcher
-     *
-     * @return Response
+     * @return PaginatedRepresentation
      */
-    public function getPagesAction(Request $request, ParamFetcher $paramFetcher)
+    public function getPagesAction(ParamFetcher $paramFetcher)
     {
-        if (!$request->query->has('locale')) {
-            throw new HttpException(400, "Missing locale");
+        $page = $paramFetcher->get('page');
+        $limit = $paramFetcher->get('limit');
+        $type = $paramFetcher->get('type');
+        $locale = $paramFetcher->get('locale');
+        $internalName = $paramFetcher->get('internalName');
+        $online = $paramFetcher->get('online');
+        $versionType = $paramFetcher->get('versionType');
+
+        $qb = $this->em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getNodeTranslationsQueryBuilder($locale);
+
+        if ($type) {
+            $qb->andWhere('v.refEntityName = :refEntityName')
+                ->setParameter('refEntityName', $type);
+        }
+        if ($internalName) {
+            $qb->andWhere('n.internalName = :internalName')
+                ->setParameter('internalName', $internalName);
+        }
+        if ($online === 'false') {
+            $qb->andWhere('nt.online = false');
+        } else {
+            $qb->andWhere('nt.online = true');
+        }
+        if ('draft' === $versionType) {
+            //TODO : select last draft record with subquery
         }
 
-        // TODO: validate query params
-        $page = $request->query->getInt('page');
-        $limit = $request->query->getInt('limit');
-        $type = $request->query->get('type');
-        $locale = $request->query->get('locale');
+        $paginator = $this->getPaginator();
 
-        $qb = $this->em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getOnlineNodeTranslationsQueryBuilder($locale)
-            ->andWhere('v.refEntityName = :refEntityName')
-            ->setParameter('refEntityName', $type);
-
-        $paginatedCollection = $this->createORMPaginatedCollection($qb, $page, $limit, $this->createTransformerDecorator());
-
-        return $this->handleView($this->view($paginatedCollection, Response::HTTP_OK));
+        return $paginator->getPaginatedQueryBuilderResult($qb, $page, $limit, $this->createTransformerDecorator());
     }
 
     /**
@@ -167,13 +211,6 @@ class PagesController extends AbstractApiController
      *     operationId="getPage",
      *     produces={"application/json"},
      *     tags={"pages"},
-     *     @SWG\Parameter(
-     *         name="locale",
-     *         in="query",
-     *         type="string",
-     *         description="The language of your content",
-     *         required=true,
-     *     ),
      *     @SWG\Parameter(
      *         name="id",
      *         in="path",
@@ -197,16 +234,17 @@ class PagesController extends AbstractApiController
      *         @SWG\Schema(ref="#/definitions/ErrorModel")
      *     )
      * )
+     *
+     * @Get("/pages/{id}", requirements={"id": "\d+"})
+     * @View(statusCode=200)
+     *
+     * @param int $id
+     * @return ApiPage
      */
-    public function getPageAction(Request $request, $id)
+    public function getPageAction($id)
     {
-        if (!$request->query->has('locale')) {
-            throw new HttpException(400, "Missing locale");
-        }
 
-        $locale = $request->getLocale();
-
-        $qb = $this->em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getOnlineNodeTranslationsQueryBuilder($locale)
+        $qb = $this->em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getOnlineNodeTranslationsQueryBuilder()
             ->andWhere('nt.id = :id')
             ->setParameter('id', $id);
 
@@ -216,9 +254,7 @@ class PagesController extends AbstractApiController
             throw new NotFoundHttpException();
         }
 
-        $data = $this->dataTransformer->transform($nodeTranslation);
-
-        return $this->handleView($this->view($data, Response::HTTP_OK));
+        return $this->dataTransformer->transform($nodeTranslation);
     }
 
     /**
@@ -227,8 +263,6 @@ class PagesController extends AbstractApiController
      * @View(
      *     statusCode=204
      * )
-     *
-     * @Rest\Route(path="/pages/{id}")
      *
      * @SWG\Put(
      *     path="/api/pages/{id}",
@@ -285,6 +319,8 @@ class PagesController extends AbstractApiController
      *     }
      * )
      *
+     * @Put("/pages/{id}")
+     *
      * @param Request                          $request
      * @param ApiPage                          $apiPage
      * @param integer                          $id
@@ -319,7 +355,6 @@ class PagesController extends AbstractApiController
      *     statusCode=204
      * )
      *
-     * @Rest\Route(path="/pages")
      *
      * @SWG\Post(
      *     path="/api/pages",
@@ -369,6 +404,7 @@ class PagesController extends AbstractApiController
      *     }
      * )
      *
+     * @Post("/pages")
      * @param Request                          $request
      * @param ApiPage                          $apiPage
      * @param ConstraintViolationListInterface $validationErrors

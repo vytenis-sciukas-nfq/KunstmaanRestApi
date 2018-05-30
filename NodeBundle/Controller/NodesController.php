@@ -164,7 +164,8 @@ class NodesController extends AbstractApiController
             ;
         }
 
-        $paginatedCollection = $this->createORMPaginatedCollection($qb, $page, $limit);
+        $paginator = $this->getPaginator();
+        $paginatedCollection = $paginator->getPaginatedQueryBuilderResult($qb, $page, $limit);
 
         return $this->handleView($this->view($paginatedCollection, Response::HTTP_OK));
     }
@@ -279,12 +280,8 @@ class NodesController extends AbstractApiController
         $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->find($id);
         $data = $node->getChildren();
 
-        $adapter = new ArrayAdapter($data->toArray());
-        $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage($limit);
-        $pagerfanta->setCurrentPage($page);
-
-        $paginatedCollection = $pagerfanta->getCurrentPageResults();
+        $paginator = $this->getPaginator();
+        $paginatedCollection = $paginator->getPaginatedArrayResult($data->toArray(), $page, $limit);
 
         return $this->handleView($this->view($paginatedCollection, Response::HTTP_OK));
     }
