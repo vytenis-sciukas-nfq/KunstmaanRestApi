@@ -41,8 +41,6 @@ class Paginator
         return $this->getPaginatedRepresentation($adapter, $page, $limit, $closure, $route);
     }
 
-
-
     /**
      * @param AdapterInterface $adapter
      * @param int $page
