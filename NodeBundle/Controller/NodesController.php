@@ -12,11 +12,13 @@
 namespace Kunstmaan\Rest\NodeBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Request\ParamFetcherInterface;
+use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Repository\NodeRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
@@ -86,7 +88,7 @@ class NodesController extends AbstractApiController
      *         name="hiddenFromNav",
      *         in="query",
      *         type="boolean",
-     *         description="If 1, only nodes hidden from nav will be returned",
+     *         description="If true, only nodes hidden from nav will be returned",
      *         required=false,
      *     ),
      *     @SWG\Parameter(
@@ -114,15 +116,18 @@ class NodesController extends AbstractApiController
      * )
      *
      * @QueryParam(name="internalName", nullable=true, description="The internal name of the node", requirements="[\w\d_-]+", strict=true)
-     * @QueryParam(name="hiddenFromNav", nullable=true, default=null, description="If true, only nodes hidden from nav will be returned")
+     * @QueryParam(name="hiddenFromNav", nullable=true, allowBlank=true, default=null, requirements="(true|false)", description="If true, only nodes hidden from nav will be returned", strict=true)
      * @QueryParam(name="refEntityName", nullable=true, default=null, description="Which pages you want to have returned")
      * @QueryParam(name="locale", nullable=true, default=null, requirements="[a-zA-Z_-]+", strict=true, description="If you provide a locale, then only nodes with a node translation of this locale will be returned")
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
+     * @Rest\Get("/nodes")
+     * @View(statusCode=200)
+     *
      * @param ParamFetcher $paramFetcher
      *
-     * @return Response
+     * @return PaginatedRepresentation
      */
     public function getNodesAction(ParamFetcher $paramFetcher)
     {
@@ -136,7 +141,6 @@ class NodesController extends AbstractApiController
         /** @var NodeRepository $repository */
         $repository = $this->em->getRepository(Node::class);
         $qb = $repository->createQueryBuilder('n');
-
         $qb->where('n.deleted = 0');
 
         if ($internalName) {
@@ -145,7 +149,7 @@ class NodesController extends AbstractApiController
                 ->setParameter('internalName', $internalName)
             ;
         }
-        if (null !== $hiddenFromNav && '' !== $hiddenFromNav) {
+        if (null !== $hiddenFromNav && 'false' !== $hiddenFromNav) {
             $qb
                 ->andWhere('n.hiddenFromNav = :hiddenFromNav')
                 ->setParameter('hiddenFromNav', $hiddenFromNav == 'true' ? 1 : 0)
@@ -164,18 +168,11 @@ class NodesController extends AbstractApiController
             ;
         }
 
-        $paginator = $this->getPaginator();
-        $paginatedCollection = $paginator->getPaginatedQueryBuilderResult($qb, $page, $limit);
-
-        return $this->handleView($this->view($paginatedCollection, Response::HTTP_OK));
+        return $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit);
     }
 
     /**
      * Retrieve a single node
-     *
-     * @View(
-     *     statusCode=200
-     * )
      *
      * @SWG\Get(
      *     path="/api/nodes/{id}",
@@ -206,20 +203,20 @@ class NodesController extends AbstractApiController
      *         @SWG\Schema(ref="#/definitions/ErrorModel")
      *     )
      * )
+     *
+     * @Rest\Get("/nodes/{id}")
+     * @View(statusCode=200)
+     *
+     * @param int $id
+     * @return Node
      */
     public function getNodeAction($id)
     {
-        $data = $this->em->getRepository('KunstmaanNodeBundle:Node')->find($id);
-
-        return $this->handleView($this->view($data, Response::HTTP_OK));
+        return $this->em->getRepository('KunstmaanNodeBundle:Node')->find($id);
     }
 
     /**
      * Retrieve a single node's children
-     *
-     * @View(
-     *     statusCode=200
-     * )
      *
      * @SWG\Get(
      *     path="/api/nodes/{id}/children",
@@ -265,8 +262,11 @@ class NodesController extends AbstractApiController
      *     )
      * )
      *
-     * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")
-     * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
+     * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page", strict=true)
+     * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results", strict=true)
+     *
+     * @Rest\Get("/nodes/{id}/children")
+     * @View(statusCode=200)
      *
      * @param ParamFetcher $paramFetcher
      * @param int $id
@@ -280,10 +280,7 @@ class NodesController extends AbstractApiController
         $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->find($id);
         $data = $node->getChildren();
 
-        $paginator = $this->getPaginator();
-        $paginatedCollection = $paginator->getPaginatedArrayResult($data->toArray(), $page, $limit);
-
-        return $this->handleView($this->view($paginatedCollection, Response::HTTP_OK));
+        return $this->getPaginator()->getPaginatedArrayResult($data->toArray(), $page, $limit);
     }
 
     /**
@@ -318,13 +315,15 @@ class NodesController extends AbstractApiController
      *         @SWG\Schema(ref="#/definitions/ErrorModel")
      *     )
      * )
+     *
+     * @Rest\Get("/nodes/{id}/parent")
+     * @View(statusCode=200)
      */
     public function getNodeParentAction($id)
     {
         $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->find($id);
-        $data = $node->getParent();
 
-        return $this->handleView($this->view($data, Response::HTTP_OK));
+        return $node->getParent();
     }
 
     /**
@@ -337,7 +336,6 @@ class NodesController extends AbstractApiController
     protected function getEntity($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('KunstmaanNodeBundle:Node')->find($id);
 
         if (!$entity) {

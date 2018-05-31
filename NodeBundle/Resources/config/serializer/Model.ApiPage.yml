@@ -16,16 +16,16 @@ Kunstmaan\Rest\NodeBundle\Model\ApiPage:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\NodeTranslation'
       groups: [edit, create]
-      serialized_name: nodeTranslation
+      serialized_name: node_translation
 
     nodeVersion:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\NodeVersion'
       groups: [edit]
-      serialized_name: nodeVersion
+      serialized_name: node_version
 
     pageTemplate:
       expose: true
       type: 'Kunstmaan\Rest\NodeBundle\Model\ApiPageTemplate'
       groups: [edit, create]
-      serialized_name: pageTemplate
+      serialized_name: page_template

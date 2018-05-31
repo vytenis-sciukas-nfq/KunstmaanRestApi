@@ -13,9 +13,6 @@ namespace Kunstmaan\Rest\NodeBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Put;
-use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\ControllerTrait;
@@ -124,6 +121,13 @@ class PagesController extends AbstractApiController
      *         required=false,
      *     ),
      *     @SWG\Parameter(
+     *         name="nodeId",
+     *         in="query",
+     *         type="integer",
+     *         description="Node id",
+     *         required=false,
+     *     ),
+     *     @SWG\Parameter(
      *         name="online",
      *         in="query",
      *         type="boolean",
@@ -154,7 +158,7 @@ class PagesController extends AbstractApiController
      *     )
      * )
      *
-     * @Get("/pages")
+     * @Rest\Get("/pages")
      * @View(statusCode=200)
      *
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page", strict=true)
@@ -162,7 +166,8 @@ class PagesController extends AbstractApiController
      * @QueryParam(name="type", nullable=true, requirements="[\d\w\\]+", description="fqcn of the page", strict=true)
      * @QueryParam(name="locale", nullable=true, requirements="[A-Za-z_-]+", description="locale", strict=true)
      * @QueryParam(name="internalName", nullable=true, requirements="[\w_-]+", description="Internal name of the page", strict=true)
-     * @QueryParam(name="online", nullable=true, allowBlank=true, default="true", requirements="(true|false)", description="Online node translations")
+     * @QueryParam(name="nodeId", nullable=true, requirements="\d+", description="Node id", strict=true)
+     * @QueryParam(name="online", nullable=true, allowBlank=true, default="true", requirements="(true|false)", description="Online node translations", strict=true)
      * @QueryParam(name="versionType", nullable=true, allowBlank=true, requirements="(public|draft)", description="Version type (public or draft)", strict=true)
      *
      * @param ParamFetcher $paramFetcher
@@ -175,6 +180,7 @@ class PagesController extends AbstractApiController
         $type = $paramFetcher->get('type');
         $locale = $paramFetcher->get('locale');
         $internalName = $paramFetcher->get('internalName');
+        $nodeId = $paramFetcher->get('nodeId');
         $online = $paramFetcher->get('online');
         $versionType = $paramFetcher->get('versionType');
 
@@ -188,18 +194,23 @@ class PagesController extends AbstractApiController
             $qb->andWhere('n.internalName = :internalName')
                 ->setParameter('internalName', $internalName);
         }
+        if ($nodeId > 0) {
+            $qb->andWhere('n.id = :nodeId')
+                ->setParameter('nodeId', $nodeId);
+        }
         if ($online === 'false') {
             $qb->andWhere('nt.online = false');
         } else {
             $qb->andWhere('nt.online = true');
         }
         if ('draft' === $versionType) {
-            //TODO : select last draft record with subquery
+            $qb->innerJoin('nt.nodeVersions', 'nv_draft', 'WITH', 'nt.id = nv_draft.nodeTranslation AND nv_draft.type = \'draft\'')
+                ->leftJoin('nt.nodeVersions', 'nv_best', 'WITH', 'nv_draft.nodeTranslation = nv_best.nodeTranslation AND nv_best.created > nv_draft.created AND nv_best.type = \'draft\'')
+                ->andWhere('(nv_best.nodeTranslation IS NULL)')
+            ;
         }
 
-        $paginator = $this->getPaginator();
-
-        return $paginator->getPaginatedQueryBuilderResult($qb, $page, $limit, $this->createTransformerDecorator());
+        return $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit, $this->createTransformerDecorator());
     }
 
     /**
@@ -235,7 +246,7 @@ class PagesController extends AbstractApiController
      *     )
      * )
      *
-     * @Get("/pages/{id}", requirements={"id": "\d+"})
+     * @Rest\Get("/pages/{id}", requirements={"id": "\d+"})
      * @View(statusCode=200)
      *
      * @param int $id
@@ -319,7 +330,7 @@ class PagesController extends AbstractApiController
      *     }
      * )
      *
-     * @Put("/pages/{id}")
+     * @Rest\Put("/pages/{id}")
      *
      * @param Request                          $request
      * @param ApiPage                          $apiPage
@@ -404,7 +415,7 @@ class PagesController extends AbstractApiController
      *     }
      * )
      *
-     * @Post("/pages")
+     * @Rest\Post("/pages")
      * @param Request                          $request
      * @param ApiPage                          $apiPage
      * @param ConstraintViolationListInterface $validationErrors
