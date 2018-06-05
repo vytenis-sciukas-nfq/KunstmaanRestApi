@@ -1,9 +1,0 @@
-Kunstmaan\NodeBundle\Entity\NodeVersion:
-    exclusion_policy: ALL
-    properties:
-        owner:
-            expose: true
-            groups: [edit]
-        type:
-            expose: true
-            groups: [edit]

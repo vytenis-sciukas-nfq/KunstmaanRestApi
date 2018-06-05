@@ -1,7 +1,0 @@
-Kunstmaan\MediaBundle\Entity\Folder:
-  exclusion_policy: ALL
-  properties:
-      id:
-          expose: true
-      name:
-          expose: true

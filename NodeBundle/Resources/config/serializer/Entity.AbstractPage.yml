@@ -1,8 +1,0 @@
-Kunstmaan\NodeBundle\Entity\AbstractPage:
-  exclusion_policy: ALL
-
-  properties:
-    title:
-      expose: true
-      type: string
-      groups: [edit, create]
