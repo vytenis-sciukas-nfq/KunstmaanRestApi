@@ -1,0 +1,45 @@
+{
+  "name": "kunstmaan/rest",
+  "type": "symfony-bundle",
+  "description": "The Kunstmaan Rest Api Bundles provides a REST api for the popular Kunstmaan CMS bundles.",
+  "keywords": [
+    "kunstmaan",
+    "cms",
+    "rest",
+    "api"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kunstmaan Team",
+      "homepage": "http://www.kunstmaan.be/",
+      "email": "support@kunstmaan.be"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "symfony/symfony": "~3.4",
+    "doctrine/orm": "^2.2.3",
+    "kunstmaan/bundles-cms": "5.1.x-dev",
+    "sensio/generator-bundle": "~2.5|~3.0",
+    "zircote/swagger-php": "^2.0.10",
+    "friendsofsymfony/rest-bundle": "^2.2",
+    "jms/serializer-bundle": "^2.2",
+    "nelmio/api-doc-bundle": "~3.2.0",
+    "willdurand/hateoas": "^2.12",
+    "willdurand/hateoas-bundle": "^1.4"
+  },
+  "require-dev": {
+    "nelmio/alice": "^2.1.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kunstmaan\\Rest\\": "src/Rest/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}
