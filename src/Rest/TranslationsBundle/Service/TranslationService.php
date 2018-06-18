@@ -62,25 +62,48 @@ class TranslationService
 
     /**
      * @param Translation $translation
+     * @param bool        $force
      *
      * @return null|object
      */
-    public function createOrUpdateTranslation(Translation $translation)
+    public function createOrUpdateTranslation(Translation $translation, bool $force = false)
     {
         /** @var TranslationRepository $repository */
         $repository = $this->manager->getRepository(Translation::class);
 
         $translation->setFile(self::REST);
         /** @var array $result */
-        $result = $repository->findBy(['keyword' => $translation->getKeyword(), 'locale' => $translation->getLocale(), 'domain' => $translation->getDomain()]);
+        $result = $repository->findBy(['keyword' => $translation->getKeyword(), 'domain' => $translation->getDomain()]);
 
         /** @var \Kunstmaan\TranslatorBundle\Entity\Translation $oldTrans */
         $oldTrans = array_key_exists(0, $result) ? $result[0] : null;
 
-        if ($oldTrans) {
-            $repository->updateTranslations($translation->getTranslationModel($oldTrans->getId()), $oldTrans->getId());
+        if ($force) {
+            if ($oldTrans) {
+                $model = $oldTrans->getTranslationModel($oldTrans->getId());
+                $model->addText($translation->getLocale(), $translation->getText());
+                $repository->updateTranslations($model, $oldTrans->getId());
+                if ($oldTrans->isDeprecated() || $oldTrans->isDisabled()) {
+                    $oldTrans->setStatus(Translation::STATUS_ENABLED);
+                }
+            } else {
+                $repository->createTranslations($translation->getTranslationModel());
+            }
         } else {
-            $repository->createTranslations($translation->getTranslationModel());
+            if ($oldTrans) {
+                if ($oldTrans->getLocale() !== $translation->getLocale()) {
+                    $model = $oldTrans->getTranslationModel($oldTrans->getId());
+                    $model->addText($translation->getLocale(), $translation->getText());
+                    $repository->updateTranslations($model, $oldTrans->getId());
+                } elseif ($oldTrans->isDisabled()) {
+                    $oldTrans->setStatus(Translation::STATUS_ENABLED);
+                    $repository->updateTranslations($translation->getTranslationModel($oldTrans->getId()), $oldTrans->getId());
+                } else {
+                    return $oldTrans;
+                }
+            } else {
+                $repository->createTranslations($translation->getTranslationModel());
+            }
         }
 
         $this->manager->flush();
@@ -90,14 +113,15 @@ class TranslationService
 
     /**
      * @param string   $keyword
+     * @param string   $domain
      * @param DateTime $date
      */
-    public function deprecateTranslations($keyword)
+    public function deprecateTranslations($keyword, $domain)
     {
         /** @var TranslationRepository $repository */
         $repository = $this->manager->getRepository(Translation::class);
 
-        $translations = $repository->findBy(['keyword' => $keyword]);
+        $translations = $repository->findBy(['keyword' => $keyword, 'domain' => $domain]);
 
         /** @var Translation $translation */
         foreach ($translations as $translation) {
@@ -109,13 +133,14 @@ class TranslationService
 
     /**
      * @param DateTime $date
+     * @param string   $domain
      */
-    public function disableDeprecatedTranslations(DateTime $date)
+    public function disableDeprecatedTranslations(DateTime $date, $domain)
     {
         /** @var TranslationRepository $repository */
         $repository = $this->manager->getRepository(Translation::class);
 
-        $translations = $repository->findDeprecatedTranslationsBeforeDate($date);
+        $translations = $repository->findDeprecatedTranslationsBeforeDate($date, $domain);
 
         /** @var Translation $translation */
         foreach ($translations as $translation) {
@@ -127,13 +152,14 @@ class TranslationService
 
     /**
      * @param string $keyword
+     * @param string $domain
      */
-    public function enableDeprecatedTranslations($keyword)
+    public function enableDeprecatedTranslations($keyword, $domain)
     {
         /** @var TranslationRepository $repository */
         $repository = $this->manager->getRepository(Translation::class);
 
-        $translations = $repository->findBy(['keyword' => $keyword]);
+        $translations = $repository->findBy(['keyword' => $keyword, 'domain' => $domain]);
 
         /** @var Translation $translation */
         foreach ($translations as $translation) {
@@ -151,8 +177,8 @@ class TranslationService
     private function validateArrayTranslation(array $translation)
     {
         return array_key_exists('locale', $translation)
-        && array_key_exists('keyword', $translation)
-        && array_key_exists('text', $translation)
-        && array_key_exists('domain', $translation);
+            && array_key_exists('keyword', $translation)
+            && array_key_exists('text', $translation)
+            && array_key_exists('domain', $translation);
     }
 }

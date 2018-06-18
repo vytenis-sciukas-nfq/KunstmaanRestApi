@@ -69,7 +69,7 @@ class TranslationsController extends FOSRestController
         }
 
         $translations = $this->getDoctrine()->getRepository('KunstmaanTranslatorBundle:Translation')
-            ->findAllNotDisabled($locale);
+            ->findAllNotDisabled($locale, null);
 
         return $translations;
     }
@@ -80,16 +80,77 @@ class TranslationsController extends FOSRestController
      * )
      *
      * @Rest\QueryParam(name="locale", nullable=false, description="locale")
-     * @Rest\Get("/public/translations/{keyword}")
+     * @Rest\Get("/public/translations/{domain}/")
      *
-     * @param string $keyword
+     * @param ParamFetcherInterface $paramFetcher
+     *
+     * @return array
+     *
+     *
+     * * @SWG\Get(
+     *     path="/api/public/translations/{domain}",
+     *     description="Get a list of all translations by domain only",
+     *     operationId="getTranslationsByDomain",
+     *     produces={"application/json"},
+     *     tags={"translations"},
+     *     @SWG\Parameter(
+     *         name="locale",
+     *         in="query",
+     *         type="string",
+     *         description="the locale of the languages you want",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="domain",
+     *         in="path",
+     *         type="string",
+     *         description="the domain of the languages you want",
+     *         required=false,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Returned when successful",
+     *         @SWG\Schema(ref="#/definitions/listTranslation")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(
+     *             ref="#/definitions/ErrorModel"
+     *         )
+     *     )
+     * )
+     */
+    public function getTranslationsByDomainAction(ParamFetcherInterface $paramFetcher, $domain)
+    {
+        $locale = $paramFetcher->get('locale');
+
+        if (!$locale) {
+            throw new NotFoundHttpException('locale is required');
+        }
+
+        $translations = $this->getDoctrine()->getRepository('KunstmaanTranslatorBundle:Translation')
+            ->findAllNotDisabled($locale, $domain);
+
+        return $translations;
+    }
+
+    /**
+     * @View(
+     *     statusCode=200
+     * )
+     *
+     * @Rest\QueryParam(name="locale", nullable=false, description="locale")
+     * @Rest\Get("/public/translations/{domain}/{keyword}")
+     *
+     * @param string                $keyword
      * @param ParamFetcherInterface $paramFetcher
      *
      * @return Translation
      *
      *
      * @SWG\Get(
-     *     path="/api/public/translations/{keyword}",
+     *     path="/api/public/translations/{domain}/{keyword}",
      *     description="Get a translation",
      *     operationId="getTranslation",
      *     produces={"application/json"},
@@ -108,6 +169,13 @@ class TranslationsController extends FOSRestController
      *         description="the keyword of the translation you want",
      *         required=true,
      *     ),
+     *     @SWG\Parameter(
+     *         name="domain",
+     *         in="path",
+     *         type="string",
+     *         description="the domain of the languages you want",
+     *         required=true,
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Returned when successful",
@@ -122,7 +190,7 @@ class TranslationsController extends FOSRestController
      *     )
      * )
      */
-    public function getTranslationAction($keyword, ParamFetcherInterface $paramFetcher)
+    public function getTranslationAction($domain, $keyword, ParamFetcherInterface $paramFetcher)
     {
         $locale = $paramFetcher->get('locale');
 
@@ -133,7 +201,7 @@ class TranslationsController extends FOSRestController
         /** @var Translation $translation */
         $translation = $this->getDoctrine()
             ->getRepository(Translation::class)
-            ->findOneBy(['locale' => $locale, 'keyword' => $keyword]);
+            ->findOneBy(['locale' => $locale, 'keyword' => $keyword, 'domain' => $domain]);
 
         if ($translation && !$translation->isDisabled()) {
             return $translation;
@@ -147,7 +215,8 @@ class TranslationsController extends FOSRestController
      *     statusCode=200
      * )
      *
-     * @Rest\Post("/translations")
+     * @Rest\QueryParam(name="force", nullable=false, description="Force=true will overwrite existing translations, otherwise will be skipped")
+     * @Rest\Post("/translations/{domain}")
      *
      * @param Request $request
      *
@@ -155,7 +224,7 @@ class TranslationsController extends FOSRestController
      *
      *
      * @SWG\Post(
-     *     path="/api/translations",
+     *     path="/api/translations/{domain}",
      *     description="Create multiple translations",
      *     operationId="createTranslation",
      *     produces={"application/json"},
@@ -164,7 +233,6 @@ class TranslationsController extends FOSRestController
      *         name="translation",
      *         in="body",
      *         required=true,
-     *         type="single",
      *         description="The posted translations",
      *         @SWG\Schema(ref="#/definitions/postTranslations"),
      *     ),
@@ -173,6 +241,20 @@ class TranslationsController extends FOSRestController
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="domain",
+     *         in="path",
+     *         type="string",
+     *         description="the domain of the languages you want",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="force",
+     *         in="query",
+     *         type="boolean",
+     *         description="Force=true will overwrite existing translations, otherwise will be skipped",
      *         required=true,
      *     ),
      *     @SWG\Response(
@@ -194,30 +276,37 @@ class TranslationsController extends FOSRestController
      *     )
      * )
      */
-    public function postTranslationsAction(Request $request)
+    public function postTranslationsAction(Request $request, ParamFetcherInterface $paramFetcher, $domain = 'messages')
     {
+        $force = $paramFetcher->get('force') === "true" ? true : false ;
+
         /** @var TranslationService $translationCreator */
         $translationCreator = $this->get(TranslationService::class);
         $json = $request->getContent();
         $translations = json_decode($json, true);
 
-        $translations = $translationCreator->createCollectionFromArray($translations);
-        foreach ($translations as $translation) {
-            $translationCreator->createOrUpdateTranslation($translation);
+        foreach($translations as $key => $translation){
+            $translations[$key]['domain'] = $domain;
         }
 
-        return $translations;
+        $output = [];
+        $translations = $translationCreator->createCollectionFromArray($translations);
+        foreach ($translations as $translation) {
+            $output[] = $translationCreator->createOrUpdateTranslation($translation, $force);
+        }
+
+        return $output;
     }
 
     /**
      * @View(
-     *     statusCode=200
+     *     statusCode=201
      * )
      *
-     * @Rest\Put("/translations/deprecate")
+     * @Rest\Put("/translations/deprecate/{domain}")
      *
      * @SWG\Put(
-     *     path="/api/translations/deprecate",
+     *     path="/api/translations/deprecate/{domain}",
      *     description="deprecate translations by keyword",
      *     operationId="deprecateTranslation",
      *     produces={"application/json"},
@@ -226,7 +315,6 @@ class TranslationsController extends FOSRestController
      *         name="deprecatedTranslation",
      *         in="body",
      *         required=true,
-     *         type="single",
      *         description="The posted translations",
      *         @SWG\Schema(ref="#/definitions/keywordCollection"),
      *     ),
@@ -235,6 +323,13 @@ class TranslationsController extends FOSRestController
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="domain",
+     *         in="path",
+     *         type="string",
+     *         description="the domain of the languages you want",
      *         required=true,
      *     ),
      *     @SWG\Response(
@@ -250,7 +345,7 @@ class TranslationsController extends FOSRestController
      *     )
      * )
      */
-    public function deprecateTranslationsAction(Request $request)
+    public function deprecateTranslationsAction(Request $request, $domain = 'messages')
     {
         /** @var TranslationService $translationCreator */
         $translationCreator = $this->get(TranslationService::class);
@@ -265,19 +360,19 @@ class TranslationsController extends FOSRestController
         }
 
         foreach ($keywords as $keyword) {
-            $translationCreator->deprecateTranslations($keyword['keyword']);
+            $translationCreator->deprecateTranslations($keyword['keyword'], $domain);
         }
     }
 
     /**
      * @View(
-     *     statusCode=200
+     *     statusCode=201
      * )
      *
-     * @Rest\Put("/translations/disable")
+     * @Rest\Put("/translations/disable/{domain}")
      *
      * @SWG\Put(
-     *     path="/api/translations/disable",
+     *     path="/api/translations/disable/{domain}",
      *     description="disable translations by keyword",
      *     operationId="disableTranslation",
      *     produces={"application/json"},
@@ -286,9 +381,15 @@ class TranslationsController extends FOSRestController
      *         name="disabledTranslation",
      *         in="body",
      *         required=true,
-     *         type="single",
      *         description="The posted translations",
      *         @SWG\Schema(ref="#/definitions/disablingDate"),
+     *     ),
+     *     @SWG\Parameter(
+     *         name="domain",
+     *         in="path",
+     *         type="string",
+     *         description="the domain of the languages you want",
+     *         required=true,
      *     ),
      *     @SWG\Parameter(
      *         name="X-KUMA-API-KEY",
@@ -310,7 +411,7 @@ class TranslationsController extends FOSRestController
      *     )
      * )
      */
-    public function disableDeprecatedTranslationsAction(Request $request)
+    public function disableDeprecatedTranslationsAction(Request $request, $domain)
     {
         /** @var TranslationService $translationCreator */
         $translationCreator = $this->get(TranslationService::class);
@@ -322,7 +423,7 @@ class TranslationsController extends FOSRestController
             throw new TranslationException(TranslationException::NOT_VALID);
         }
 
-        $translationCreator->disableDeprecatedTranslations(new DateTime($translationDeprecation['date']));
+        $translationCreator->disableDeprecatedTranslations(new DateTime($translationDeprecation['date']), $domain);
     }
 
     /**
@@ -331,10 +432,10 @@ class TranslationsController extends FOSRestController
      * @throws TranslationException
      *
      *
-     * @Rest\Put("/translations/enable")
+     * @Rest\Put("/translations/enable/{domain}")
      *
      * @SWG\Put(
-     *     path="/api/translations/enable",
+     *     path="/api/translations/enable/{domain}",
      *     description="re-enable translations by keyword",
      *     operationId="enableTranslation",
      *     produces={"application/json"},
@@ -346,6 +447,13 @@ class TranslationsController extends FOSRestController
      *         type="single",
      *         description="The posted translations",
      *         @SWG\Schema(ref="#/definitions/keywordCollection"),
+     *     ),
+     *     @SWG\Parameter(
+     *         name="domain",
+     *         in="path",
+     *         type="string",
+     *         description="the domain of the languages you want",
+     *         required=true,
      *     ),
      *     @SWG\Parameter(
      *         name="X-KUMA-API-KEY",
@@ -367,7 +475,7 @@ class TranslationsController extends FOSRestController
      *     )
      * )
      */
-    public function enableDeprecatedTranslationsAction(Request $request)
+    public function enableDeprecatedTranslationsAction(Request $request, $domain = 'messages')
     {
         /** @var TranslationService $translationCreator */
         $translationCreator = $this->get(TranslationService::class);
@@ -382,7 +490,7 @@ class TranslationsController extends FOSRestController
         }
 
         foreach ($keywords as $keyword) {
-            $translationCreator->enableDeprecatedTranslations($keyword['keyword']);
+            $translationCreator->enableDeprecatedTranslations($keyword['keyword'], $domain);
         }
     }
 }
