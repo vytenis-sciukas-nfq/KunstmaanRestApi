@@ -39,8 +39,10 @@ class TransformerCompilerPass implements CompilerPassInterface
         }
 
         // sort by priority and flatten
-        krsort($transformers);
-        $transformers = call_user_func_array('array_merge', $transformers);
+        if(!empty($transformers)) {
+            krsort($transformers);
+            $transformers = call_user_func_array('array_merge', $transformers);
+        }
 
         foreach ($transformers as $transformer) {
             $definition->addMethodCall(
