@@ -81,7 +81,7 @@ class TranslationService
         if ($force) {
             if ($oldTrans) {
                 $model = $oldTrans->getTranslationModel($oldTrans->getId());
-                $model->addText($translation->getLocale(), $translation->getText());
+                $model->addText($translation->getLocale(), $translation->getText(), $oldTrans->getId());
                 $repository->updateTranslations($model, $oldTrans->getId());
                 if ($oldTrans->isDeprecated() || $oldTrans->isDisabled()) {
                     $oldTrans->setStatus(Translation::STATUS_ENABLED);
@@ -93,7 +93,7 @@ class TranslationService
             if ($oldTrans) {
                 if ($oldTrans->getLocale() !== $translation->getLocale()) {
                     $model = $oldTrans->getTranslationModel($oldTrans->getId());
-                    $model->addText($translation->getLocale(), $translation->getText());
+                    $model->addText($translation->getLocale(), $translation->getText(), $oldTrans->getId());
                     $repository->updateTranslations($model, $oldTrans->getId());
                 } elseif ($oldTrans->isDisabled()) {
                     $oldTrans->setStatus(Translation::STATUS_ENABLED);
