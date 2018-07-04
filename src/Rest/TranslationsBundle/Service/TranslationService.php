@@ -73,7 +73,7 @@ class TranslationService
 
         $translation->setFile(self::REST);
         /** @var array $result */
-        $result = $repository->findBy(['keyword' => $translation->getKeyword(), 'domain' => $translation->getDomain()]);
+        $result = $repository->findBy(['keyword' => $translation->getKeyword(), 'domain' => $translation->getDomain(), 'locale' => $translation->getLocale()]);
 
         /** @var \Kunstmaan\TranslatorBundle\Entity\Translation $oldTrans */
         $oldTrans = array_key_exists(0, $result) ? $result[0] : null;
