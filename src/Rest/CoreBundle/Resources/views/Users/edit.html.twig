@@ -1,0 +1,74 @@
+{% extends '@KunstmaanAdmin/Settings/index.html.twig' %}
+{% form_theme form '@KunstmaanAdmin/Form/fields.html.twig' %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+    {% set formParams = {'method': 'POST', 'action': path('KunstmaanUserManagementBundle_settings_users_edit', { 'id' : user.id }), 'attr': {'novalidate': 'novalidate'}} %}
+    {% if tabPane is defined %}
+        {{ form_start(tabPane.formView, formParams) }}
+    {% else %}
+        {{ form_start(form, formParams) }}
+    {% endif %}
+
+    <!-- Header -->
+    <header class="app__content__header">
+        <div class="row">
+            {% if adminmenu.current %}
+                <div class="col-sm-6">
+                    <h1 class="app__content__header__title">
+                        {{ adminmenu.current.label | trans }} {% block page_header_addition %}{% endblock %}
+                    </h1>
+                </div>
+            {% endif %}
+            <div class="col-sm-6">
+                <!-- Main-actions -->
+                <div class="js-auto-collapse-buttons page-main-actions page-main-actions--no-tabs page-main-actions--inside-extra-actions-header">
+                    <div class="btn-group">
+                        {% block actions %}
+                            <button type="submit" class="btn btn-primary btn--raise-on-hover">
+                                {{ 'settings.user.edit' | trans }}
+                            </button>
+                            <a href="{{ path('KunstmaanRestCoreBundle_settings_users_key_generate', { 'id' : user.id }) }}" class="btn btn-warning btn--raise-on-hover">
+                                {{ 'kuma_rest_core.form.generate_api_key' | trans }}
+                            </a>
+                            <a href="{{ path('KunstmaanUserManagementBundle_settings_users') }}" class="btn btn-default btn--raise-on-hover">
+                                {{ 'form.cancel' | trans }}
+                            </a>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Scroll-actions -->
+    <div class="page-main-actions page-main-actions--top" id="page-main-actions-top">
+        <div class="btn-group">
+            {{ block('actions') }}
+            <button type="button" class="js-scroll-to-top btn btn-default btn--raise-on-hover">
+                <i class="fa fa-caret-up"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Fields -->
+    <fieldset class="form__fieldset--padded">
+        {% if tabPane is defined %}
+            {{ tabs_widget(tabPane) }}
+        {% else %}
+            {{ form_rest(form) }}
+        {% endif %}
+
+        {% if user.apiKey is defined %}
+            <label class="required" for="user_apiKey">{{ 'kuma_rest_core.settings.user.api_key' | trans }}</label>
+            <input readonly="readonly" class="form-control" value="{{ user.apiKey }}" type="text">
+        {% endif %}
+    </fieldset>
+
+    {% if tabPane is defined %}
+        {{ form_end(tabPane.formView) }}
+    {% else %}
+        {{ form_end(form) }}
+    {% endif %}
+{% endblock %}
