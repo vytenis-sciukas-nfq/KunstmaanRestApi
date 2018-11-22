@@ -14,6 +14,8 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class ApiKeyAuthenticator extends AbstractGuardAuthenticator
 {
+    const KUMA_DEAULT_API_KEY = '/X-Api-Key/';
+
     /** @var EntityManagerInterface */
     private $em;
 
