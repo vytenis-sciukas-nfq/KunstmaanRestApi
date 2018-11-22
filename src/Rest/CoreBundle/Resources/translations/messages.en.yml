@@ -1,0 +1,6 @@
+kuma_rest_core:
+  form:
+    generate_api_key: Generate new API key
+  settings:
+    user:
+      api_key: API key

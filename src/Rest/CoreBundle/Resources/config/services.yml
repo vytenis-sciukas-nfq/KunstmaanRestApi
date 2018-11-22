@@ -9,3 +9,15 @@ services:
     jms_serializer.object_constructor:
         alias: jms_serializer.doctrine_object_constructor
         public: false
+
+    kunstmaan_rest_core.api_authenticator:
+        class: Kunstmaan\Rest\CoreBundle\Security\ApiKeyAuthenticator
+        arguments:
+        - '@doctrine.orm.entity_manager'
+        - '%fos_user.model.user.class%'
+        - '%kunstmaan_rest_core.authentication.rest_header%'
+
+parameters:
+    fos_user.model.user.class: Kunstmaan\Rest\CoreBundle\Entity\RestUser
+    kunstmaan_user_management.user_admin_list_configurator.class: Kunstmaan\Rest\CoreBundle\AdminList\RestUserAdminListConfigurator
+    kunstmaan_rest_core.authentication.rest_header: 'X-Api-Key'
