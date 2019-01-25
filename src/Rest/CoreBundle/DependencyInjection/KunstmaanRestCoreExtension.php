@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class KunstmaanRestCoreExtension extends Extension
+class KunstmaanRestCoreExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -25,5 +25,17 @@ class KunstmaanRestCoreExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+    }
+
+    public function prepend(ContainerBuilder $container)
+    {
+        $projectDir = $container->getParameter('kernel.project_dir');
+        $container->loadFromExtension('twig', [
+            'paths' => [[
+                'value' => "$projectDir/vendor/kunstmaan/rest/src/Rest/CoreBundle/Resources/views",
+                'namespace' => 'KunstmaanUserManagement'
+            ]],
+        ]);
     }
 }

@@ -237,7 +237,7 @@ class TranslationsController extends FOSRestController
      *         @SWG\Schema(ref="#/definitions/postTranslations"),
      *     ),
      *     @SWG\Parameter(
-     *         name="X-KUMA-API-KEY",
+     *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
@@ -319,7 +319,7 @@ class TranslationsController extends FOSRestController
      *         @SWG\Schema(ref="#/definitions/keywordCollection"),
      *     ),
      *     @SWG\Parameter(
-     *         name="X-KUMA-API-KEY",
+     *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
@@ -392,7 +392,7 @@ class TranslationsController extends FOSRestController
      *         required=true,
      *     ),
      *     @SWG\Parameter(
-     *         name="X-KUMA-API-KEY",
+     *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
@@ -456,7 +456,7 @@ class TranslationsController extends FOSRestController
      *         required=true,
      *     ),
      *     @SWG\Parameter(
-     *         name="X-KUMA-API-KEY",
+     *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",

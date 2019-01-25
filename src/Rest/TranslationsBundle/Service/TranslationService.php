@@ -73,7 +73,7 @@ class TranslationService
 
         $translation->setFile(self::REST);
         /** @var array $result */
-        $result = $repository->findBy(['keyword' => $translation->getKeyword(), 'domain' => $translation->getDomain()]);
+        $result = $repository->findBy(['keyword' => $translation->getKeyword(), 'domain' => $translation->getDomain(), 'locale' => $translation->getLocale()]);
 
         /** @var \Kunstmaan\TranslatorBundle\Entity\Translation $oldTrans */
         $oldTrans = array_key_exists(0, $result) ? $result[0] : null;
@@ -81,7 +81,7 @@ class TranslationService
         if ($force) {
             if ($oldTrans) {
                 $model = $oldTrans->getTranslationModel($oldTrans->getId());
-                $model->addText($translation->getLocale(), $translation->getText());
+                $model->addText($translation->getLocale(), $translation->getText(), $oldTrans->getId());
                 $repository->updateTranslations($model, $oldTrans->getId());
                 if ($oldTrans->isDeprecated() || $oldTrans->isDisabled()) {
                     $oldTrans->setStatus(Translation::STATUS_ENABLED);
@@ -93,7 +93,7 @@ class TranslationService
             if ($oldTrans) {
                 if ($oldTrans->getLocale() !== $translation->getLocale()) {
                     $model = $oldTrans->getTranslationModel($oldTrans->getId());
-                    $model->addText($translation->getLocale(), $translation->getText());
+                    $model->addText($translation->getLocale(), $translation->getText(), $oldTrans->getId());
                     $repository->updateTranslations($model, $oldTrans->getId());
                 } elseif ($oldTrans->isDisabled()) {
                     $oldTrans->setStatus(Translation::STATUS_ENABLED);

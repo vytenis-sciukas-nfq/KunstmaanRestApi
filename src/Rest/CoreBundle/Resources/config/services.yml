@@ -6,6 +6,33 @@ services:
         class: Kunstmaan\Rest\CoreBundle\Helper\Controller\Paginator
         public: true
 
+    kunstmaan_rest_core.api_authenticator:
+        class: Kunstmaan\Rest\CoreBundle\Security\ApiKeyAuthenticator
+        arguments:
+        - '@doctrine.orm.entity_manager'
+        - '%fos_user.model.user.class%'
+        - '%kunstmaan_rest_core.authentication.rest_header%'
+
     jms_serializer.object_constructor:
         alias: jms_serializer.doctrine_object_constructor
         public: false
+
+    nelmio_api_doc.controller.swagger:
+        class: Kunstmaan\Rest\CoreBundle\Controller\DocumentationController
+        public: true
+        arguments:
+        - '@nelmio_api_doc.generator_locator'
+        - '%kunstmaan_rest_core.authentication.rest_header%'
+
+    nelmio_api_doc.controller.swagger_ui:
+        class: Kunstmaan\Rest\CoreBundle\Controller\SwaggerUiController
+        public: true
+        arguments:
+        - '@nelmio_api_doc.generator_locator'
+        - '@twig'
+        - '%kunstmaan_rest_core.authentication.rest_header%'
+
+parameters:
+    fos_user.model.user.class: Kunstmaan\Rest\CoreBundle\Entity\RestUser
+    kunstmaan_user_management.user_admin_list_configurator.class: Kunstmaan\Rest\CoreBundle\AdminList\RestUserAdminListConfigurator
+    kunstmaan_rest_core.authentication.rest_header: 'X-Api-Key'

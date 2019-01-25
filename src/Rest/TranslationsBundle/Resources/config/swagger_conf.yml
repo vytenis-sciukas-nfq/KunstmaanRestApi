@@ -62,8 +62,16 @@ nelmio_api_doc:
       postTranslation:
         title: "postTranslation"
         type: "object"
-        allOf:
-          - $ref: '#/definitions/putTranslation'
+        properties:
+          keyword:
+            type: "string"
+            required: "true"
+          text:
+            type: "string"
+            required: "true"
+          locale:
+            type: "string"
+            required: "true"
 
       postTranslations:
         title: "postTranslations"
