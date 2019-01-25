@@ -9,7 +9,7 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
             - '@kunstmaan_rest_core.service.data_transformer'
-            - '@Kunstmaan\NodeBundle\Helper\NodeHelper'
+            - '@kunstmaan_node.helper.node'
             - '@Kunstmaan\Rest\NodeBundle\Service\Helper\PagePartHelper'
         calls:
             - [setViewHandler, ['@fos_rest.view_handler.default']]
