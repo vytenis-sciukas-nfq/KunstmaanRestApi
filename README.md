@@ -37,8 +37,9 @@ KunstmaanRestApi:
 # Kunstmaan rest
 imports:
     - { resource: '@KunstmaanRestCoreBundle/Resources/config/config_all.yml' }
+```
 
-# Contributing
+## Contributing
 
 We love contributions!
 If you're submitting a pull request, please follow the guidelines in the [Submitting pull requests](docs/pull-requests.md)
