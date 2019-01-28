@@ -35,6 +35,21 @@ nelmio_api_doc:
             type: "integer"
           name:
             type: "string"
+          internalName:
+            type: "string"
+          rel:
+            type: "string"
+          parentId:
+            type: "integer"
+
+      PostFolder:
+        properties:
+          name:
+            type: "string"
+          internalName:
+            type: "string"
+          rel:
+            type: "string"
 
       MediaList:
         properties:
@@ -44,5 +59,16 @@ nelmio_api_doc:
               allOf:
                 - $ref: '#/definitions/Media'
         title: "MediaList"
+        required: ["items"]
+        type: "object"
+
+      FolderList:
+        properties:
+          folder:
+            type: "array"
+            items:
+              allOf:
+                - $ref: '#/definitions/Folder'
+        title: "FolderList"
         required: ["items"]
         type: "object"

@@ -18,11 +18,14 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Hateoas\Representation\PaginatedRepresentation;
+use Kunstmaan\MediaBundle\Entity\Folder;
 use Kunstmaan\MediaBundle\Entity\Media;
 use Kunstmaan\MediaBundle\Repository\MediaRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Swagger\Annotations as SWG;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * Class MediaController
@@ -168,5 +171,172 @@ class MediaController extends AbstractApiController
     public function getSingleMediaAction($id)
     {
         return $this->getDoctrine()->getRepository('KunstmaanMediaBundle:Media')->find($id);
+    }
+
+    /**
+     * Retrieve folders paginated
+     *
+     * @SWG\Get(
+     *     path="/api/folder",
+     *     description="Get all folder",
+     *     operationId="getFolder",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="page",
+     *         in="query",
+     *         type="integer",
+     *         description="The current page",
+     *         required=false,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         type="integer",
+     *         description="Amount of results (default 20)",
+     *         required=false,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="name",
+     *         in="query",
+     *         type="string",
+     *         description="The name of the folder",
+     *         required=false,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Returned when successful",
+     *         @SWG\Schema(ref="#/definitions/FolderList")
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized to fetch media",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @QueryParam(name="name", nullable=true, description="The internal name of the node", requirements="[\w\d_-]+", strict=true)
+     * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")
+     * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
+     *
+     * @Rest\Get("/folder")
+     * @View(statusCode=200)
+     *
+     * @param ParamFetcherInterface $paramFetcher
+     *
+     * @return PaginatedRepresentation
+     */
+    public function getAllFolderAction(ParamFetcherInterface $paramFetcher)
+    {
+        $page = $paramFetcher->get('page');
+        $limit = $paramFetcher->get('limit');
+        $name = $paramFetcher->get('name');
+
+        /** @var MediaRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Folder::class);
+        $qb = $repository->createQueryBuilder('n');
+        $qb->where('n.deleted = 0');
+
+        if ($name) {
+            $qb
+                ->andWhere('n.name LIKE :name')
+                ->setParameter('name', '%' . addcslashes($name, '%_'). '%')
+            ;
+        }
+
+        return $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit);
+    }
+
+    /**
+     * Creates a new Folder
+     *
+     * @View(
+     *     statusCode=204
+     * )
+     *
+     * @SWG\Post(
+     *     path="/api/folder/{parentId}",
+     *     description="Creates a Folder",
+     *     operationId="postFolder",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="folder",
+     *         in="body",
+     *         type="object",
+     *         @SWG\Schema(ref="#/definitions/PostFolder"),
+     *     ),
+     *     @SWG\Parameter(
+     *         name="parentId",
+     *         in="path",
+     *         type="integer",
+     *         description="The ID of the folder parent",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=204,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized to fetch nodes",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @ParamConverter(
+     *     name="folder",
+     *     converter="fos_rest.request_body",
+     *     class="Kunstmaan\MediaBundle\Entity\Folder",
+     *     options={
+     *          "deserializationContext"={
+     *              "groups"={
+     *                  "Default"
+     *              }
+     *          },
+     *          "validator"={
+     *              "groups"={
+     *                  "Default"
+     *              }
+     *          }
+     *     }
+     * )
+     *
+     * @Rest\Post("/folder/{parentId}", requirements={"parentId": "\d+"})
+     *
+     * @param Folder $folder
+     * @param ConstraintViolationListInterface $validationErrors
+     * @param int $parentId
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function postPagesAction(Folder $folder, ConstraintViolationListInterface $validationErrors, $parentId)
+    {
+        if (count($validationErrors) > 0) {
+            return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
+        }
+
+        /** @var Folder $parent */
+        $parent = $this->getDoctrine()->getRepository(Folder::class)->find($parentId);
+
+        $now = new \DateTime();
+        $folder->setCreatedAt($now);
+        $folder->setUpdatedAt($now);
+        $folder->setDeleted(false);
+        $folder->setParent($parent);
+
+        $this->getDoctrine()->getManager()->persist($folder);
+        $this->getDoctrine()->getManager()->flush();
     }
 }

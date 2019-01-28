@@ -5,3 +5,13 @@ Kunstmaan\MediaBundle\Entity\Folder:
           expose: true
       name:
           expose: true
+      internalName:
+        expose: true
+      rel:
+        expose: true
+
+  virtual_properties:
+      parent_id:
+          exp: "object.getParent() ? object.getParent().getId():null"
+          serialized_name: parent_id
+          type: integer
