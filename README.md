@@ -9,7 +9,7 @@ The Kunstmaan RestApi Bundle provides a REST api for the popular Kunstmaan CMS b
 ## Add bundles to Appkernel.php
 
 ### Core bundles
-``` 
+```
 new Kunstmaan\Rest\CoreBundle\KunstmaanRestCoreBundle(),
 new Kunstmaan\Rest\NodeBundle\KunstmaanRestNodeBundle(),
 new Kunstmaan\Rest\MediaBundle\KunstmaanRestMediaBundle(),
@@ -31,6 +31,12 @@ KunstmaanRestApi:
     resource: "@KunstmaanRestCoreBundle/Resources/config/routing_all.yml"
 ```
 
+## Add to config.yml
+
+```
+# Kunstmaan rest
+imports:
+    - { resource: '@KunstmaanRestCoreBundle/Resources/config/config_all.yml' }
 
 # Contributing
 
