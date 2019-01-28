@@ -1,0 +1,48 @@
+nelmio_api_doc:
+  documentation:
+    definitions:
+
+      Media:
+        title: "Media"
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+          name:
+            type: "string"
+          description:
+            type: "string"
+          copyright:
+            type: "string"
+          url:
+            type: "string"
+          originalFilename:
+            type: "string"
+          folder:
+            type: "object"
+            allOf:
+              - $ref: '#/definitions/Folder'
+          contentType:
+            type: "string"
+          metadata:
+            type: "string"
+          filetype:
+            type: "string"
+
+      Folder:
+        properties:
+          id:
+            type: "integer"
+          name:
+            type: "string"
+
+      MediaList:
+        properties:
+          media:
+            type: "array"
+            items:
+              allOf:
+                - $ref: '#/definitions/Media'
+        title: "MediaList"
+        required: ["items"]
+        type: "object"

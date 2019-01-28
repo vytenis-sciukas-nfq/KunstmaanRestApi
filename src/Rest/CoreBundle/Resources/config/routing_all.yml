@@ -8,8 +8,12 @@ kunstmaan_rest_core_swagger:
 
 kunstmaan_rest_node:
     resource: "@KunstmaanRestNodeBundle/Resources/config/routing.yml"
-    prefix:   /api
+    prefix:   /
 
 kunstmaan_rest_trans:
     resource: "@KunstmaanRestTranslationsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+kunstmaan_rest_media:
+    resource: "@KunstmaanRestMediaBundle/Resources/config/routing.yml"
     prefix:   /

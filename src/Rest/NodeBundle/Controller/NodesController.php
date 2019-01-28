@@ -22,11 +22,7 @@ use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Repository\NodeRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
-use Kunstmaan\Rest\NodeBundle\Form\RestNodeType;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Pagerfanta;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class NodesController
@@ -125,11 +121,11 @@ class NodesController extends AbstractApiController
      * @Rest\Get("/nodes")
      * @View(statusCode=200)
      *
-     * @param ParamFetcher $paramFetcher
+     * @param ParamFetcherInterface $paramFetcher
      *
      * @return PaginatedRepresentation
      */
-    public function getNodesAction(ParamFetcher $paramFetcher)
+    public function getNodesAction(ParamFetcherInterface $paramFetcher)
     {
         $page = $paramFetcher->get('page');
         $limit = $paramFetcher->get('limit');
@@ -152,7 +148,7 @@ class NodesController extends AbstractApiController
         if (null !== $hiddenFromNav && 'false' !== $hiddenFromNav) {
             $qb
                 ->andWhere('n.hiddenFromNav = :hiddenFromNav')
-                ->setParameter('hiddenFromNav', $hiddenFromNav == 'true' ? 1 : 0)
+                ->setParameter('hiddenFromNav', $hiddenFromNav === 'true' ? 1 : 0)
             ;
         }
         if ($refEntityName) {
@@ -270,6 +266,8 @@ class NodesController extends AbstractApiController
      *
      * @param ParamFetcher $paramFetcher
      * @param int $id
+     *
+     * @return PaginatedRepresentation
      */
     public function getNodeChildrenAction(ParamFetcher $paramFetcher, $id)
     {
@@ -331,7 +329,7 @@ class NodesController extends AbstractApiController
      *
      * @param integer $id
      *
-     * @return Organisation
+     * @return Node
      */
     protected function getEntity($id)
     {

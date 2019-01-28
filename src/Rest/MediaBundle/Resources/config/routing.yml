@@ -1,5 +1,6 @@
 kunstmaan_api_medias:
     type: rest
-    resource: 'kunstmaan_api.controller.media'
+    resource: 'KunstmaanRestMediaBundle:Media'
     defaults:
         _format: json
+    prefix:   /api

@@ -11,7 +11,6 @@
 
 namespace Kunstmaan\Rest\NodeBundle;
 
-use Kunstmaan\Rest\NodeBundle\DependencyInjection\Compiler\MappingCompilerPass;
 use Kunstmaan\Rest\NodeBundle\DependencyInjection\Compiler\NelmioDefinitionsCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;

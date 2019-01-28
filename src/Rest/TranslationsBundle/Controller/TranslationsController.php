@@ -3,9 +3,9 @@
 namespace Kunstmaan\Rest\TranslationsBundle\Controller;
 
 use DateTime;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Kunstmaan\Rest\TranslationsBundle\Model\Exception\TranslationException;
 use Kunstmaan\Rest\TranslationsBundle\Service\TranslationService;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Class TranslationsController.
  */
-class TranslationsController extends FOSRestController
+class TranslationsController extends AbstractFOSRestController
 {
     /**
      * @View(

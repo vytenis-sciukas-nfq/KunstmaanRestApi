@@ -11,19 +11,12 @@
 
 namespace Kunstmaan\Rest\CoreBundle\Controller;
 
-use Doctrine\ORM\QueryBuilder;
-use FOS\RestBundle\Controller\FOSRestController;
-use Hateoas\Representation\CollectionRepresentation;
-use Hateoas\Representation\PaginatedRepresentation;
-use Kunstmaan\Rest\CoreBundle\Model\PaginatedCollection;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\Pagerfanta;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 
 /**
  * Class AbstractApiController
  */
-abstract class AbstractApiController extends FOSRestController
+abstract class AbstractApiController extends AbstractFOSRestController
 {
     /**
      * @return \Kunstmaan\Rest\CoreBundle\Helper\Controller\Paginator|object

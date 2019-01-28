@@ -3,9 +3,11 @@ kunstmaan_api_nodes:
     resource: 'KunstmaanRestNodeBundle:Nodes'
     defaults:
         _format: json
+    prefix:   /api
 
 kunstmaan_api_pages:
     type: rest
     resource: 'KunstmaanRestNodeBundle:Pages'
     defaults:
         _format: json
+    prefix:   /api

@@ -19,7 +19,7 @@ class SerializerSubscriber implements EventSubscriberInterface
     /**
      * @return array
      */
-    public static function getSubscribedEvents(): array
+    public static function getSubscribedEvents()
     {
         return [
             ['event' => Events::PRE_DESERIALIZE, 'method' => 'replaceInterfaceWithImplementation'],

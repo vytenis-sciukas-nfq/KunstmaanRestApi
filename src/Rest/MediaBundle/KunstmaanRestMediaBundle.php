@@ -11,6 +11,8 @@
 
 namespace Kunstmaan\Rest\MediaBundle;
 
+use Kunstmaan\Rest\MediaBundle\DependencyInjection\Compiler\NelmioDefinitionsCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -18,4 +20,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class KunstmaanRestMediaBundle extends Bundle
 {
+    /**
+     * @param ContainerBuilder $container
+     */
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new NelmioDefinitionsCompilerPass());
+    }
 }

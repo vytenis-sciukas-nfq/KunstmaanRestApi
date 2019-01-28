@@ -73,7 +73,7 @@ nelmio_api_doc:
                 allOf:
                   - $ref: '#/definitions/Node'
 
-      NodeTranslation:
+      GetNodeTranslation:
         allOf:
           - $ref: '#/definitions/NodeTranslation'
           - properties:
