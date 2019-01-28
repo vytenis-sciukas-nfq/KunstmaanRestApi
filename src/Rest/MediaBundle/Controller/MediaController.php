@@ -125,4 +125,48 @@ class MediaController extends AbstractApiController
 
         return $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit);
     }
+
+    /**
+     * Retrieve a single node
+     *
+     * @SWG\Get(
+     *     path="/api/media/{id}",
+     *     description="Get a media by ID",
+     *     operationId="getMediaItem",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The node ID",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Returned when successful",
+     *         @SWG\Schema(ref="#/definitions/Media")
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized to fetch nodes",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Get("/media/{id}")
+     * @View(statusCode=200)
+     *
+     * @param int $id
+     * @return Media
+     */
+    public function getSingleMediaAction($id)
+    {
+        return $this->getDoctrine()->getRepository('KunstmaanMediaBundle:Media')->find($id);
+    }
 }
