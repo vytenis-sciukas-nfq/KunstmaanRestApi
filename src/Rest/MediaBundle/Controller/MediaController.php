@@ -25,6 +25,7 @@ use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
@@ -284,7 +285,7 @@ class MediaController extends AbstractApiController
      *     ),
      *     @SWG\Response(
      *         response=403,
-     *         description="Returned when the user is not authorized to fetch nodes",
+     *         description="Returned when the user is not authorized",
      *         @SWG\Schema(ref="#/definitions/ErrorModel")
      *     ),
      *     @SWG\Response(
@@ -321,20 +322,22 @@ class MediaController extends AbstractApiController
      * @return null
      * @throws \Exception
      */
-    public function postPagesAction(Folder $folder, ConstraintViolationListInterface $validationErrors, $parentId)
+    public function postPagesAction(Folder $folder, ConstraintViolationListInterface $validationErrors, $parentId = 0)
     {
         if (count($validationErrors) > 0) {
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
 
-        /** @var Folder $parent */
-        $parent = $this->getDoctrine()->getRepository(Folder::class)->find($parentId);
+        if($parentId) {
+            /** @var Folder $parent */
+            $parent = $this->getDoctrine()->getRepository(Folder::class)->find($parentId);
+            $folder->setParent($parent);
+        }
 
         $now = new \DateTime();
         $folder->setCreatedAt($now);
         $folder->setUpdatedAt($now);
         $folder->setDeleted(false);
-        $folder->setParent($parent);
 
         $this->getDoctrine()->getManager()->persist($folder);
         $this->getDoctrine()->getManager()->flush();

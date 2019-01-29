@@ -44,9 +44,6 @@ class PagesController extends AbstractApiController
     /** @var EntityManagerInterface */
     private $em;
 
-    /** @var DataTransformerService */
-    private $dataTransformer;
-
     /** @var NodeHelper */
     private $nodeHelper;
 
@@ -335,6 +332,10 @@ class PagesController extends AbstractApiController
      * @param ApiPage                          $apiPage
      * @param integer                          $id
      * @param ConstraintViolationListInterface $validationErrors
+     *
+     * @throws \Exception
+     *
+     * @return null
      */
     public function putPagesAction(Request $request, ApiPage $apiPage, $id, ConstraintViolationListInterface $validationErrors)
     {
