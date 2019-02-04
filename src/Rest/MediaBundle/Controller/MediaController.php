@@ -90,7 +90,7 @@ class MediaController extends AbstractApiController
      *     )
      * )
      *
-     * @QueryParam(name="name", nullable=true, description="The internal name of the node", requirements="[\w\d_-]+", strict=true)
+     * @QueryParam(name="name", nullable=true, description="The internal name of the media", requirements="[\w\d_-]+", strict=true)
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      * @QueryParam(name="folderId", nullable=true, requirements="\d+", description="folder id", strict=true)
@@ -131,7 +131,7 @@ class MediaController extends AbstractApiController
     }
 
     /**
-     * Retrieve a single node
+     * Retrieve a single media
      *
      * @SWG\Get(
      *     path="/api/media/{id}",
@@ -143,7 +143,7 @@ class MediaController extends AbstractApiController
      *         name="id",
      *         in="path",
      *         type="integer",
-     *         description="The node ID",
+     *         description="The media ID",
      *         required=true,
      *     ),
      *     @SWG\Response(
@@ -153,7 +153,7 @@ class MediaController extends AbstractApiController
      *     ),
      *     @SWG\Response(
      *         response=403,
-     *         description="Returned when the user is not authorized to fetch nodes",
+     *         description="Returned when the user is not authorized to fetch media",
      *         @SWG\Schema(ref="#/definitions/ErrorModel")
      *     ),
      *     @SWG\Response(
@@ -221,7 +221,7 @@ class MediaController extends AbstractApiController
      *     )
      * )
      *
-     * @QueryParam(name="name", nullable=true, description="The internal name of the node", requirements="[\w\d_-]+", strict=true)
+     * @QueryParam(name="name", nullable=true, description="The internal name of the folder", requirements="[\w\d_-]+", strict=true)
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
@@ -257,7 +257,7 @@ class MediaController extends AbstractApiController
      * Creates a new Folder
      *
      * @View(
-     *     statusCode=204
+     *     statusCode=202
      * )
      *
      * @SWG\Post(
@@ -280,7 +280,7 @@ class MediaController extends AbstractApiController
      *         required=true,
      *     ),
      *     @SWG\Response(
-     *         response=204,
+     *         response=202,
      *         description="Returned when successful",
      *     ),
      *     @SWG\Response(
@@ -322,15 +322,16 @@ class MediaController extends AbstractApiController
      * @return null
      * @throws \Exception
      */
-    public function postPagesAction(Folder $folder, ConstraintViolationListInterface $validationErrors, $parentId = 0)
+    public function postPolderAction(Folder $folder, ConstraintViolationListInterface $validationErrors, $parentId = 0)
     {
         if (count($validationErrors) > 0) {
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
 
+        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
         if($parentId) {
             /** @var Folder $parent */
-            $parent = $this->getDoctrine()->getRepository(Folder::class)->find($parentId);
+            $parent = $folderRepository->find($parentId);
             $folder->setParent($parent);
         }
 
@@ -339,7 +340,153 @@ class MediaController extends AbstractApiController
         $folder->setUpdatedAt($now);
         $folder->setDeleted(false);
 
-        $this->getDoctrine()->getManager()->persist($folder);
+        $folderRepository->save($folder);
+    }
+
+    /**
+     * Creates a new Folder
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Put(
+     *     path="/api/folder/{id}",
+     *     description="updates a Folder",
+     *     operationId="putFolder",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="folder",
+     *         in="body",
+     *         type="object",
+     *         @SWG\Schema(ref="#/definitions/PostFolder"),
+     *     ),
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the folder",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @ParamConverter(
+     *     name="folder",
+     *     converter="fos_rest.request_body",
+     *     class="Kunstmaan\MediaBundle\Entity\Folder",
+     *     options={
+     *          "deserializationContext"={
+     *              "groups"={
+     *                  "Default"
+     *              }
+     *          },
+     *          "validator"={
+     *              "groups"={
+     *                  "Default"
+     *              }
+     *          }
+     *     }
+     * )
+     *
+     * @Rest\Put("/folder/{id}", requirements={"id": "\d+"})
+     *
+     * @param Folder $folder
+     * @param ConstraintViolationListInterface $validationErrors
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function putFolderAction(Folder $folder, ConstraintViolationListInterface $validationErrors, $id)
+    {
+        if (count($validationErrors) > 0) {
+            return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
+        }
+
+        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        /** @var Folder $original */
+        $original = $folderRepository->find($id);
+
+        $now = new \DateTime();
+        $original->setUpdatedAt($now);
+        $original->setDeleted(false);
+        if($folder->getName()) {
+            $original->setName($folder->getName());
+        }
+        if($folder->getInternalName()) {
+            $original->setInternalName($folder->getInternalName());
+        }
+        if($folder->getRel()) {
+            $original->setRel($folder->getRel());
+        }
+
         $this->getDoctrine()->getManager()->flush();
+
+    }
+
+    /**
+     * Creates a new Folder
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\delete(
+     *     path="/api/folder/{id}",
+     *     description="deletes a Folder",
+     *     operationId="deleteFolder",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the folder",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Delete("/folder/{id}", requirements={"id": "\d+"})
+     *
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function deleteFolderAction($id)
+    {
+        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        /** @var Folder $original */
+        $original = $folderRepository->find($id);
+        $folderRepository->delete($original);
     }
 }
