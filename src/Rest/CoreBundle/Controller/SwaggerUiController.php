@@ -51,7 +51,7 @@ final class SwaggerUiController
         }
 
         $json = json_encode($spec);
-        $json = preg_replace(ApiKeyAuthenticator::KUMA_DEAULT_API_KEY, $this->apiKeyHeader, $json);
+        $json = preg_replace('/'.ApiKeyAuthenticator::KUMA_DEAULT_API_KEY.'/', $this->apiKeyHeader, $json);
         $spec = json_decode($json);
 
         return new Response(

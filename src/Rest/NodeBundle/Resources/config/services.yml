@@ -1,11 +1,13 @@
 services:
     Kunstmaan\Rest\NodeBundle\Controller\NodesController:
+        public: true
         arguments:
             - '@doctrine.orm.default_entity_manager'
         calls:
             - [setViewHandler, ['@fos_rest.view_handler.default']]
 
     Kunstmaan\Rest\NodeBundle\Controller\PagesController:
+        public: true
         arguments:
             - '@doctrine.orm.default_entity_manager'
             - '@kunstmaan_rest_core.service.data_transformer'

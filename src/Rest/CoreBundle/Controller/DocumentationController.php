@@ -50,7 +50,7 @@ final class DocumentationController
         }
 
         $json = json_encode($spec);
-        $json = preg_replace(ApiKeyAuthenticator::KUMA_DEAULT_API_KEY, $this->apiKeyHeader, $json);
+        $json = preg_replace('/'.ApiKeyAuthenticator::KUMA_DEAULT_API_KEY.'/', $this->apiKeyHeader, $json);
 
         return new JsonResponse($json, 200, [], true);
     }

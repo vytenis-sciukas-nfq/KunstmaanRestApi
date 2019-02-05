@@ -14,7 +14,7 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class ApiKeyAuthenticator extends AbstractGuardAuthenticator
 {
-    const KUMA_DEAULT_API_KEY = '/X-Api-Key/';
+    const KUMA_DEAULT_API_KEY = 'X-Api-Key';
 
     /** @var EntityManagerInterface */
     private $em;
@@ -37,6 +37,24 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         $this->em = $em;
         $this->userClass = $userClass;
         $this->authenticationHeader = $authenticationHeader;
+    }
+
+    /**
+     * Does the authenticator support the given Request?
+     *
+     * If this returns false, the authenticator will be skipped.
+     *
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function supports(Request $request)
+    {
+        if ($request->headers->has(self::KUMA_DEAULT_API_KEY)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
