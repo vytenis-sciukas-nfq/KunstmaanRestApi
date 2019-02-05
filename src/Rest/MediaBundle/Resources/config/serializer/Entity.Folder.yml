@@ -10,6 +10,15 @@ Kunstmaan\MediaBundle\Entity\Folder:
           serialized_name: internalName
       rel:
           expose: true
+      lft:
+          expose: true
+          readonly: true
+      rgt:
+          expose: true
+          readonly: true
+      lvl:
+          expose: true
+          readonly: true
 
   virtual_properties:
       parentId:

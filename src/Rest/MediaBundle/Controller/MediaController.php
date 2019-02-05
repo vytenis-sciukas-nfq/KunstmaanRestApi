@@ -11,6 +11,7 @@
 
 namespace Kunstmaan\Rest\MediaBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -20,6 +21,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\MediaBundle\Entity\Folder;
 use Kunstmaan\MediaBundle\Entity\Media;
+use Kunstmaan\MediaBundle\Repository\FolderRepository;
 use Kunstmaan\MediaBundle\Repository\MediaRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Swagger\Annotations as SWG;
@@ -344,7 +346,7 @@ class MediaController extends AbstractApiController
     }
 
     /**
-     * Creates a new Folder
+     * updates Folder
      *
      * @View(
      *     statusCode=202
@@ -436,11 +438,84 @@ class MediaController extends AbstractApiController
         }
 
         $this->getDoctrine()->getManager()->flush();
-
     }
 
     /**
-     * Creates a new Folder
+     * move Folder
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Put(
+     *     path="/api/folder/{id}/{targetId}",
+     *     description="moves a Folder",
+     *     operationId="moveFolder",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the folder",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="targetId",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the target folder",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Put("/folder/{id}/{targetId}", requirements={"id": "\d+", "targetId": "\d+"})
+     *
+     * @param int $id
+     * @param int $targetId
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function moveFolderAction($id, $targetId)
+    {
+        /** @var FolderRepository $folderRepository */
+        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        /** @var Folder $original */
+        $original = $folderRepository->find($id);
+        /** @var Folder $target */
+        $target = $folderRepository->find($targetId);
+
+        /** @var ArrayCollection $children */
+        $children = new ArrayCollection($folderRepository->getChildren($original));
+
+        if(!$children->contains($target)) {
+           $original->setParent($target);
+           $target->addChild($original);
+        } else {
+            return new \FOS\RestBundle\View\View('Cannot move a folder into its own child.', Response::HTTP_BAD_REQUEST);
+        }
+        $this->getDoctrine()->getManager()->flush();
+
+        $folderRepository->recover();
+    }
+
+    /**
+     * deletes Folder
      *
      * @View(
      *     statusCode=202
