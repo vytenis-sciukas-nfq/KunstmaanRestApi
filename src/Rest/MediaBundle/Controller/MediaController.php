@@ -21,11 +21,17 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\MediaBundle\Entity\Folder;
 use Kunstmaan\MediaBundle\Entity\Media;
+use Kunstmaan\MediaBundle\Helper\File\FileHelper;
+use Kunstmaan\MediaBundle\Helper\MediaManager;
 use Kunstmaan\MediaBundle\Repository\FolderRepository;
 use Kunstmaan\MediaBundle\Repository\MediaRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
+use Kunstmaan\Rest\MediaBundle\Model\MediaModel;
 use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -37,6 +43,28 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 class MediaController extends AbstractApiController
 {
     use ControllerTrait;
+
+    /** @var MediaManager */
+    private $mediaManager;
+
+    /** @var Filesystem */
+    private $fileSystem;
+
+    /** @var string */
+    private $rootDir;
+
+    /**
+     * MediaController constructor.
+     * @param MediaManager $mediaManager
+     * @param Filesystem   $fileSystem
+     * @param string       $rootDir
+     */
+    public function __construct(MediaManager $mediaManager, FileSystem $fileSystem, string $rootDir)
+    {
+        $this->mediaManager = $mediaManager;
+        $this->fileSystem = $fileSystem;
+        $this->rootDir = $rootDir;
+    }
 
     /**
      * Retrieve media paginated
@@ -119,14 +147,12 @@ class MediaController extends AbstractApiController
         if ($folderId) {
             $qb
                 ->andWhere('n.folder = :folder')
-                ->setParameter('folder', $folderId)
-            ;
+                ->setParameter('folder', $folderId);
         }
         if ($name) {
             $qb
                 ->andWhere('n.name LIKE :name')
-                ->setParameter('name', '%' . addcslashes($name, '%_'). '%')
-            ;
+                ->setParameter('name', '%'.addcslashes($name, '%_').'%');
         }
 
         return $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit);
@@ -248,8 +274,7 @@ class MediaController extends AbstractApiController
         if ($name) {
             $qb
                 ->andWhere('n.name LIKE :name')
-                ->setParameter('name', '%' . addcslashes($name, '%_'). '%')
-            ;
+                ->setParameter('name', '%'.addcslashes($name, '%_').'%');
         }
 
         return $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit);
@@ -317,21 +342,21 @@ class MediaController extends AbstractApiController
      *
      * @Rest\Post("/folder/{parentId}", requirements={"parentId": "\d+"})
      *
-     * @param Folder $folder
+     * @param Folder                           $folder
      * @param ConstraintViolationListInterface $validationErrors
-     * @param int $parentId
+     * @param int                              $parentId
      *
      * @return null
      * @throws \Exception
      */
-    public function postPolderAction(Folder $folder, ConstraintViolationListInterface $validationErrors, $parentId = 0)
+    public function postFolderAction(Folder $folder, ConstraintViolationListInterface $validationErrors, $parentId = 0)
     {
         if (count($validationErrors) > 0) {
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
 
         $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
-        if($parentId) {
+        if ($parentId) {
             /** @var Folder $parent */
             $parent = $folderRepository->find($parentId);
             $folder->setParent($parent);
@@ -343,6 +368,102 @@ class MediaController extends AbstractApiController
         $folder->setDeleted(false);
 
         $folderRepository->save($folder);
+    }
+
+    /**
+     * Creates a new Media
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Post(
+     *     path="/api/media",
+     *     description="Creates a Media",
+     *     operationId="postMedia",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="media",
+     *         in="body",
+     *         type="object",
+     *         @SWG\Schema(ref="#/definitions/UploadMedia"),
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @ParamConverter(
+     *     name="media",
+     *     converter="fos_rest.request_body",
+     *     class="Kunstmaan\Rest\MediaBundle\Model\MediaModel",
+     *     options={
+     *          "deserializationContext"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          },
+     *          "validator"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          }
+     *     }
+     * )
+     *
+     * @Rest\Post("/media")
+     *
+     * @param MediaModel                       $media
+     * @param ConstraintViolationListInterface $validationErrors
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function postMediaAction(MediaModel $media, ConstraintViolationListInterface $validationErrors)
+    {
+        if (count($validationErrors) > 0) {
+            return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
+        }
+
+        $folderId = $media->getFolderId();
+
+        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        $mediaRepository = $this->getDoctrine()->getRepository(Media::class);
+        /** @var Folder $folder */
+        $folder = $folderRepository->find($folderId);
+
+        $hashPath = '/tmp/'.uniqid('media', true);
+        $this->fileSystem->mkdir($hashPath);
+        $path = $hashPath.'/'.$media->getName();
+        $this->fileSystem->touch($path);
+        $this->fileSystem->appendToFile($path, base64_decode($media->getContent()));
+        $uploadedFile = new UploadedFile($path, $media->getName());
+
+        $createdMedia = $this->mediaManager->createNew($uploadedFile);
+
+        if (!$createdMedia) {
+            return new \FOS\RestBundle\View\View(['error' => 'Could not create a file from the given content.'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $createdMedia->setFolder($folder);
+        $createdMedia->setName($media->getName());
+        $createdMedia->setDescription($media->getDescription());
+        $createdMedia->setCopyright($media->getCopyRight());
+        $mediaRepository->save($createdMedia);
     }
 
     /**
@@ -407,9 +528,9 @@ class MediaController extends AbstractApiController
      *
      * @Rest\Put("/folder/{id}", requirements={"id": "\d+"})
      *
-     * @param Folder $folder
+     * @param Folder                           $folder
      * @param ConstraintViolationListInterface $validationErrors
-     * @param int $id
+     * @param int                              $id
      *
      * @return null
      * @throws \Exception
@@ -427,13 +548,13 @@ class MediaController extends AbstractApiController
         $now = new \DateTime();
         $original->setUpdatedAt($now);
         $original->setDeleted(false);
-        if($folder->getName()) {
+        if ($folder->getName()) {
             $original->setName($folder->getName());
         }
-        if($folder->getInternalName()) {
+        if ($folder->getInternalName()) {
             $original->setInternalName($folder->getInternalName());
         }
-        if($folder->getRel()) {
+        if ($folder->getRel()) {
             $original->setRel($folder->getRel());
         }
 
@@ -503,9 +624,9 @@ class MediaController extends AbstractApiController
         /** @var ArrayCollection $children */
         $children = new ArrayCollection($folderRepository->getChildren($original));
 
-        if(!$children->contains($target)) {
-           $original->setParent($target);
-           $target->addChild($original);
+        if (!$children->contains($target)) {
+            $original->setParent($target);
+            $target->addChild($original);
         } else {
             return new \FOS\RestBundle\View\View('Cannot move a folder into its own child.', Response::HTTP_BAD_REQUEST);
         }
@@ -521,7 +642,7 @@ class MediaController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\delete(
+     * @SWG\Delete(
      *     path="/api/folder/{id}",
      *     description="deletes a Folder",
      *     operationId="deleteFolder",
@@ -563,5 +684,57 @@ class MediaController extends AbstractApiController
         /** @var Folder $original */
         $original = $folderRepository->find($id);
         $folderRepository->delete($original);
+    }
+
+    /**
+     * deletes Media
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Delete(
+     *     path="/api/media/{id}",
+     *     description="deletes a media",
+     *     operationId="deleteMedia",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the media",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Delete("/media/{id}", requirements={"id": "\d+"})
+     *
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function deleteMediaAction($id)
+    {
+        /** @var MediaRepository $mediaRepository */
+        $mediaRepository = $this->getDoctrine()->getRepository(Media::class);
+        /** @var Media $original */
+        $original = $mediaRepository->find($id);
+        $mediaRepository->delete($original);
     }
 }

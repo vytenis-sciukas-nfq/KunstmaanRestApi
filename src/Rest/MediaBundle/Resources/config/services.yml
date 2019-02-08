@@ -1,5 +1,9 @@
 services:
-    kunstmaan_api.controller.media:
-        class: Kunstmaan\Rest\MediaBundle\Controller\MediaController
+    Kunstmaan\Rest\MediaBundle\Controller\MediaController:
+        public: true
+        arguments:
+            - '@kunstmaan_media.media_manager'
+            - '@filesystem'
+            - '%kernel.root_dir%'
         calls:
             - [setViewHandler, ['@fos_rest.view_handler.default']]

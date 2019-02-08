@@ -51,6 +51,22 @@ nelmio_api_doc:
           rel:
             type: "string"
 
+      UploadMedia:
+        title: "UploadMedia"
+        type: "object"
+        properties:
+          content:
+            type: "string"
+          name:
+            type: "string"
+          description:
+            type: "string"
+          copyRight:
+            type: "string"
+          folderId:
+            type: "integer"
+            default: 1
+
       MediaList:
         properties:
           media:
