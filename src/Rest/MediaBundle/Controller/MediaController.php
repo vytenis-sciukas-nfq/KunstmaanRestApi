@@ -50,9 +50,6 @@ class MediaController extends AbstractApiController
     /** @var Filesystem */
     private $fileSystem;
 
-    /** @var string */
-    private $rootDir;
-
     /**
      * MediaController constructor.
      * @param MediaManager $mediaManager
@@ -63,7 +60,6 @@ class MediaController extends AbstractApiController
     {
         $this->mediaManager = $mediaManager;
         $this->fileSystem = $fileSystem;
-        $this->rootDir = $rootDir;
     }
 
     /**
@@ -446,12 +442,15 @@ class MediaController extends AbstractApiController
         /** @var Folder $folder */
         $folder = $folderRepository->find($folderId);
 
-        $hashPath = '/tmp/'.uniqid('media', true);
-        $this->fileSystem->mkdir($hashPath);
-        $path = $hashPath.'/'.$media->getName();
-        $this->fileSystem->touch($path);
-        $this->fileSystem->appendToFile($path, base64_decode($media->getContent()));
-        $uploadedFile = new UploadedFile($path, $media->getName());
+        $uploadedFile = $media->getUrl();
+        if(!empty($media->getContent())) {
+            $hashPath = '/tmp/'.uniqid('media', true);
+            $this->fileSystem->mkdir($hashPath);
+            $path = $hashPath.'/'.$media->getName();
+            $this->fileSystem->touch($path);
+            $this->fileSystem->appendToFile($path, base64_decode($media->getContent()));
+            $uploadedFile = new UploadedFile($path, $media->getName());
+        }
 
         $createdMedia = $this->mediaManager->createNew($uploadedFile);
 

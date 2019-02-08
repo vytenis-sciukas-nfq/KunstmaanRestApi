@@ -57,6 +57,10 @@ nelmio_api_doc:
         properties:
           content:
             type: "string"
+            required: false
+          url:
+            type: "string"
+            required: false
           name:
             type: "string"
           description:

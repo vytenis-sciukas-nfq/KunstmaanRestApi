@@ -28,6 +28,13 @@ class MediaModel
      * @JMS\Type("string")
      * @JMS\Groups("list")
      */
+    private $url;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     * @JMS\Groups("list")
+     */
     private $content;
 
     /**
@@ -135,6 +142,25 @@ class MediaModel
     public function setCopyRight(string $copyRight)
     {
         $this->copyRight = $copyRight;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setUrl(string $url)
+    {
+        $this->url = $url;
 
         return $this;
     }
