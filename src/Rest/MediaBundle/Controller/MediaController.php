@@ -11,6 +11,7 @@
 
 namespace Kunstmaan\Rest\MediaBundle\Controller;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -50,16 +51,20 @@ class MediaController extends AbstractApiController
     /** @var Filesystem */
     private $fileSystem;
 
+    /** @var Registry */
+    private $doctrine;
+
     /**
      * MediaController constructor.
      * @param MediaManager $mediaManager
      * @param Filesystem   $fileSystem
-     * @param string       $rootDir
+     * @param Registry     $doctrine
      */
-    public function __construct(MediaManager $mediaManager, FileSystem $fileSystem, string $rootDir)
+    public function __construct(MediaManager $mediaManager, FileSystem $fileSystem, Registry $doctrine)
     {
         $this->mediaManager = $mediaManager;
         $this->fileSystem = $fileSystem;
+        $this->doctrine = $doctrine;
     }
 
     /**
@@ -136,7 +141,7 @@ class MediaController extends AbstractApiController
         $folderId = $paramFetcher->get('folderId');
 
         /** @var MediaRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Media::class);
+        $repository = $this->doctrine->getRepository(Media::class);
         $qb = $repository->createQueryBuilder('n');
         $qb->where('n.deleted = 0');
 
@@ -195,7 +200,7 @@ class MediaController extends AbstractApiController
      */
     public function getSingleMediaAction($id)
     {
-        return $this->getDoctrine()->getRepository('KunstmaanMediaBundle:Media')->find($id);
+        return $this->doctrine->getRepository('KunstmaanMediaBundle:Media')->find($id);
     }
 
     /**
@@ -263,7 +268,7 @@ class MediaController extends AbstractApiController
         $name = $paramFetcher->get('name');
 
         /** @var MediaRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Folder::class);
+        $repository = $this->doctrine->getRepository(Folder::class);
         $qb = $repository->createQueryBuilder('n');
         $qb->where('n.deleted = 0');
 
@@ -351,7 +356,7 @@ class MediaController extends AbstractApiController
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
 
-        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        $folderRepository = $this->doctrine->getRepository(Folder::class);
         if ($parentId) {
             /** @var Folder $parent */
             $parent = $folderRepository->find($parentId);
@@ -435,8 +440,8 @@ class MediaController extends AbstractApiController
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
 
-        $mediaRepository = $this->getDoctrine()->getRepository(Media::class);
-        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        $mediaRepository = $this->doctrine->getRepository(Media::class);
+        $folderRepository = $this->doctrine->getRepository(Folder::class);
         $folderId = $media->getFolderId() ?? 1;
         /** @var Folder $folder */
         $folder = $folderRepository->find($folderId);
@@ -532,30 +537,30 @@ class MediaController extends AbstractApiController
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
 
-        $mediaRepository = $this->getDoctrine()->getRepository(Media::class);
+        $mediaRepository = $this->doctrine->getRepository(Media::class);
         /** @var Media $original */
         $original = $mediaRepository->find($id);
         if ($media->getFolderId()) {
             $folderId = $media->getFolderId();
-            $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+            $folderRepository = $this->doctrine->getRepository(Folder::class);
             /** @var Folder $folder */
             $folder = $folderRepository->find($folderId);
             $original->setFolder($folder);
         }
 
-        if($media->getName()){
+        if ($media->getName()) {
             $original->setName($media->getName());
         }
-        if($media->getDescription()) {
+        if ($media->getDescription()) {
             $original->setDescription($media->getDescription());
         }
-        if($media->getCopyRight()) {
+        if ($media->getCopyRight()) {
             $original->setCopyright($media->getCopyRight());
         }
 
         $now = new \DateTime();
         $original->setUpdatedAt($now);
-        $this->getDoctrine()->getManager()->flush();
+        $this->doctrine->getManager()->flush();
     }
 
     /**
@@ -633,7 +638,7 @@ class MediaController extends AbstractApiController
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
 
-        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        $folderRepository = $this->doctrine->getRepository(Folder::class);
         /** @var Folder $original */
         $original = $folderRepository->find($id);
 
@@ -650,7 +655,7 @@ class MediaController extends AbstractApiController
             $original->setRel($folder->getRel());
         }
 
-        $this->getDoctrine()->getManager()->flush();
+        $this->doctrine->getManager()->flush();
     }
 
     /**
@@ -707,7 +712,7 @@ class MediaController extends AbstractApiController
     public function moveFolderAction($id, $targetId)
     {
         /** @var FolderRepository $folderRepository */
-        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        $folderRepository = $this->doctrine->getRepository(Folder::class);
         /** @var Folder $original */
         $original = $folderRepository->find($id);
         /** @var Folder $target */
@@ -722,7 +727,7 @@ class MediaController extends AbstractApiController
         } else {
             return new \FOS\RestBundle\View\View('Cannot move a folder into its own child.', Response::HTTP_BAD_REQUEST);
         }
-        $this->getDoctrine()->getManager()->flush();
+        $this->doctrine->getManager()->flush();
 
         $folderRepository->recover();
     }
@@ -772,7 +777,7 @@ class MediaController extends AbstractApiController
      */
     public function deleteFolderAction($id)
     {
-        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        $folderRepository = $this->doctrine->getRepository(Folder::class);
         /** @var Folder $original */
         $original = $folderRepository->find($id);
         $folderRepository->delete($original);
@@ -824,7 +829,7 @@ class MediaController extends AbstractApiController
     public function deleteMediaAction($id)
     {
         /** @var MediaRepository $mediaRepository */
-        $mediaRepository = $this->getDoctrine()->getRepository(Media::class);
+        $mediaRepository = $this->doctrine->getRepository(Media::class);
         /** @var Media $original */
         $original = $mediaRepository->find($id);
         $mediaRepository->delete($original);

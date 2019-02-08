@@ -1,0 +1,6 @@
+kunstmaan_api_users:
+    type: rest
+    resource: 'KunstmaanRestUserBundle:User'
+    defaults:
+        _format: json
+    prefix:   /api

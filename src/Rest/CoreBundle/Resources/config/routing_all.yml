@@ -17,3 +17,7 @@ kunstmaan_rest_trans:
 kunstmaan_rest_media:
     resource: "@KunstmaanRestMediaBundle/Resources/config/routing.yml"
     prefix:   /
+
+kunstmaan_rest_user:
+    resource: "@KunstmaanRestUserBundle/Resources/config/routing.yml"
+    prefix:   /
