@@ -43,6 +43,7 @@ nelmio_api_doc:
             type: "integer"
 
       PostFolder:
+        type: "object"
         properties:
           name:
             type: "string"
@@ -87,6 +88,7 @@ nelmio_api_doc:
           folderId:
             type: "integer"
             required: false
+
       MediaList:
         properties:
           media:

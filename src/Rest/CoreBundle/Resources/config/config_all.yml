@@ -33,6 +33,9 @@ jms_serializer:
           KunstmaanRestMediaBundle:
               namespace_prefix: "Kunstmaan\\MediaBundle"
               path: "@KunstmaanRestMediaBundle/Resources/config/serializer"
+          KunstmaanRestUserBundle:
+              namespace_prefix: "Kunstmaan\\UserBundle"
+              path: "@KunstmaanRestUserBundle/Resources/config/serializer"
 
 bazinga_hateoas:
     metadata:

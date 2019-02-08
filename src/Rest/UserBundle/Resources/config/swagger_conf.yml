@@ -1,3 +1,20 @@
 nelmio_api_doc:
   documentation:
     definitions:
+      UserList:
+        properties:
+          media:
+            type: "array"
+            users:
+              allOf:
+                - $ref: '#/definitions/User'
+        title: "UserList"
+        required: ["users"]
+        type: "object"
+
+      User:
+        title: "User"
+        type: "object"
+        properties:
+          UserName:
+            type: "string"
