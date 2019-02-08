@@ -12,14 +12,15 @@ class MediaModel
     /**
      * @var int
      * @JMS\Type("integer")
-     * @JMS\Groups("list")
+     * @JMS\SerializedName("folderId")
+     * @JMS\Groups({"list", "update"})
      */
-    private $folderId = 1;
+    private $folderId;
 
     /**
      * @var string
      * @JMS\Type("string")
-     * @JMS\Groups("list")
+     * @JMS\Groups({"list", "update"})
      */
     private $name;
 
@@ -40,14 +41,15 @@ class MediaModel
     /**
      * @var string
      * @JMS\Type("string")
-     * @JMS\Groups("list")
+     * @JMS\Groups({"list", "update"})
      */
     private $description;
 
     /**
      * @var string
      * @JMS\Type("string")
-     * @JMS\Groups("list")
+     * @JMS\SerializedName("copyRight")
+     * @JMS\Groups({"list", "update"})
      */
     private $copyRight;
 

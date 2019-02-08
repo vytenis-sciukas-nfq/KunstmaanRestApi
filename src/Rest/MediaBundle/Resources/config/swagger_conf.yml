@@ -71,6 +71,22 @@ nelmio_api_doc:
             type: "integer"
             default: 1
 
+      putMedia:
+        title: "UploadMedia"
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            required: false
+          description:
+            type: "string"
+            required: false
+          copyRight:
+            type: "string"
+            required: false
+          folderId:
+            type: "integer"
+            required: false
       MediaList:
         properties:
           media:

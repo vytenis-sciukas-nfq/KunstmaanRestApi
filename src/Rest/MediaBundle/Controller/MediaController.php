@@ -435,15 +435,14 @@ class MediaController extends AbstractApiController
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
 
-        $folderId = $media->getFolderId();
-
-        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
         $mediaRepository = $this->getDoctrine()->getRepository(Media::class);
+        $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+        $folderId = $media->getFolderId() ?? 1;
         /** @var Folder $folder */
         $folder = $folderRepository->find($folderId);
 
         $uploadedFile = $media->getUrl();
-        if(!empty($media->getContent())) {
+        if (!empty($media->getContent())) {
             $hashPath = '/tmp/'.uniqid('media', true);
             $this->fileSystem->mkdir($hashPath);
             $path = $hashPath.'/'.$media->getName();
@@ -463,6 +462,100 @@ class MediaController extends AbstractApiController
         $createdMedia->setDescription($media->getDescription());
         $createdMedia->setCopyright($media->getCopyRight());
         $mediaRepository->save($createdMedia);
+    }
+
+    /**
+     * updates a Media
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Put(
+     *     path="/api/media/{id}",
+     *     description="update a Media",
+     *     operationId="updateMedia",
+     *     produces={"application/json"},
+     *     tags={"media"},
+     *     @SWG\Parameter(
+     *         name="media",
+     *         in="body",
+     *         type="object",
+     *         @SWG\Schema(ref="#/definitions/putMedia"),
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @ParamConverter(
+     *     name="media",
+     *     converter="fos_rest.request_body",
+     *     class="Kunstmaan\Rest\MediaBundle\Model\MediaModel",
+     *     options={
+     *          "deserializationContext"={
+     *              "groups"={
+     *                  "update"
+     *              }
+     *          },
+     *          "validator"={
+     *              "groups"={
+     *                  "update"
+     *              }
+     *          }
+     *     }
+     * )
+     *
+     * @Rest\Put("/media/{id}", requirements={"id": "\d+"})
+     *
+     * @param MediaModel                       $media
+     * @param ConstraintViolationListInterface $validationErrors
+     * @param int                              $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function putMediaAction(MediaModel $media, ConstraintViolationListInterface $validationErrors, $id)
+    {
+        if (count($validationErrors) > 0) {
+            return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
+        }
+
+        $mediaRepository = $this->getDoctrine()->getRepository(Media::class);
+        /** @var Media $original */
+        $original = $mediaRepository->find($id);
+        if ($media->getFolderId()) {
+            $folderId = $media->getFolderId();
+            $folderRepository = $this->getDoctrine()->getRepository(Folder::class);
+            /** @var Folder $folder */
+            $folder = $folderRepository->find($folderId);
+            $original->setFolder($folder);
+        }
+
+        if($media->getName()){
+            $original->setName($media->getName());
+        }
+        if($media->getDescription()) {
+            $original->setDescription($media->getDescription());
+        }
+        if($media->getCopyRight()) {
+            $original->setCopyright($media->getCopyRight());
+        }
+
+        $now = new \DateTime();
+        $original->setUpdatedAt($now);
+        $this->getDoctrine()->getManager()->flush();
     }
 
     /**
