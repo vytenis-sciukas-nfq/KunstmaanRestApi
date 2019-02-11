@@ -21,6 +21,7 @@
         "kunstmaan/bundles-cms": ">=5.1@dev",
         "friendsofsymfony/rest-bundle": "^2.2",
         "jms/serializer-bundle": "^2.2",
+        "ramsey/uuid": "^3.8",
         "nelmio/api-doc-bundle": "~3.2.0",
         "willdurand/hateoas": "^2.12",
         "willdurand/hateoas-bundle": "^1.4"

@@ -9,7 +9,8 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Hateoas\Representation\PaginatedRepresentation;
-use Kunstmaan\MediaBundle\Repository\MediaRepository;
+use Kunstmaan\AdminBundle\Entity\BaseUser;
+use Kunstmaan\AdminBundle\Repository\UserRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Kunstmaan\Rest\CoreBundle\Entity\RestUser;
 use Swagger\Annotations as SWG;
@@ -98,22 +99,17 @@ class UserController extends AbstractApiController
         $limit = $paramFetcher->get('limit');
         $groupId = $paramFetcher->get('groupId');
 
-        /** @var MediaRepository $repository */
+        /** @var UserRepository $repository */
         $repository = $this->doctrine->getRepository(RestUser::class);
-        $qb = $repository->createQueryBuilder('n');
 
-        $result = $qb->getQuery()->getResult();
+        $result = $repository->findAll();
         if ($groupId) {
-            $filteredResults = [];
-
-            /** @var RestUser $user */
+            /** @var BaseUser $user */
             foreach ($result as $user) {
                 if (\in_array($groupId, $user->getGroupIds(), false)) {
                     $filteredResults[] = $user;
                 }
             }
-
-            $result = $filteredResults;
         }
 
         return $this->getPaginator()->getPaginatedArrayResult($result, $page, $limit);

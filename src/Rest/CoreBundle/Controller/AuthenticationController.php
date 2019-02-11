@@ -9,14 +9,12 @@ use Kunstmaan\AdminBundle\Controller\BaseSettingsController;
 use Kunstmaan\AdminBundle\FlashMessages\FlashTypes;
 use Kunstmaan\AdminBundle\Repository\UserRepository;
 use Kunstmaan\Rest\CoreBundle\Entity\HasApiKeyInterface;
-use Kunstmaan\Rest\NodeBundle\Form\RestNodeType;
 use Kunstmaan\UserManagementBundle\Event\UserEvents;
 use Ramsey\Uuid\Uuid;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -30,17 +28,18 @@ class AuthenticationController extends BaseSettingsController
      * @param Request $request
      * @param int     $id
      *
-     * @Route("/{id}/generate-key", requirements={"id" = "\d+"}, name="KunstmaanRestCoreBundle_settings_users_key_generate")
-     * @Method({"GET"})
+     * @Route("/{id}/generate-key", requirements={"id" = "\d+"}, name="KunstmaanRestCoreBundle_settings_users_key_generate", methods={"GET"})
      *
      * @throws AccessDeniedException
      * @throws BadRequestHttpException
      * @return RedirectResponse
+     *
+     * @throws \Exception
      */
     public function generateKeyAction(Request $request, $id)
     {
         // The logged in user should be able to change his own generated api key and not for other users
-        if ($id == $this->get('security.token_storage')->getToken()->getUser()->getId()) {
+        if ((int) $id === (int) $this->get('security.token_storage')->getToken()->getUser()->getId()) {
             $requiredRole = 'ROLE_ADMIN';
         } else {
             $requiredRole = 'ROLE_SUPER_ADMIN';
@@ -55,7 +54,7 @@ class AuthenticationController extends BaseSettingsController
         if (!$user instanceof HasApiKeyInterface) {
             throw new BadRequestHttpException('user needs to have api key implemented');
         }
-        if (!is_null($user)) {
+        if ($user !== null) {
             $userEvent = new UserEvent($user, $request);
             $this->container->get('event_dispatcher')->dispatch(UserEvents::USER_EDIT_INITIALIZE, $userEvent);
             $user->setApiKey(Uuid::uuid5(Uuid::NAMESPACE_URL, 'apikey'));
