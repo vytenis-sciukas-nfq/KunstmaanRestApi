@@ -1,8 +1,6 @@
 Kunstmaan\MediaBundle\Entity\Media:
     exclusion_policy: ALL
     properties:
-        id:
-            expose: true
         name:
             expose: true
         description:
@@ -21,3 +19,4 @@ Kunstmaan\MediaBundle\Entity\Media:
             expose: true
         filesize:
             expose: true
+

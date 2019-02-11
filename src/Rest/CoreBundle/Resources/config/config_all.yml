@@ -23,18 +23,22 @@ fos_rest:
 
 jms_serializer:
     metadata:
+      auto_detection: true
       directories:
           KunstmaanRestNodeBundle:
               namespace_prefix: "Kunstmaan\\NodeBundle"
               path: "@KunstmaanRestNodeBundle/Resources/config/serializer"
-          KunstmaanRestCoreBundle:
+          KunstmaanRestAdminBundle:
               namespace_prefix: "Kunstmaan\\AdminBundle"
+              path: "@KunstmaanRestCoreBundle/Resources/config/serializer"
+          KunstmaanRestCoreBundle:
+              namespace_prefix: "Kunstmaan\\Rest\\CoreBundle"
               path: "@KunstmaanRestCoreBundle/Resources/config/serializer"
           KunstmaanRestMediaBundle:
               namespace_prefix: "Kunstmaan\\MediaBundle"
               path: "@KunstmaanRestMediaBundle/Resources/config/serializer"
-          KunstmaanRestUserBundle:
-              namespace_prefix: "Kunstmaan\\UserBundle"
+          FOSUserBundle:
+              namespace_prefix: "FOS\\UserBundle"
               path: "@KunstmaanRestUserBundle/Resources/config/serializer"
 
 bazinga_hateoas:

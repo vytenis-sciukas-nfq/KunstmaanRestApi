@@ -1,0 +1,8 @@
+Kunstmaan\AdminBundle\Entity\BaseUser:
+  exclusion_policy: ALL
+  properties:
+    adminLocale:
+      serialized_name: adminLocale
+      expose: true
+    groups:
+      expose: true

@@ -1,0 +1,4 @@
+Kunstmaan\Rest\CoreBundle\Entity\RestUser:
+  exclusion_policy: ALL
+#    properties:
+

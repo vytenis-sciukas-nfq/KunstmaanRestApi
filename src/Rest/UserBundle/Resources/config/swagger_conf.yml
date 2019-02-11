@@ -3,7 +3,7 @@ nelmio_api_doc:
     definitions:
       UserList:
         properties:
-          media:
+          users:
             type: "array"
             users:
               allOf:
