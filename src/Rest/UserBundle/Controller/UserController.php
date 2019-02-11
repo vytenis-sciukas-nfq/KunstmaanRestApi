@@ -36,7 +36,7 @@ class UserController extends AbstractApiController
     }
 
     /**
-     * Retrieve User paginated
+     * Retrieve Users paginated
      *
      * @SWG\Get(
      *     path="/api/user",
@@ -114,4 +114,112 @@ class UserController extends AbstractApiController
 
         return $this->getPaginator()->getPaginatedArrayResult($result, $page, $limit);
     }
+
+    /**
+     * deletes User
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Delete(
+     *     path="/api/user/{id}",
+     *     description="deletes a User",
+     *     operationId="deleteUser",
+     *     produces={"application/json"},
+     *     tags={"user"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the user",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Delete("/user/{id}", requirements={"id": "\d+"})
+     *
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function deleteUserAction(int $id)
+    {
+        $manager = $this->doctrine->getManager();
+        /** @var UserRepository $repository */
+        $repository = $this->doctrine->getRepository(RestUser::class);
+
+        $manager->remove($repository->find($id));
+        $manager->flush();
+    }
+
+    /**
+     * toggle User
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Put(
+     *     path="/api/user/{id}/toggle-enabled",
+     *     description="toggle a Users enabled state",
+     *     operationId="toggleEnabledUser",
+     *     produces={"application/json"},
+     *     tags={"user"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the user",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Put("/user/{id}/toggle-enabled", requirements={"id": "\d+"})
+     *
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function toggleEnableUserAction(int $id)
+    {
+        $manager = $this->doctrine->getManager();
+        /** @var UserRepository $repository */
+        $repository = $this->doctrine->getRepository(RestUser::class);
+        /** @var BaseUser $user */
+        $user = $repository->find($id);
+        $user->setEnabled(!$user->isEnabled());
+        $manager->flush();
+    }
+
 }
