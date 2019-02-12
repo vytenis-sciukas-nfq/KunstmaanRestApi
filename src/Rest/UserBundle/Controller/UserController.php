@@ -321,23 +321,21 @@ class UserController extends AbstractApiController
      *     }
      * )
      *
-     * @Rest\Put("/user")
+     * @Rest\Post("/user")
      *
      * @param UserModel                        $userModel
      * @param ConstraintViolationListInterface $validationErrors
-     * @param int                              $id
      *
      * @return null
      * @throws \Exception
      */
-    public function postUserAction(UserModel $userModel, ConstraintViolationListInterface $validationErrors, int $id)
+    public function postUserAction(UserModel $userModel, ConstraintViolationListInterface $validationErrors)
     {
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
 
         if (count($validationErrors) > 0) {
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
-        $manager = $this->doctrine->getManager();
 
         if ($userModel->getPassword() !== $userModel->getPasswordConfirm()) {
             return new \FOS\RestBundle\View\View('Password and Password confirmation should be the same', Response::HTTP_BAD_REQUEST);
@@ -350,15 +348,13 @@ class UserController extends AbstractApiController
             $user->addGroup($group);
         }
 
-        $user->setPassword($userModel->getPassword());
         $user->setPlainPassword($userModel->getPassword());
         $user->setEmail($userModel->getEmail());
         $user->setUsername($userModel->getUsername());
         $user->setAdminLocale($userModel->getAdminLocale());
         $user->setEnabled(true);
 
-        $manager->persist($user);
-        $manager->flush();
+        $this->userManager->updateUser($user, true);
     }
 
     /**

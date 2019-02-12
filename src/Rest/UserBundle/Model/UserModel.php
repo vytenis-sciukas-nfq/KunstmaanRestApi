@@ -29,6 +29,7 @@ class UserModel
     /**
      * @var string
      * @JMS\Type("string")
+     * @JMS\SerializedName("adminLocale")
      * @JMS\Groups({"list", "update", "create"})
      * @Assert\NotBlank(groups={"create"})
      */
