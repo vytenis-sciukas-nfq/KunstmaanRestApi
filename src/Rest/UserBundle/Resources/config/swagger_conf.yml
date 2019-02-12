@@ -16,5 +16,68 @@ nelmio_api_doc:
         title: "User"
         type: "object"
         properties:
-          UserName:
+          username:
             type: "string"
+            required: false
+          email:
+            type: "string"
+            required: false
+          groups:
+            type: "array"
+            required: false
+          enabled:
+            type: "boolean"
+            required: false
+          adminLocale:
+            required: false
+            type: "boolean"
+
+      PutUser:
+        title: "PutUser"
+        type: "object"
+        properties:
+          username:
+            type: "string"
+            required: false
+          email:
+            type: "string"
+            required: false
+          groups:
+            type: "array"
+            required: false
+          enabled:
+            required: false
+            type: "boolean"
+          adminLocale:
+            required: false
+            type: "string"
+          password:
+            type: "string"
+            required: false
+          passwordConfirm:
+            required: false
+            type: "string"
+
+      PostUser:
+        title: "PostUser"
+        type: "object"
+        properties:
+          username:
+            type: "string"
+            required: true
+          email:
+            type: "string"
+            required: true
+          groups:
+            type: "array"
+            required: true
+          adminLocale:
+            required: true
+            type: "string"
+          password:
+            type: "string"
+            required: true
+          passwordConfirm:
+            required: true
+            type: "string"
+

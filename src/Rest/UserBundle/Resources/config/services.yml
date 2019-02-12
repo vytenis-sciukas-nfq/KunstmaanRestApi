@@ -3,5 +3,7 @@ services:
         public: true
         arguments:
             - '@doctrine'
+            - '@security.token_storage'
+            - '@fos_user.user_manager'
         calls:
             - [setViewHandler, ['@fos_rest.view_handler.default']]
