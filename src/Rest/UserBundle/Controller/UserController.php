@@ -14,6 +14,7 @@ use Kunstmaan\AdminBundle\Entity\BaseUser;
 use Kunstmaan\AdminBundle\Repository\UserRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Kunstmaan\Rest\CoreBundle\Entity\RestUser;
+use Kunstmaan\Rest\CoreBundle\Helper\GenerateApiKeyFunctionTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Kunstmaan\Rest\UserBundle\Model\UserModel;
 use Swagger\Annotations as SWG;
@@ -28,6 +29,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 class UserController extends AbstractApiController
 {
     use ControllerTrait;
+    use GenerateApiKeyFunctionTrait;
 
     /** @var Registry */
     private $doctrine;
@@ -473,6 +475,79 @@ class UserController extends AbstractApiController
         $user = $repository->find($id);
         $user->setEnabled(!$user->isEnabled());
         $manager->flush();
+    }
+
+    /**
+     * refresh api key
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Put(
+     *     path="/api/user/{id}/refresh-key",
+     *     description="refresh api key",
+     *     operationId="refreshApiKey",
+     *     produces={"application/json"},
+     *     tags={"user"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the user",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Put("/user/{id}/refresh-key", requirements={"id": "\d+"})
+     *
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function refreshApiKeyAction(int $id)
+    {
+        /** @var RestUser $me */
+        $me = $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser() : null;
+
+        if (null === $me || !$me instanceof BaseUser || $me->getId() !== $id) {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+        }
+
+        $manager = $this->doctrine->getManager();
+        /** @var UserRepository $repository */
+        $repository = $this->doctrine->getRepository(RestUser::class);
+
+        /** @var RestUser $user */
+        $user = $repository->find($id);
+
+        $key = $this->generateApiKey();
+        $user->setApiKey($key);
+        $manager->flush();
+
+        return ['key' => $key];
     }
 
 }

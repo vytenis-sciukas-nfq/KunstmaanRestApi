@@ -9,8 +9,8 @@ use Kunstmaan\AdminBundle\Controller\BaseSettingsController;
 use Kunstmaan\AdminBundle\FlashMessages\FlashTypes;
 use Kunstmaan\AdminBundle\Repository\UserRepository;
 use Kunstmaan\Rest\CoreBundle\Entity\HasApiKeyInterface;
+use Kunstmaan\Rest\CoreBundle\Helper\GenerateApiKeyFunctionTrait;
 use Kunstmaan\UserManagementBundle\Event\UserEvents;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -22,9 +22,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class AuthenticationController extends BaseSettingsController
 {
+    use GenerateApiKeyFunctionTrait;
+
     /**
-     * Delete a user
-     *
      * @param Request $request
      * @param int     $id
      *
@@ -57,7 +57,7 @@ class AuthenticationController extends BaseSettingsController
         if ($user !== null) {
             $userEvent = new UserEvent($user, $request);
             $this->container->get('event_dispatcher')->dispatch(UserEvents::USER_EDIT_INITIALIZE, $userEvent);
-            $user->setApiKey(Uuid::uuid5(Uuid::NAMESPACE_URL, 'apikey'));
+            $user->setApiKey($this->generateApiKey());
             $em->flush();
             $this->addFlash(
                 FlashTypes::SUCCESS,
