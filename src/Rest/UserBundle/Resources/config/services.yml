@@ -7,3 +7,18 @@ services:
             - '@fos_user.user_manager'
         calls:
             - [setViewHandler, ['@fos_rest.view_handler.default']]
+
+    Kunstmaan\Rest\UserBundle\Controller\RoleController:
+        public: true
+        arguments:
+            - '@doctrine'
+        calls:
+            - [setViewHandler, ['@fos_rest.view_handler.default']]
+
+    Kunstmaan\Rest\UserBundle\Controller\GroupController:
+        public: true
+        arguments:
+            - '@doctrine'
+        calls:
+            - [setViewHandler, ['@fos_rest.view_handler.default']]
+

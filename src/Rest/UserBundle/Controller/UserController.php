@@ -120,6 +120,8 @@ class UserController extends AbstractApiController
      */
     public function getAllUserAction(ParamFetcherInterface $paramFetcher)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $page = $paramFetcher->get('page');
         $limit = $paramFetcher->get('limit');
         $groupId = $paramFetcher->get('groupId');

@@ -1,6 +1,49 @@
 nelmio_api_doc:
   documentation:
     definitions:
+      RoleList:
+        properties:
+          roles:
+            type: "array"
+            roles:
+              allOf:
+                - $ref: '#/definitions/Role'
+        title: "RoleList"
+        required: ["roles"]
+        type: "object"
+
+      Role:
+        title: "Role"
+        type: "object"
+        properties:
+          role:
+            type: "string"
+            required: false
+
+      GroupList:
+        properties:
+          groups:
+            type: "array"
+            roles:
+              allOf:
+                - $ref: '#/definitions/Group'
+        title: "GroupList"
+        required: ["groups"]
+        type: "object"
+
+      Group:
+        title: "Group"
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            required: false
+          roles:
+            type: "array"
+            roles:
+              allOf:
+                - $ref: '#/definitions/Role'
+
       UserList:
         properties:
           users:

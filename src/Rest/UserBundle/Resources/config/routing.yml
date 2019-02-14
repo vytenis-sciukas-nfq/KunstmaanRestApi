@@ -4,3 +4,17 @@ kunstmaan_api_users:
     defaults:
         _format: json
     prefix:   /api
+
+kunstmaan_api_roles:
+    type: rest
+    resource: 'KunstmaanRestUserBundle:Role'
+    defaults:
+        _format: json
+    prefix:   /api
+
+kunstmaan_api_groups:
+    type: rest
+    resource: 'KunstmaanRestUserBundle:Group'
+    defaults:
+        _format: json
+    prefix:   /api
