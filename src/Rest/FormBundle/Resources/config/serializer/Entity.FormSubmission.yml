@@ -1,0 +1,16 @@
+Kunstmaan\FormBundle\Entity\FormSubmission:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+    ipAddress:
+      expose: true
+      serialized_name: ipAddress
+    node:
+      expose: true
+    lang:
+      expose: true
+    fields:
+      expose: true
+    created:
+      expose: true

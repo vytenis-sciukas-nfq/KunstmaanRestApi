@@ -13,6 +13,8 @@ The Kunstmaan RestApi Bundle provides a REST api for the popular Kunstmaan CMS b
 new Kunstmaan\Rest\CoreBundle\KunstmaanRestCoreBundle(),
 new Kunstmaan\Rest\NodeBundle\KunstmaanRestNodeBundle(),
 new Kunstmaan\Rest\MediaBundle\KunstmaanRestMediaBundle(),
+new Kunstmaan\Rest\UserBundle\KunstmaanRestUserBundle(),
+new Kunstmaan\Rest\FormBundle\KunstmaanRestFormBundle(),
 new Kunstmaan\Rest\TranslationsBundle\KunstmaanRestTranslationsBundle(),
 ```
 
@@ -20,6 +22,7 @@ new Kunstmaan\Rest\TranslationsBundle\KunstmaanRestTranslationsBundle(),
 ```
 new FOS\RestBundle\FOSRestBundle(),
 new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+new JMS\SerializerBundle\JMSSerializerBundle(),
 new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
 ```
 

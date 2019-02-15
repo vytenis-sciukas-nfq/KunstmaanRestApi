@@ -1,0 +1,36 @@
+nelmio_api_doc:
+  documentation:
+    definitions:
+      FormSubmissionList:
+        properties:
+          submissions:
+            type: "array"
+            roles:
+              allOf:
+                - $ref: '#/definitions/FormSubmission'
+        title: "FormSubmisssionList"
+        required: ["submissions"]
+        type: "object"
+
+      FormSubmission:
+        title: "FormSubmission"
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+            required: false
+          lang:
+            type: "string"
+            required: false
+          created:
+            type: "string"
+            required: false
+          ipAddress:
+            type: "string"
+            required: false
+          fields:
+            type: "array"
+            required: false
+          node:
+            type: "object"
+            required: false

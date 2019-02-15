@@ -1,0 +1,6 @@
+kunstmaan_api_form_submissions:
+    type: rest
+    resource: 'KunstmaanRestFormBundle:FormSubmission'
+    defaults:
+        _format: json
+    prefix:   /api
