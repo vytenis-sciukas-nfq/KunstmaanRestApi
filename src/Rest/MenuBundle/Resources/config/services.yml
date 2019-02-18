@@ -1,0 +1,7 @@
+services:
+    Kunstmaan\Rest\MenuBundle\Controller\MenuController:
+        public: true
+        arguments:
+            - '@doctrine'
+        calls:
+            - [setViewHandler, ['@fos_rest.view_handler.default']]

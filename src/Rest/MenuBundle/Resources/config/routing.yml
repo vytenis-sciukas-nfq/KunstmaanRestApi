@@ -1,0 +1,6 @@
+kunstmaan_api_menu_menu:
+    type: rest
+    resource: 'KunstmaanRestMenuBundle:Menu'
+    defaults:
+        _format: json
+    prefix:   /api

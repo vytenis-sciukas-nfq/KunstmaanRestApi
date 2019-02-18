@@ -25,3 +25,7 @@ kunstmaan_rest_user:
 kunstmaan_rest_form:
     resource: "@KunstmaanRestFormBundle/Resources/config/routing.yml"
     prefix:   /
+
+kunstmaan_rest_menu:
+    resource: "@KunstmaanRestMenuBundle/Resources/config/routing.yml"
+    prefix:   /

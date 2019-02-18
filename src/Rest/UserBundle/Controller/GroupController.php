@@ -253,6 +253,13 @@ class GroupController extends AbstractApiController
      *         type="object",
      *         @SWG\Schema(ref="#/definitions/Group"),
      *     ),
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the group",
+     *         required=true,
+     *     ),
      *     @SWG\Response(
      *         response=202,
      *         description="Returned when successful",

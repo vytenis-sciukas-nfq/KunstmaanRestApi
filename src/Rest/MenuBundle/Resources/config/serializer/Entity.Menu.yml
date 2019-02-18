@@ -1,0 +1,2 @@
+Kunstmaan\MenuBundle\Entity\Menu:
+  exclusion_policy: ALL

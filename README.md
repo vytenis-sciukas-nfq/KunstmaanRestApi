@@ -15,6 +15,7 @@ new Kunstmaan\Rest\NodeBundle\KunstmaanRestNodeBundle(),
 new Kunstmaan\Rest\MediaBundle\KunstmaanRestMediaBundle(),
 new Kunstmaan\Rest\UserBundle\KunstmaanRestUserBundle(),
 new Kunstmaan\Rest\FormBundle\KunstmaanRestFormBundle(),
+new Kunstmaan\Rest\MenuBundle\KunstmaanRestMenuBundle(),
 new Kunstmaan\Rest\TranslationsBundle\KunstmaanRestTranslationsBundle(),
 ```
 

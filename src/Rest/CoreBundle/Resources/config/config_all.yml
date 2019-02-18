@@ -40,6 +40,9 @@ jms_serializer:
           KunstmaanRestFormBundle:
               namespace_prefix: "Kunstmaan\\FormBundle"
               path: "@KunstmaanRestFormBundle/Resources/config/serializer"
+          KunstmaanRestMenuBundle:
+              namespace_prefix: "Kunstmaan\\MenuBundle"
+              path: "@KunstmaanRestMenuBundle/Resources/config/serializer"
           FOSUserBundle:
               namespace_prefix: "FOS\\UserBundle"
               path: "@KunstmaanRestUserBundle/Resources/config/serializer"

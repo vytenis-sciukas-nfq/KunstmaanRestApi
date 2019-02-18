@@ -41,6 +41,12 @@ nelmio_api_doc:
             type: "string"
           parentId:
             type: "integer"
+          lft:
+            type: "integer"
+          rgt:
+            type: "integer"
+          lvl:
+            type: "integer"
 
       PostFolder:
         type: "object"

@@ -1,0 +1,31 @@
+Kunstmaan\MenuBundle\Entity\BaseMenuItem:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+    menu:
+      expose: true
+      type: 'Kunstmaan\MenuBundle\Entity\Menu'
+      serialized_name: menu
+    nodeTranslation:
+      expose: true
+      type: 'Kunstmaan\NodeBundle\Entity\NodeTranslation'
+      serialized_name: nodeTranslation
+    type:
+      expose: true
+    title:
+      expose: true
+    url:
+      expose: true
+    newWindow:
+      expose: true
+      serialized_name: newWindow
+    lft:
+      expose: true
+      readonly: true
+    rgt:
+      expose: true
+      readonly: true
+    lvl:
+      expose: true
+      readonly: true
