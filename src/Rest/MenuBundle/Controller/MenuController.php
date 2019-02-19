@@ -13,6 +13,7 @@ use FOS\UserBundle\Doctrine\UserManager;
 use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\FormBundle\Entity\FormSubmission;
 use Kunstmaan\MenuBundle\Entity\Menu;
+use Kunstmaan\MenuBundle\Entity\MenuItem;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -188,5 +189,117 @@ class MenuController extends AbstractApiController
         $result = $result->getItems();
 
         return $this->getPaginator()->getPaginatedArrayResult($result->toArray(), $page, $limit);
+    }
+
+    /**
+     * deletes MenuItem
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Delete(
+     *     path="/api/menu-item/{id}",
+     *     description="deletes a menu item",
+     *     operationId="deleteMenuItem",
+     *     produces={"application/json"},
+     *     tags={"menu"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the menu item",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Delete("/menu-item/{id}", requirements={"id": "\d+"})
+     *
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function deleteMenuItemAction(int $id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        /** @var ObjectRepository $repository */
+        $repository = $this->doctrine->getRepository(MenuItem::class);
+        $item = $repository->find($id);
+        $this->doctrine->getManager()->remove($item);
+        $this->doctrine->getManager()->flush();
+    }
+
+    /**
+     * deletes Menu
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Delete(
+     *     path="/api/menu/{id}",
+     *     description="deletes a menu",
+     *     operationId="deleteMenu",
+     *     produces={"application/json"},
+     *     tags={"menu"},
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the menu",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Delete("/menu/{id}", requirements={"id": "\d+"})
+     *
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function deleteMenuAction(int $id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        /** @var ObjectRepository $repository */
+        $repository = $this->doctrine->getRepository(Menu::class);
+        /** @var Menu $menu */
+        $menu = $repository->find($id);
+        foreach($menu->getItems() as $item) {
+            $this->doctrine->getManager()->remove($item);
+        }
+        $this->doctrine->getManager()->remove($menu);
+        $this->doctrine->getManager()->flush();
     }
 }
