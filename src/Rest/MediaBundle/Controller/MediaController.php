@@ -386,6 +386,13 @@ class MediaController extends AbstractApiController
      *         type="object",
      *         @SWG\Schema(ref="#/definitions/UploadMedia"),
      *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
      *     @SWG\Response(
      *         response=202,
      *         description="Returned when successful",
@@ -484,6 +491,13 @@ class MediaController extends AbstractApiController
      *         type="object",
      *         @SWG\Schema(ref="#/definitions/putMedia"),
      *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
      *     @SWG\Response(
      *         response=202,
      *         description="Returned when successful",
@@ -579,6 +593,13 @@ class MediaController extends AbstractApiController
      *         @SWG\Schema(ref="#/definitions/PostFolder"),
      *     ),
      *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
@@ -668,6 +689,13 @@ class MediaController extends AbstractApiController
      *     produces={"application/json"},
      *     tags={"media"},
      *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
@@ -742,6 +770,13 @@ class MediaController extends AbstractApiController
      *     produces={"application/json"},
      *     tags={"media"},
      *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
@@ -797,6 +832,13 @@ class MediaController extends AbstractApiController
      *         in="path",
      *         type="integer",
      *         description="The id of the media",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
      *         required=true,
      *     ),
      *     @SWG\Response(

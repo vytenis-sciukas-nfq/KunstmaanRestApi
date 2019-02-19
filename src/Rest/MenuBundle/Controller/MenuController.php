@@ -11,12 +11,14 @@ use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\UserBundle\Doctrine\UserManager;
 use Hateoas\Representation\PaginatedRepresentation;
-use Kunstmaan\FormBundle\Entity\FormSubmission;
 use Kunstmaan\MenuBundle\Entity\Menu;
 use Kunstmaan\MenuBundle\Entity\MenuItem;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Swagger\Annotations as SWG;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  */
@@ -220,6 +222,13 @@ class MenuController extends AbstractApiController
      *         description="Returned when the user is not authorized",
      *         @SWG\Schema(ref="#/definitions/ErrorModel")
      *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
      *     @SWG\Response(
      *         response="default",
      *         description="unexpected error",
@@ -269,6 +278,13 @@ class MenuController extends AbstractApiController
      *         response=202,
      *         description="Returned when successful",
      *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
      *     @SWG\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
@@ -301,5 +317,173 @@ class MenuController extends AbstractApiController
         }
         $this->doctrine->getManager()->remove($menu);
         $this->doctrine->getManager()->flush();
+    }
+
+    /**
+     * Creates a new Menu
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Post(
+     *     path="/api/menu",
+     *     description="Creates a Menu",
+     *     operationId="postMenu",
+     *     produces={"application/json"},
+     *     tags={"menu"},
+     *     @SWG\Parameter(
+     *         name="menu",
+     *         in="body",
+     *         type="object",
+     *         @SWG\Schema(ref="#/definitions/PostMenu"),
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @ParamConverter(
+     *     name="menu",
+     *     converter="fos_rest.request_body",
+     *     class="Kunstmaan\MenuBundle\Entity\Menu",
+     *     options={
+     *          "deserializationContext"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          },
+     *          "validator"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          }
+     *     }
+     * )
+     *
+     * @Rest\Post("/menu")
+     *
+     * @param Menu $menu
+     * @param ConstraintViolationListInterface $validationErrors
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function createMediaAction(Menu $menu, ConstraintViolationListInterface $validationErrors)
+    {
+        if (count($validationErrors) > 0) {
+            return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->doctrine->getManager()->persist($menu);
+        $this->doctrine->getManager()->flush();
+    }
+
+    /**
+     * Update a menu
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Put(
+     *     path="/api/menu/{id}",
+     *     description="updates a Menu",
+     *     operationId="putMenu",
+     *     produces={"application/json"},
+     *     tags={"menu"},
+     *     @SWG\Parameter(
+     *         name="menu",
+     *         in="body",
+     *         type="object",
+     *         @SWG\Schema(ref="#/definitions/PostMenu"),
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @ParamConverter(
+     *     name="menu",
+     *     converter="fos_rest.request_body",
+     *     class="Kunstmaan\MenuBundle\Entity\Menu",
+     *     options={
+     *          "deserializationContext"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          },
+     *          "validator"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          }
+     *     }
+     * )
+     *
+     * @Rest\Put("/menu/{id}")
+     *
+     * @param Menu $menu
+     * @param ConstraintViolationListInterface $validationErrors
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function updateMediaAction(Menu $menu, ConstraintViolationListInterface $validationErrors, int $id)
+    {
+        if (count($validationErrors) > 0) {
+            return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
+        }
+        $manager = $this->doctrine->getManager();
+        /** @var Menu $originalMenu */
+        $originalMenu = $manager->find(Menu::class, $id);
+        if($menu->getName()) {
+            $originalMenu->setName($menu->getName());
+        }
+        if($menu->getLocale()) {
+            $originalMenu->setLocale($menu->getLocale());
+        }
+        $manager->flush();
     }
 }

@@ -5,5 +5,7 @@ Kunstmaan\MenuBundle\Entity\BaseMenu:
       expose: true
     name:
       expose: true
+      type: string
     locale:
       expose: true
+      type: string
