@@ -5,6 +5,8 @@ services:
     kunstmaan_rest_core.helper.controller.paginator:
         class: Kunstmaan\Rest\CoreBundle\Helper\Controller\Paginator
         public: true
+        arguments:
+            - '@request_stack'
 
     kunstmaan_rest_core.api_authenticator:
         class: Kunstmaan\Rest\CoreBundle\Security\ApiKeyAuthenticator

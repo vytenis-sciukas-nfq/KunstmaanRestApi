@@ -22,8 +22,27 @@ nelmio_api_doc:
         title: "MenuItemList"
         required: ["menu-items"]
         type: "object"
-
       PostMenu:
+        title: "PostMenu"
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            required: false
+          locale:
+            type: "string"
+            required: false
+      PostMenuItem:
+        title: "PostMenu"
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            required: false
+          locale:
+            type: "string"
+            required: false
+      PutMenuItem:
         title: "PostMenu"
         type: "object"
         properties:
