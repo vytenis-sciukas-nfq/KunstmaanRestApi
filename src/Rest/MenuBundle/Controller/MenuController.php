@@ -389,7 +389,7 @@ class MenuController extends AbstractApiController
      * @return null
      * @throws \Exception
      */
-    public function createMediaAction(Menu $menu, ConstraintViolationListInterface $validationErrors)
+    public function createMenuAction(Menu $menu, ConstraintViolationListInterface $validationErrors)
     {
         if (count($validationErrors) > 0) {
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
@@ -397,6 +397,101 @@ class MenuController extends AbstractApiController
 
         $this->doctrine->getManager()->persist($menu);
         $this->doctrine->getManager()->flush();
+    }
+
+    /**
+     * Creates a new Menu item
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Post(
+     *     path="/api/menu/{id}/add",
+     *     description="add a new menu item to a menu",
+     *     operationId="addMenuItem",
+     *     produces={"application/json"},
+     *     tags={"menu"},
+     *     @SWG\Parameter(
+     *         name="menuItem",
+     *         in="body",
+     *         type="object",
+     *         @SWG\Schema(ref="#/definitions/PostMenuItem"),
+     *     ),
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the menu",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @ParamConverter(
+     *     name="menuItem",
+     *     converter="fos_rest.request_body",
+     *     class="Kunstmaan\MenuBundle\Entity\MenuItem",
+     *     options={
+     *          "deserializationContext"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          },
+     *          "validator"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          }
+     *     }
+     * )
+     *
+     * @Rest\Post("/menu/{id}/add")
+     *
+     * @param MenuItem $menuItem
+     * @param ConstraintViolationListInterface $validationErrors
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function addMenuItemAction(MenuItem $menuItem, ConstraintViolationListInterface $validationErrors, int $id)
+    {
+        if (count($validationErrors) > 0) {
+            return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
+        }
+        $manager = $this->doctrine->getManager();
+
+
+       /** @var Menu $originalMenu */
+        $originalMenu = $manager->find(Menu::class, $id);
+        $menuItem->setId(null);
+        $menuItem->setMenu($originalMenu);
+        $originalMenu->addItem($menuItem);
+        $manager->persist($menuItem);
+        $manager->flush();
     }
 
     /**
@@ -417,6 +512,13 @@ class MenuController extends AbstractApiController
      *         in="body",
      *         type="object",
      *         @SWG\Schema(ref="#/definitions/PostMenu"),
+     *     ),
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the menu",
+     *         required=true,
      *     ),
      *     @SWG\Response(
      *         response=202,
@@ -470,7 +572,7 @@ class MenuController extends AbstractApiController
      * @return null
      * @throws \Exception
      */
-    public function updateMediaAction(Menu $menu, ConstraintViolationListInterface $validationErrors, int $id)
+    public function updateMenuAction(Menu $menu, ConstraintViolationListInterface $validationErrors, int $id)
     {
         if (count($validationErrors) > 0) {
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
@@ -484,6 +586,120 @@ class MenuController extends AbstractApiController
         if($menu->getLocale()) {
             $originalMenu->setLocale($menu->getLocale());
         }
+        $manager->flush();
+    }
+
+    /**
+     * Update a menuItem
+     *
+     * @View(
+     *     statusCode=202
+     * )
+     *
+     * @SWG\Put(
+     *     path="/api/menu-item/{id}",
+     *     description="updates a MenuItem",
+     *     operationId="putMenuItem",
+     *     produces={"application/json"},
+     *     tags={"menu"},
+     *     @SWG\Parameter(
+     *         name="menuItem",
+     *         in="body",
+     *         type="object",
+     *         @SWG\Schema(ref="#/definitions/PutMenuItem"),
+     *     ),
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="The id of the menuItem",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=202,
+     *         description="Returned when successful",
+     *     ),
+     *     @SWG\Parameter(
+     *         name="X-Api-Key",
+     *         in="header",
+     *         type="string",
+     *         description="The authentication access token",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *     )
+     * )
+     *
+     * @ParamConverter(
+     *     name="menuItem",
+     *     converter="fos_rest.request_body",
+     *     class="Kunstmaan\MenuBundle\Entity\MenuItem",
+     *     options={
+     *          "deserializationContext"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          },
+     *          "validator"={
+     *              "groups"={
+     *                  "Default",
+     *                  "list"
+     *              }
+     *          }
+     *     }
+     * )
+     *
+     * @Rest\Put("/menu-item/{id}")
+     *
+     * @param MenuItem $menuItem
+     * @param ConstraintViolationListInterface $validationErrors
+     * @param int $id
+     *
+     * @return null
+     * @throws \Exception
+     */
+    public function updateMenuItemAction(MenuItem $menuItem, ConstraintViolationListInterface $validationErrors, int $id)
+    {
+        if (count($validationErrors) > 0) {
+            return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
+        }
+        $manager = $this->doctrine->getManager();
+        /** @var MenuItem $originalMenuItem */
+        $originalMenuItem = $manager->find(MenuItem::class, $id);
+        if($menuItem->getUrl()) {
+            $originalMenuItem->setUrl($menuItem->getUrl());
+        }
+        if($menuItem->getType()) {
+            $originalMenuItem->setType($menuItem->getType());
+        }
+        if($menuItem->getTitle()) {
+            $originalMenuItem->setTitle($menuItem->getTitle());
+        }
+        if($menuItem->getLft()) {
+            $originalMenuItem->setLft($menuItem->getLft());
+        }
+        if($menuItem->getRgt()) {
+            $originalMenuItem->setRgt($menuItem->getRgt());
+        }
+        if($menuItem->getLvl()) {
+            $originalMenuItem->setLvl($menuItem->getLvl());
+        }
+        if($menuItem->getUrl()) {
+            $originalMenuItem->setUrl($menuItem->getUrl());
+        }
+        if($menuItem->getNodeTranslation()) {
+           $originalMenuItem->setNodeTranslation($menuItem->getNodeTranslation());
+        }
+
         $manager->flush();
     }
 }
