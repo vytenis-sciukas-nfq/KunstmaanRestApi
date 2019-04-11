@@ -37,6 +37,9 @@ jms_serializer:
           KunstmaanRestMediaBundle:
               namespace_prefix: "Kunstmaan\\MediaBundle"
               path: "@KunstmaanRestMediaBundle/Resources/config/serializer"
+          KunstmaanRestConfigBundle:
+              namespace_prefix: "Kunstmaan\\ConfigBundle"
+              path: "@KunstmaanRestConfigBundle/Resources/config/serializer"
           KunstmaanRestFormBundle:
               namespace_prefix: "Kunstmaan\\FormBundle"
               path: "@KunstmaanRestFormBundle/Resources/config/serializer"

@@ -1,0 +1,6 @@
+kunstmaan_api_config:
+    type: rest
+    resource: 'KunstmaanRestConfigBundle:Config'
+    defaults:
+        _format: json
+    prefix:   /api

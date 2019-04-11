@@ -1,0 +1,8 @@
+services:
+    Kunstmaan\Rest\ConfigBundle\Controller\ConfigController:
+        public: true
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '%kunstmaan_config%'
+        calls:
+            - [setViewHandler, ['@fos_rest.view_handler.default']]

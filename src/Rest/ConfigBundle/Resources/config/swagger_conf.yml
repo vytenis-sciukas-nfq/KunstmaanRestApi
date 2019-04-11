@@ -1,0 +1,10 @@
+nelmio_api_doc:
+  documentation:
+    definitions:
+      singleConfig:
+        title: "singleConfig"
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+            required: false
