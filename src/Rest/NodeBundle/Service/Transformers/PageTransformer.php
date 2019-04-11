@@ -16,6 +16,8 @@ use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\Rest\CoreBundle\Service\Transformers\TransformerInterface;
 use Kunstmaan\Rest\NodeBundle\Model\ApiEntity;
 use Kunstmaan\Rest\NodeBundle\Model\ApiPage;
+use Kunstmaan\SeoBundle\Entity\Seo;
+use Kunstmaan\SeoBundle\Repository\SeoRepository;
 
 /**
  * Class PageTransformer
@@ -54,6 +56,9 @@ class PageTransformer implements TransformerInterface
      */
     public function transform($nodeTranslation)
     {
+        /** @var SeoRepository $seoRepo */
+        $seoRepo = $this->em->getRepository(Seo::class);
+
         $apiPage = new ApiPage();
         $apiPage->setNodeTranslation($nodeTranslation);
         $apiPage->setNode($nodeTranslation->getNode());
@@ -63,6 +68,7 @@ class PageTransformer implements TransformerInterface
         $apiEntity = new ApiEntity();
         $apiEntity->setData($page);
 
+        $apiPage->setSeo($seoRepo->findFor($page));
         $apiPage->setPage($apiEntity);
 
         return $apiPage;

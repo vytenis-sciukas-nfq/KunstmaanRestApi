@@ -12,6 +12,11 @@ Kunstmaan\Rest\NodeBundle\Model\ApiPage:
       type: 'Kunstmaan\NodeBundle\Entity\Node'
       groups: [edit, create]
 
+    seo:
+      expose: true
+      type: 'Kunstmaan\SeoBundle\Entity\Seo'
+      groups: [edit, create]
+
     nodeTranslation:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\NodeTranslation'

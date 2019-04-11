@@ -1,0 +1,30 @@
+Kunstmaan\SeoBundle\Entity\Seo:
+  exclusion_policy: ALL
+  properties:
+    metaTitle:
+      expose: true
+      type: string
+    metaDescription:
+      expose: true
+      type: string
+    metaAuthor:
+      expose: true
+      type: string
+    metaRobots:
+      expose: true
+      type: string
+    ogType:
+      expose: true
+      type: string
+    ogTitle:
+      expose: true
+      type: string
+    ogDescription:
+      expose: true
+      type: string
+    extraMetaData:
+      expose: true
+      type: string
+    ogImage:
+      expose: true
+      type: Kunstmaan\MediaBundle\Entity\Media

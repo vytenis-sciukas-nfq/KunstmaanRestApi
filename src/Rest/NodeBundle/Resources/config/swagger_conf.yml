@@ -50,10 +50,39 @@ nelmio_api_doc:
             type: "object"
             allOf:
               - $ref: '#/definitions/PostNode'
+          seo:
+            type: "object"
+            allOf:
+              - $ref: '#/definitions/Seo'
           nodeTranslation:
             type: "object"
             allOf:
               - $ref: '#/definitions/PostNodeTranslation'
+
+      Seo:
+        title: "Seo"
+        type: "object"
+        properties:
+          metaTitle:
+            type: string
+          metaDescription:
+            type: string
+          metaAuthor:
+            type: string
+          metaRobots:
+            type: string
+          ogType:
+            type: string
+          ogTitle:
+            type: string
+          ogDescription:
+            type: string
+          extraMetaData:
+            type: string
+          ogImage:
+            type: "object"
+            allOf:
+              - $ref: '#/definitions/Media'
 
       GetNode:
         allOf:

@@ -14,6 +14,7 @@ namespace Kunstmaan\Rest\NodeBundle\Model;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
+use Kunstmaan\SeoBundle\Entity\Seo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -32,6 +33,12 @@ class ApiPage
      * @Assert\Valid()
      */
     private $node;
+
+    /**
+     * @var Seo
+     * @Assert\Valid()
+     */
+    private $seo;
 
     /**
      * @var NodeTranslation
@@ -139,6 +146,25 @@ class ApiPage
     public function setNodeVersion(NodeVersion $nodeVersion)
     {
         $this->nodeVersion = $nodeVersion;
+
+        return $this;
+    }
+
+    /**
+     * @return Seo
+     */
+    public function getSeo()
+    {
+        return $this->seo;
+    }
+
+    /**
+     * @param Seo $seo
+     * @return $this
+     */
+    public function setSeo($seo)
+    {
+        $this->seo = $seo;
 
         return $this;
     }
