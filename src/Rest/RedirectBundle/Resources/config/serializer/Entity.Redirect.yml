@@ -1,0 +1,18 @@
+Kunstmaan\RedirectBundle\Entity\Redirect:
+  exclusion_policy: ALL
+  properties:
+    domain:
+      expose: true
+      type: string
+    origin:
+      expose: true
+      type: string
+    note:
+      expose: true
+      type: string
+    target:
+      expose: true
+      type: string
+    permanent:
+      expose: true
+      type: boolean

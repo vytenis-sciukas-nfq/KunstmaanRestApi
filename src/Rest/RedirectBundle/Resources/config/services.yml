@@ -1,0 +1,7 @@
+services:
+    Kunstmaan\Rest\RedirectBundle\Controller\RedirectController:
+        public: true
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+        calls:
+            - [setViewHandler, ['@fos_rest.view_handler.default']]

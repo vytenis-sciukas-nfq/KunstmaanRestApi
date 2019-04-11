@@ -1,0 +1,25 @@
+nelmio_api_doc:
+  documentation:
+    definitions:
+      singleRedirect:
+        title: "singleRedirect"
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+            required: false
+          domain:
+            required: true
+            type: "string"
+          origin:
+            required: true
+            type: "string"
+          note:
+            required: true
+            type: "string"
+          target:
+            required: true
+            type: "string"
+          permanent:
+            required: true
+            type: "boolean"

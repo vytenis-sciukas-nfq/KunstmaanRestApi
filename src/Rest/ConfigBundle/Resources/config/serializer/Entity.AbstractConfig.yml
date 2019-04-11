@@ -1,7 +1,2 @@
 Kunstmaan\ConfigBundle\Entity\AbstractConfig:
-  exclusion_policy: ALL
-  properties:
-    id:
-      expose: true
-      type: integer
-      groups: [edit]
+  exclusion_policy: NONE
