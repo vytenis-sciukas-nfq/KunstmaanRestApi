@@ -23,3 +23,14 @@ nelmio_api_doc:
           permanent:
             required: true
             type: "boolean"
+
+      listRedirect:
+        properties:
+          folder:
+            type: "array"
+            items:
+              allOf:
+                - $ref: '#/definitions/singleRedirect'
+        title: "listRedirect"
+        required: ["items"]
+        type: "object"

@@ -12,6 +12,7 @@
 namespace Kunstmaan\Rest\NodeBundle\Service\Transformers;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\Rest\CoreBundle\Service\Transformers\TransformerInterface;
 use Kunstmaan\Rest\NodeBundle\Model\ApiEntity;
@@ -70,6 +71,10 @@ class PageTransformer implements TransformerInterface
 
         $apiPage->setSeo($seoRepo->findFor($page));
         $apiPage->setPage($apiEntity);
+
+        if($page instanceof AbstractArticlePage && method_exists($page, 'getAuthor')) {
+            $apiPage->setAuthor($page->getAuthor());
+        }
 
         return $apiPage;
     }

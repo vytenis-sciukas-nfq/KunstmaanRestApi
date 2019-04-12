@@ -1,0 +1,7 @@
+Kunstmaan\ArticleBundle\Entity\AbstractAuthor:
+  exclusion_policy: ALL
+  properties:
+    name:
+      expose: true
+    link:
+      expose: true

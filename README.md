@@ -13,6 +13,7 @@ The Kunstmaan RestApi Bundle provides a REST api for the popular Kunstmaan CMS b
 new Kunstmaan\Rest\CoreBundle\KunstmaanRestCoreBundle(),
 new Kunstmaan\Rest\NodeBundle\KunstmaanRestNodeBundle(),
 new Kunstmaan\Rest\MediaBundle\KunstmaanRestMediaBundle(),
+new Kunstmaan\Rest\ArticleBundle\KunstmaanRestArticleBundle(),
 new Kunstmaan\Rest\ConfigBundle\KunstmaanRestConfigBundle(),
 new Kunstmaan\Rest\UserBundle\KunstmaanRestUserBundle(),
 new Kunstmaan\Rest\RedirectBundle\KunstmaanRestRedirectBundle(),

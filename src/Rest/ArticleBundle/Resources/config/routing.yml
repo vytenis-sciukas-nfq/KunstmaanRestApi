@@ -1,0 +1,6 @@
+kunstmaan_api_article:
+    type: rest
+    resource: 'KunstmaanRestArticleBundle:Article'
+    defaults:
+        _format: json
+    prefix:   /api

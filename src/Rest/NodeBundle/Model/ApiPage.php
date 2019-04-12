@@ -11,6 +11,7 @@
 
 namespace Kunstmaan\Rest\NodeBundle\Model;
 
+use Kunstmaan\ArticleBundle\Entity\AbstractAuthor;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
@@ -39,6 +40,12 @@ class ApiPage
      * @Assert\Valid()
      */
     private $seo;
+
+    /**
+     * @var AbstractAuthor
+     * @Assert\Valid()
+     */
+    private $author;
 
     /**
      * @var NodeTranslation
@@ -146,6 +153,25 @@ class ApiPage
     public function setNodeVersion(NodeVersion $nodeVersion)
     {
         $this->nodeVersion = $nodeVersion;
+
+        return $this;
+    }
+
+    /**
+     * @return AbstractAuthor
+     */
+    public function getAuthor(): AbstractAuthor
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param AbstractAuthor $author
+     * @return $this
+     */
+    public function setAuthor(AbstractAuthor $author)
+    {
+        $this->author = $author;
 
         return $this;
     }

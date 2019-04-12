@@ -25,6 +25,7 @@
         "kunstmaan/node-search-bundle": "^5.2",
         "kunstmaan/redirect-bundle": "^5.2",
         "kunstmaan/search-bundle": "^5.2",
+        "kunstmaan/article-bundle": "^5.2",
         "friendsofsymfony/rest-bundle": "^2.2",
         "jms/serializer-bundle": "^2.2",
         "ramsey/uuid": "^3.8",

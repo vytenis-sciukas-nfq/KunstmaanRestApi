@@ -17,6 +17,11 @@ Kunstmaan\Rest\NodeBundle\Model\ApiPage:
       type: 'Kunstmaan\SeoBundle\Entity\Seo'
       groups: [edit, create]
 
+    author:
+      expose: true
+      type: 'Kunstmaan\ArticleBundle\Entity\AbstractAuthor'
+      groups: [edit, create]
+
     nodeTranslation:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\NodeTranslation'

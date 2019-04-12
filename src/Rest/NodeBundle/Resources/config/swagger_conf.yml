@@ -54,6 +54,10 @@ nelmio_api_doc:
             type: "object"
             allOf:
               - $ref: '#/definitions/Seo'
+          author:
+            type: "object"
+            allOf:
+              - $ref: '#/definitions/Author'
           nodeTranslation:
             type: "object"
             allOf:
