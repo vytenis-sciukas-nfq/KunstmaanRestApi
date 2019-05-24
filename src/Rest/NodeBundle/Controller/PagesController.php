@@ -74,7 +74,7 @@ class PagesController extends AbstractApiController
      * Retrieve nodes paginated
      *
      * @SWG\Get(
-     *     path="/api/pages",
+     *     path="/api/public/pages",
      *     description="Get a pages of a certain type",
      *     operationId="getPages",
      *     produces={"application/json"},
@@ -152,7 +152,7 @@ class PagesController extends AbstractApiController
      *     )
      * )
      *
-     * @Rest\Get("/pages")
+     * @Rest\Get("/public/pages")
      * @View(statusCode=200)
      *
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page", strict=true)
@@ -211,7 +211,7 @@ class PagesController extends AbstractApiController
      * Get a page by node translation ID
      *
      * @SWG\Get(
-     *     path="/api/pages/{id}",
+     *     path="/api/public/pages/{id}",
      *     description="Get a page by node translation ID",
      *     operationId="getPage",
      *     produces={"application/json"},
@@ -240,7 +240,7 @@ class PagesController extends AbstractApiController
      *     )
      * )
      *
-     * @Rest\Get("/pages/{id}", requirements={"id": "\d+"})
+     * @Rest\Get("/public/pages/{id}", requirements={"id": "\d+"})
      * @View(statusCode=200)
      *
      * @throws \Exception
@@ -339,6 +339,7 @@ class PagesController extends AbstractApiController
      */
     public function putPagesAction(Request $request, ApiPage $apiPage, $id, ConstraintViolationListInterface $validationErrors)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if (count($validationErrors) > 0) {
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }
@@ -422,6 +423,7 @@ class PagesController extends AbstractApiController
      */
     public function postPagesAction(Request $request, ApiPage $apiPage, ConstraintViolationListInterface $validationErrors)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if (count($validationErrors) > 0) {
             return new \FOS\RestBundle\View\View($validationErrors, Response::HTTP_BAD_REQUEST);
         }

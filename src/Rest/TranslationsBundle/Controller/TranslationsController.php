@@ -278,6 +278,7 @@ class TranslationsController extends AbstractFOSRestController
      */
     public function postTranslationsAction(Request $request, ParamFetcherInterface $paramFetcher, $domain = 'messages')
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $force = $paramFetcher->get('force') === "true" ? true : false ;
 
         /** @var TranslationService $translationCreator */
