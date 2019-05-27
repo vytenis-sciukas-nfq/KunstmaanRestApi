@@ -29,8 +29,8 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
      * ApiKeyAuthenticator constructor.
      *
      * @param EntityManagerInterface $em
-     * @param string $userClass
-     * @param string $authenticationHeader
+     * @param string                 $userClass
+     * @param string                 $authenticationHeader
      */
     public function __construct(EntityManagerInterface $em, string $userClass, string $authenticationHeader)
     {
@@ -50,7 +50,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        if ($request->headers->has(self::KUMA_DEAULT_API_KEY)) {
+        if ($request->headers->has($this->authenticationHeader)) {
             return true;
         }
 
@@ -68,9 +68,9 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
             $key = null;
         }
 
-        return array(
+        return [
             'key' => $key,
-        );
+        ];
     }
 
     /**
@@ -121,9 +121,9 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        $data = array(
+        $data = [
             'message' => 'Authentication based on api key failed',
-        );
+        ];
 
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);
     }
@@ -136,9 +136,9 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $data = array(
+        $data = [
             'message' => 'Authentication Required',
-        );
+        ];
 
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
