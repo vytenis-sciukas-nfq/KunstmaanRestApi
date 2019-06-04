@@ -4,6 +4,7 @@ namespace Kunstmaan\Rest\TranslationsBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Kunstmaan\Rest\TranslationsBundle\Model\Exception\TranslationException;
+use Kunstmaan\TranslatorBundle\Model\Translation as TranslationModel;
 use Kunstmaan\TranslatorBundle\Repository\TranslationRepository;
 use Kunstmaan\TranslatorBundle\Entity\Translation;
 use DateTime;
@@ -73,42 +74,48 @@ class TranslationService
 
         $translation->setFile(self::REST);
         /** @var array $result */
-        $result = $repository->findBy(['keyword' => $translation->getKeyword(), 'domain' => $translation->getDomain(), 'locale' => $translation->getLocale()]);
+        $result = $repository->findBy(['keyword' => $translation->getKeyword(), 'domain' => $translation->getDomain()]);
 
-        /** @var \Kunstmaan\TranslatorBundle\Entity\Translation $oldTrans */
-        $oldTrans = array_key_exists(0, $result) ? $result[0] : null;
+        if ($result instanceof Translation) {
+            $result = [$result];
+        }
 
-        if ($force) {
-            if ($oldTrans) {
-                $model = $oldTrans->getTranslationModel($oldTrans->getId());
-                $model->addText($translation->getLocale(), $translation->getText(), $oldTrans->getId());
-                $repository->updateTranslations($model, $oldTrans->getId());
-                if ($oldTrans->isDeprecated() || $oldTrans->isDisabled()) {
-                    $oldTrans->setStatus(Translation::STATUS_ENABLED);
-                }
-            } else {
-                $repository->createTranslations($translation->getTranslationModel());
+        /** @var Translation $oldTrans */
+        $oldTrans = null;
+        /** @var TranslationModel $model */
+        $model = new TranslationModel();
+        $model->setKeyword($translation->getKeyword());
+        $model->setDomain($translation->getDomain());
+        $translationId = null;
+        /** @var Translation $trans */
+        foreach ($result as $trans) {
+            $translationId = $trans->getTranslationId();
+            if ($translation->getLocale() === $trans->getLocale()) {
+                /** @var \Kunstmaan\TranslatorBundle\Entity\Translation $oldTrans */
+                $oldTrans = $trans;
+                continue;
             }
+            $model->addText($trans->getLocale(), $trans->getText(), $trans->getId());
+        }
+        $model->addText($translation->getLocale(), $translation->getText());
+
+        $disabled = null;
+        if ($oldTrans) {
+            $disabled = $oldTrans->isDisabled();
+            if (!$disabled && !$force) {
+                return $oldTrans;
+            }
+            $oldTrans->setStatus(Translation::STATUS_ENABLED);
+            $repository->updateTranslations($model, $translationId);
+        } elseif ($model->getTexts()->count() > 1) {
+            $repository->updateTranslations($model, $translationId);
         } else {
-            if ($oldTrans) {
-                if ($oldTrans->getLocale() !== $translation->getLocale()) {
-                    $model = $oldTrans->getTranslationModel($oldTrans->getId());
-                    $model->addText($translation->getLocale(), $translation->getText(), $oldTrans->getId());
-                    $repository->updateTranslations($model, $oldTrans->getId());
-                } elseif ($oldTrans->isDisabled()) {
-                    $oldTrans->setStatus(Translation::STATUS_ENABLED);
-                    $repository->updateTranslations($translation->getTranslationModel($oldTrans->getId()), $oldTrans->getId());
-                } else {
-                    return $oldTrans;
-                }
-            } else {
-                $repository->createTranslations($translation->getTranslationModel());
-            }
+            $repository->createTranslations($model);
         }
 
         $this->manager->flush();
 
-        return $repository->findOneBy(['keyword' => $translation->getKeyword(), 'locale' => $translation->getLocale()]);
+        return $repository->findOneBy(['keyword' => $translation->getKeyword(), 'locale' => $translation->getLocale(), 'domain' => $translation->getDomain()]);
     }
 
     /**
@@ -116,7 +123,8 @@ class TranslationService
      * @param string   $domain
      * @param DateTime $date
      */
-    public function deprecateTranslations($keyword, $domain)
+    public
+    function deprecateTranslations($keyword, $domain)
     {
         /** @var TranslationRepository $repository */
         $repository = $this->manager->getRepository(Translation::class);
@@ -135,7 +143,8 @@ class TranslationService
      * @param DateTime $date
      * @param string   $domain
      */
-    public function disableDeprecatedTranslations(DateTime $date, $domain)
+    public
+    function disableDeprecatedTranslations(DateTime $date, $domain)
     {
         /** @var TranslationRepository $repository */
         $repository = $this->manager->getRepository(Translation::class);
@@ -154,7 +163,8 @@ class TranslationService
      * @param string $keyword
      * @param string $domain
      */
-    public function enableDeprecatedTranslations($keyword, $domain)
+    public
+    function enableDeprecatedTranslations($keyword, $domain)
     {
         /** @var TranslationRepository $repository */
         $repository = $this->manager->getRepository(Translation::class);
@@ -174,7 +184,8 @@ class TranslationService
      *
      * @return bool
      */
-    private function validateArrayTranslation(array $translation)
+    private
+    function validateArrayTranslation(array $translation)
     {
         return array_key_exists('locale', $translation)
             && array_key_exists('keyword', $translation)
