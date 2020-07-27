@@ -20,6 +20,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class TranslationsController extends AbstractFOSRestController
 {
+    /** @var TranslationService */
+    private $translationsService;
+
+    public function __construct(TranslationService $translationsService)
+    {
+        $this->translationsService = $translationsService;
+    }
+
     /**
      * @View(
      *     statusCode=200
@@ -281,8 +289,7 @@ class TranslationsController extends AbstractFOSRestController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $force = $paramFetcher->get('force') === "true" ? true : false ;
 
-        /** @var TranslationService $translationCreator */
-        $translationCreator = $this->get(TranslationService::class);
+        $translationCreator = $this->translationsService;
         $json = $request->getContent();
         $translations = json_decode($json, true);
 
@@ -348,8 +355,7 @@ class TranslationsController extends AbstractFOSRestController
      */
     public function deprecateTranslationsAction(Request $request, $domain = 'messages')
     {
-        /** @var TranslationService $translationCreator */
-        $translationCreator = $this->get(TranslationService::class);
+        $translationCreator = $this->translationsService;
 
         $json = $request->getContent();
         $keywords = json_decode($json, true);
@@ -414,8 +420,7 @@ class TranslationsController extends AbstractFOSRestController
      */
     public function disableDeprecatedTranslationsAction(Request $request, $domain)
     {
-        /** @var TranslationService $translationCreator */
-        $translationCreator = $this->get(TranslationService::class);
+        $translationCreator = $this->translationsService;
 
         $json = $request->getContent();
         $translationDeprecation = json_decode($json, true);
@@ -478,8 +483,7 @@ class TranslationsController extends AbstractFOSRestController
      */
     public function enableDeprecatedTranslationsAction(Request $request, $domain = 'messages')
     {
-        /** @var TranslationService $translationCreator */
-        $translationCreator = $this->get(TranslationService::class);
+        $translationCreator = $this->translationsService;
 
         $json = $request->getContent();
         $keywords = json_decode($json, true);
