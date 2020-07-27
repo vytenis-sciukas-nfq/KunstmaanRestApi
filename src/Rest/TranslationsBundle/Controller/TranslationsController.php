@@ -11,7 +11,6 @@ use Kunstmaan\Rest\TranslationsBundle\Model\Exception\TranslationException;
 use Kunstmaan\Rest\TranslationsBundle\Service\TranslationService;
 use Kunstmaan\TranslatorBundle\Entity\Translation;
 use Swagger\Annotations as SWG;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -287,13 +286,13 @@ class TranslationsController extends AbstractFOSRestController
     public function postTranslationsAction(Request $request, ParamFetcherInterface $paramFetcher, $domain = 'messages')
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $force = $paramFetcher->get('force') === "true" ? true : false ;
+        $force = $paramFetcher->get('force') === "true" ? true : false;
 
         $translationCreator = $this->translationsService;
         $json = $request->getContent();
         $translations = json_decode($json, true);
 
-        foreach($translations as $key => $translation){
+        foreach ($translations as $key => $translation) {
             $translations[$key]['domain'] = $domain;
         }
 
@@ -359,6 +358,9 @@ class TranslationsController extends AbstractFOSRestController
 
         $json = $request->getContent();
         $keywords = json_decode($json, true);
+        if (isset($keywords['keyword'])) {
+            $keywords = [$keywords];
+        }
 
         foreach ($keywords as $keyword) {
             if (!array_key_exists('keyword', $keyword)) {

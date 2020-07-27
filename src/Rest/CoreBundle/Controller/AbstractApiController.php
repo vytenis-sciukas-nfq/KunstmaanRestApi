@@ -12,6 +12,8 @@
 namespace Kunstmaan\Rest\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\View\ViewHandlerInterface;
+use Kunstmaan\Rest\CoreBundle\Helper\Controller\Paginator;
 
 /**
  * Class AbstractApiController
@@ -24,5 +26,13 @@ abstract class AbstractApiController extends AbstractFOSRestController
     public function getPaginator()
     {
         return $this->container->get('kunstmaan_rest_core.helper.controller.paginator');
+    }
+
+    public static function getSubscribedServices()
+    {
+        $subscribedServices = parent::getSubscribedServices();
+        $subscribedServices['kunstmaan_rest_core.helper.controller.paginator'] = Paginator::class;
+
+        return $subscribedServices;
     }
 }

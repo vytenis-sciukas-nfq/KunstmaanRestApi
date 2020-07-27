@@ -2,3 +2,10 @@ services:
     Kunstmaan\Rest\TranslationsBundle\Service\TranslationService:
         arguments:
             - '@doctrine.orm.entity_manager'
+
+    Kunstmaan\Rest\TranslationsBundle\Controller\TranslationsController:
+        public: true
+        arguments:
+            - '@Kunstmaan\Rest\TranslationsBundle\Service\TranslationService'
+        calls:
+            - [setViewHandler, ['@fos_rest.view_handler.default']]
