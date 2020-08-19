@@ -30,4 +30,22 @@ class RestUserAdminListConfigurator extends ParentAdminListConfigurator
     {
         return 'KunstmaanRestCoreBundle';
     }
+
+    public function getAddUrlFor(array $params = array())
+    {
+        $params = array_merge($params, $this->getExtraParameters());
+
+        $friendlyName = explode('\\', $this->getEntityName());
+        $friendlyName = array_pop($friendlyName);
+        $re = '/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/';
+        $a = preg_split($re, $friendlyName);
+        $superFriendlyName = 'User';
+
+        return array(
+            $superFriendlyName => array(
+                'path' => $this->getPathByConvention($this::SUFFIX_ADD),
+                'params' => $params,
+            ),
+        );
+    }
 }
