@@ -1,104 +1,105 @@
 nelmio_api_doc:
   documentation:
-    definitions:
-      MenuList:
-        properties:
-          menus:
-            type: "array"
-            roles:
-              allOf:
-                - $ref: '#/definitions/Menu'
-        title: "MenuList"
-        required: ["menus"]
-        type: "object"
+    components:
+      schemas:
+        MenuList:
+          properties:
+            menus:
+              type: "array"
+              roles:
+                allOf:
+                  - $ref: '#/components/schemas/Menu'
+          title: "MenuList"
+          required: ["menus"]
+          type: "object"
 
-      MenuItemList:
-        properties:
-          menu-items:
-            type: "array"
-            roles:
-              allOf:
-                - $ref: '#/definitions/MenuItem'
-        title: "MenuItemList"
-        required: ["menu-items"]
-        type: "object"
-      PostMenu:
-        title: "PostMenu"
-        type: "object"
-        properties:
-          name:
-            type: "string"
-            required: false
-          locale:
-            type: "string"
-            required: false
-      PostMenuItem:
-        title: "PostMenu"
-        type: "object"
-        properties:
-          name:
-            type: "string"
-            required: false
-          locale:
-            type: "string"
-            required: false
-      PutMenuItem:
-        title: "PostMenu"
-        type: "object"
-        properties:
-          name:
-            type: "string"
-            required: false
-          locale:
-            type: "string"
-            required: false
-      Menu:
-        title: "Menu"
-        type: "object"
-        properties:
-          id:
-            type: "integer"
-            required: false
-          name:
-            type: "string"
-            required: false
-          locale:
-            type: "string"
-            required: false
+        MenuItemList:
+          properties:
+            menu-items:
+              type: "array"
+              roles:
+                allOf:
+                  - $ref: '#/components/schemas/MenuItem'
+          title: "MenuItemList"
+          required: ["menu-items"]
+          type: "object"
+        PostMenu:
+          title: "PostMenu"
+          type: "object"
+          properties:
+            name:
+              type: "string"
+              required: false
+            locale:
+              type: "string"
+              required: false
+        PostMenuItem:
+          title: "PostMenu"
+          type: "object"
+          properties:
+            name:
+              type: "string"
+              required: false
+            locale:
+              type: "string"
+              required: false
+        PutMenuItem:
+          title: "PostMenu"
+          type: "object"
+          properties:
+            name:
+              type: "string"
+              required: false
+            locale:
+              type: "string"
+              required: false
+        Menu:
+          title: "Menu"
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              required: false
+            name:
+              type: "string"
+              required: false
+            locale:
+              type: "string"
+              required: false
 
-      MenuItem:
-        title: "MenuItem"
-        type: "object"
-        properties:
-          id:
-            type: "integer"
-            required: false
-          menu:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/Folder'
-          nodeTranslation:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/NodeTranslation'
-          type:
-            type: "string"
-            required: false
-          title:
-            type: "string"
-            required: false
-          url:
-            type: "string"
-            required: false
-          newWindow:
-            type: "boolean"
-            required: false
-          lft:
-            type: "integer"
-            required: false
-          rgt:
-            type: "integer"
-            required: false
-          lvl:
-            type: "integer"
-            required: false
+        MenuItem:
+          title: "MenuItem"
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              required: false
+            menu:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/Folder'
+            nodeTranslation:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/NodeTranslation'
+            type:
+              type: "string"
+              required: false
+            title:
+              type: "string"
+              required: false
+            url:
+              type: "string"
+              required: false
+            newWindow:
+              type: "boolean"
+              required: false
+            lft:
+              type: "integer"
+              required: false
+            rgt:
+              type: "integer"
+              required: false
+            lvl:
+              type: "integer"
+              required: false

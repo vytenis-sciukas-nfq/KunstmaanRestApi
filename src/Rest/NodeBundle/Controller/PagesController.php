@@ -126,17 +126,17 @@ class PagesController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/ApiPage")
+     *         @OA\JsonContent(ref="#/components/schemas/ApiPage")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @OA\JsonContent(ref="#/definitions/Node")
+     *         @OA\JsonContent(ref="#/components/schemas/Node")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/Node")
+     *         @OA\JsonContent(ref="#/components/schemas/Node")
      *     )
      * )
      *
@@ -212,17 +212,17 @@ class PagesController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/GetApiPage")
+     *         @OA\JsonContent(ref="#/components/schemas/GetApiPage")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -271,22 +271,22 @@ class PagesController extends AbstractApiController
      *     @OA\Parameter(
      *         name="apiPage",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/ApiPage")
+     *         @OA\JsonContent(ref="#/components/schemas/ApiPage")
      *     ),
      *     @OA\Response(
      *         response=204,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/PutApiPage")
+     *         @OA\JsonContent(ref="#/components/schemas/PutApiPage")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -359,22 +359,22 @@ class PagesController extends AbstractApiController
      *     @OA\Parameter(
      *         name="apiPage",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/PostApiPage"),
+     *         @OA\JsonContent(ref="#/components/schemas/PostApiPage"),
      *     ),
      *     @OA\Response(
      *         response=204,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/ApiPage")
+     *         @OA\JsonContent(ref="#/components/schemas/ApiPage")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *

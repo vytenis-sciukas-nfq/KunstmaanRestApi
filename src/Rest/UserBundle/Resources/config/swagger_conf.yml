@@ -1,126 +1,127 @@
 nelmio_api_doc:
   documentation:
-    definitions:
-      RoleList:
-        properties:
-          roles:
-            type: "array"
+    components:
+      schemas:
+        RoleList:
+          properties:
             roles:
-              allOf:
-                - $ref: '#/definitions/Role'
-        title: "RoleList"
-        required: ["roles"]
-        type: "object"
+              type: "array"
+              roles:
+                allOf:
+                  - $ref: '#/components/schemas/Role'
+          title: "RoleList"
+          required: ["roles"]
+          type: "object"
 
-      Role:
-        title: "Role"
-        type: "object"
-        properties:
-          role:
-            type: "string"
-            required: false
+        Role:
+          title: "Role"
+          type: "object"
+          properties:
+            role:
+              type: "string"
+              required: false
 
-      GroupList:
-        properties:
-          groups:
-            type: "array"
+        GroupList:
+          properties:
+            groups:
+              type: "array"
+              roles:
+                allOf:
+                  - $ref: '#/components/schemas/Group'
+          title: "GroupList"
+          required: ["groups"]
+          type: "object"
+
+        Group:
+          title: "Group"
+          type: "object"
+          properties:
+            name:
+              type: "string"
+              required: false
             roles:
-              allOf:
-                - $ref: '#/definitions/Group'
-        title: "GroupList"
-        required: ["groups"]
-        type: "object"
+              type: "array"
+              roles:
+                allOf:
+                  - $ref: '#/components/schemas/Role'
 
-      Group:
-        title: "Group"
-        type: "object"
-        properties:
-          name:
-            type: "string"
-            required: false
-          roles:
-            type: "array"
-            roles:
-              allOf:
-                - $ref: '#/definitions/Role'
-
-      UserList:
-        properties:
-          users:
-            type: "array"
+        UserList:
+          properties:
             users:
-              allOf:
-                - $ref: '#/definitions/User'
-        title: "UserList"
-        required: ["users"]
-        type: "object"
+              type: "array"
+              users:
+                allOf:
+                  - $ref: '#/components/schemas/User'
+          title: "UserList"
+          required: ["users"]
+          type: "object"
 
-      User:
-        title: "User"
-        type: "object"
-        properties:
-          username:
-            type: "string"
-            required: false
-          email:
-            type: "string"
-            required: false
-          groups:
-            type: "array"
-            required: false
-          enabled:
-            type: "boolean"
-            required: false
-          adminLocale:
-            required: false
-            type: "boolean"
+        User:
+          title: "User"
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              required: false
+            email:
+              type: "string"
+              required: false
+            groups:
+              type: "array"
+              required: false
+            enabled:
+              type: "boolean"
+              required: false
+            adminLocale:
+              required: false
+              type: "boolean"
 
-      PutUser:
-        title: "PutUser"
-        type: "object"
-        properties:
-          username:
-            type: "string"
-            required: false
-          email:
-            type: "string"
-            required: false
-          groups:
-            type: "array"
-            required: false
-          enabled:
-            required: false
-            type: "boolean"
-          adminLocale:
-            required: false
-            type: "string"
-          password:
-            type: "string"
-            required: false
-          passwordConfirm:
-            required: false
-            type: "string"
+        PutUser:
+          title: "PutUser"
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              required: false
+            email:
+              type: "string"
+              required: false
+            groups:
+              type: "array"
+              required: false
+            enabled:
+              required: false
+              type: "boolean"
+            adminLocale:
+              required: false
+              type: "string"
+            password:
+              type: "string"
+              required: false
+            passwordConfirm:
+              required: false
+              type: "string"
 
-      PostUser:
-        title: "PostUser"
-        type: "object"
-        properties:
-          username:
-            type: "string"
-            required: true
-          email:
-            type: "string"
-            required: true
-          groups:
-            type: "array"
-            required: true
-          adminLocale:
-            required: true
-            type: "string"
-          password:
-            type: "string"
-            required: true
-          passwordConfirm:
-            required: true
-            type: "string"
+        PostUser:
+          title: "PostUser"
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              required: true
+            email:
+              type: "string"
+              required: true
+            groups:
+              type: "array"
+              required: true
+            adminLocale:
+              required: true
+              type: "string"
+            password:
+              type: "string"
+              required: true
+            passwordConfirm:
+              required: true
+              type: "string"
 

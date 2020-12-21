@@ -32,9 +32,12 @@ class NelmioDefinitionsCompilerPass implements CompilerPassInterface
         $locator = new FileLocator(__DIR__.'/../../Resources/config/');
         $bundleConfig = Yaml::parseFile($locator->locate('swagger_conf.yml'));
 
-        $config['definitions'] = \array_merge(
-            isset($config['definitions']) ? $config['definitions'] : [],
-            $bundleConfig['nelmio_api_doc']['documentation']['definitions']
+        if(!isset($config['components'])) {
+            $config['components'] = [];
+        }
+        $config['components']['schemas'] = \array_merge(
+            isset($config['components']['schemas']) ? $config['components']['schemas'] : [],
+            $bundleConfig['nelmio_api_doc']['documentation']['components']['schemas']
         );
 
         $definition->replaceArgument(0, $config);

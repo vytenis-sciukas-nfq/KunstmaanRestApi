@@ -68,17 +68,17 @@ class RoleController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/RoleList")
+     *         @OA\JsonContent(ref="#/components/schemas/RoleList")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -132,12 +132,12 @@ class RoleController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -175,7 +175,7 @@ class RoleController extends AbstractApiController
      *     @OA\Parameter(
      *         name="role",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/Role"),
+     *         @OA\JsonContent(ref="#/components/schemas/Role"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -190,12 +190,12 @@ class RoleController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -240,7 +240,7 @@ class RoleController extends AbstractApiController
      *     @OA\Parameter(
      *         name="role",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/Role"),
+     *         @OA\JsonContent(ref="#/components/schemas/Role"),
      *     ),
      *     @OA\Response(
      *         response=202,
@@ -255,12 +255,12 @@ class RoleController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *

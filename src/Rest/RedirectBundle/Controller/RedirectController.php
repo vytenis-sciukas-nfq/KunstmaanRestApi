@@ -43,7 +43,7 @@ class RedirectController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/listRedirects")
+     *         @OA\JsonContent(ref="#/components/schemas/listRedirects")
      *     ),
      *     @OA\Parameter(
      *         name="page",
@@ -60,12 +60,12 @@ class RedirectController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")

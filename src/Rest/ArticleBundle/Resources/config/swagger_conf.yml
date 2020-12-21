@@ -1,11 +1,12 @@
 nelmio_api_doc:
   documentation:
-    definitions:
-      Author:
-        title: "Author"
-        type: "object"
-        properties:
-          name:
-            type: string
-          link:
-            type: string
+    components:
+      schemas:
+        Author:
+          title: "Author"
+          type: "object"
+          properties:
+            name:
+              type: string
+            link:
+              type: string

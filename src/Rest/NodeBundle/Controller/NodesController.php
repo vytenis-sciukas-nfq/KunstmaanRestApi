@@ -87,17 +87,17 @@ class NodesController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/NodeList")
+     *         @OA\JsonContent(ref="#/components/schemas/NodeList")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -174,17 +174,17 @@ class NodesController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/Node")
+     *         @OA\JsonContent(ref="#/components/schemas/Node")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -228,17 +228,17 @@ class NodesController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/NodeList")
+     *         @OA\JsonContent(ref="#/components/schemas/NodeList")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -282,17 +282,17 @@ class NodesController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/Node")
+     *         @OA\JsonContent(ref="#/components/schemas/Node")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *

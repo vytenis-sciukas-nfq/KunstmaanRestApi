@@ -69,17 +69,17 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/MenuList")
+     *         @OA\JsonContent(ref="#/components/schemas/MenuList")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -143,17 +143,17 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/MenuItemList")
+     *         @OA\JsonContent(ref="#/components/schemas/MenuItemList")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -209,7 +209,7 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -220,7 +220,7 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -273,12 +273,12 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -319,7 +319,7 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="menu",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/PostMenu"),
+     *         @OA\JsonContent(ref="#/components/schemas/PostMenu"),
      *     ),
      *     @OA\Response(
      *         response=202,
@@ -334,12 +334,12 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -396,7 +396,7 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="menuItem",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/PostMenuItem"),
+     *         @OA\JsonContent(ref="#/components/schemas/PostMenuItem"),
      *     ),
      *     @OA\Parameter(
      *         name="id",
@@ -417,12 +417,12 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -487,7 +487,7 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="menu",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/PostMenu"),
+     *         @OA\JsonContent(ref="#/components/schemas/PostMenu"),
      *     ),
      *     @OA\Parameter(
      *         name="id",
@@ -508,12 +508,12 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -578,7 +578,7 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="menuItem",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/PutMenuItem"),
+     *         @OA\JsonContent(ref="#/components/schemas/PutMenuItem"),
      *     ),
      *     @OA\Parameter(
      *         name="id",
@@ -599,12 +599,12 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *

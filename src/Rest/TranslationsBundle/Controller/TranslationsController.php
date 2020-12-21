@@ -51,13 +51,13 @@ class TranslationsController extends AbstractFOSRestController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/listTranslation")
+     *         @OA\JsonContent(ref="#/components/schemas/listTranslation")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
      *         @OA\JsonContent(
-     *             ref="#/definitions/ErrorModel"
+     *             ref="#/components/schemas/ErrorModel"
      *         )
      *     )
      * )
@@ -109,13 +109,13 @@ class TranslationsController extends AbstractFOSRestController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/listTranslation")
+     *         @OA\JsonContent(ref="#/components/schemas/listTranslation")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
      *         @OA\JsonContent(
-     *             ref="#/definitions/ErrorModel"
+     *             ref="#/components/schemas/ErrorModel"
      *         )
      *     )
      * )
@@ -174,13 +174,13 @@ class TranslationsController extends AbstractFOSRestController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/singleTranslation")
+     *         @OA\JsonContent(ref="#/components/schemas/singleTranslation")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
      *         @OA\JsonContent(
-     *             ref="#/definitions/ErrorModel"
+     *             ref="#/components/schemas/ErrorModel"
      *         )
      *     )
      * )
@@ -228,7 +228,7 @@ class TranslationsController extends AbstractFOSRestController
      *         in="body",
      *         required=true,
      *         description="The posted translations",
-     *         @OA\JsonContent(ref="#/definitions/postTranslations"),
+     *         @OA\JsonContent(ref="#/components/schemas/postTranslations"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -251,18 +251,18 @@ class TranslationsController extends AbstractFOSRestController
      *     @OA\Response(
      *         response=201,
      *         description="Returned when successfully created",
-     *         @OA\JsonContent(ref="#/definitions/listTranslation")
+     *         @OA\JsonContent(ref="#/components/schemas/listTranslation")
      *     ),
      *     @OA\Response(
      *         response=404,
      *         description="Returned when no translations are provided",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
      *         @OA\JsonContent(
-     *             ref="#/definitions/ErrorModel"
+     *             ref="#/components/schemas/ErrorModel"
      *         )
      *     )
      * )
@@ -306,7 +306,7 @@ class TranslationsController extends AbstractFOSRestController
      *         in="body",
      *         required=true,
      *         description="The posted translations",
-     *         @OA\JsonContent(ref="#/definitions/keywordCollection"),
+     *         @OA\JsonContent(ref="#/components/schemas/keywordCollection"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -328,7 +328,7 @@ class TranslationsController extends AbstractFOSRestController
      *         response="default",
      *         description="unexpected error",
      *         @OA\JsonContent(
-     *             ref="#/definitions/ErrorModel"
+     *             ref="#/components/schemas/ErrorModel"
      *         )
      *     )
      * )
@@ -371,7 +371,7 @@ class TranslationsController extends AbstractFOSRestController
      *         in="body",
      *         required=true,
      *         description="The posted translations",
-     *         @OA\JsonContent(ref="#/definitions/disablingDate"),
+     *         @OA\JsonContent(ref="#/components/schemas/disablingDate"),
      *     ),
      *     @OA\Parameter(
      *         name="domain",
@@ -393,7 +393,7 @@ class TranslationsController extends AbstractFOSRestController
      *         response="default",
      *         description="unexpected error",
      *         @OA\JsonContent(
-     *             ref="#/definitions/ErrorModel"
+     *             ref="#/components/schemas/ErrorModel"
      *         )
      *     )
      * )
@@ -430,7 +430,7 @@ class TranslationsController extends AbstractFOSRestController
      *         in="body",
      *         required=true,
      *         description="The posted translations",
-     *         @OA\JsonContent(ref="#/definitions/keywordCollection"),
+     *         @OA\JsonContent(ref="#/components/schemas/keywordCollection"),
      *     ),
      *     @OA\Parameter(
      *         name="domain",
@@ -452,7 +452,7 @@ class TranslationsController extends AbstractFOSRestController
      *         response="default",
      *         description="unexpected error",
      *         @OA\JsonContent(
-     *             ref="#/definitions/ErrorModel"
+     *             ref="#/components/schemas/ErrorModel"
      *         )
      *     )
      * )

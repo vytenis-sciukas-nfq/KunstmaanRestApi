@@ -98,17 +98,17 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/MediaList")
+     *         @OA\JsonContent(ref="#/components/schemas/MediaList")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -167,17 +167,17 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/Media")
+     *         @OA\JsonContent(ref="#/components/schemas/Media")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -221,17 +221,17 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/definitions/FolderList")
+     *         @OA\JsonContent(ref="#/components/schemas/FolderList")
      *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -281,7 +281,7 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="folder",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/PostFolder"),
+     *         @OA\JsonContent(ref="#/components/schemas/PostFolder"),
      *     ),
      *     @OA\Parameter(
      *         name="parentId",
@@ -296,12 +296,12 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -368,7 +368,7 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="media",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/UploadMedia"),
+     *         @OA\JsonContent(ref="#/components/schemas/UploadMedia"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -383,12 +383,12 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -470,7 +470,7 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="media",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/putMedia"),
+     *         @OA\JsonContent(ref="#/components/schemas/putMedia"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -485,12 +485,12 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -568,7 +568,7 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="folder",
      *         in="body",
-     *         @OA\JsonContent(ref="#/definitions/PostFolder"),
+     *         @OA\JsonContent(ref="#/components/schemas/PostFolder"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -589,12 +589,12 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -688,12 +688,12 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -759,12 +759,12 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *
@@ -814,12 +814,12 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     )
      * )
      *

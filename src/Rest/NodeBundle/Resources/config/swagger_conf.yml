@@ -1,206 +1,206 @@
 nelmio_api_doc:
   documentation:
-    definitions:
+    component:
+      schemas:
+        Node:
+          title: "Node"
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+            hidden_from_nav:
+              type: "boolean"
+            ref_entity_name:
+              type: "string"
+            internal_name:
+              type: "string"
+            slug:
+              type: "string"
+            url:
+              type: "string"
+            lft:
+              type: "integer"
+            rgt:
+              type: "integer"
+            lvl:
+              type: "integer"
 
-      Node:
-        title: "Node"
-        type: "object"
-        properties:
-          id:
-            type: "integer"
-          hidden_from_nav:
-            type: "boolean"
-          ref_entity_name:
-            type: "string"
-          internal_name:
-            type: "string"
-          slug:
-            type: "string"
-          url:
-            type: "string"
-          lft:
-            type: "integer"
-          rgt:
-            type: "integer"
-          lvl:
-            type: "integer"
+        NodeTranslation:
+          properties:
+            title:
+              type: "string"
+            lang:
+              type: "string"
+            online:
+              type: "boolean"
 
-      NodeTranslation:
-        properties:
-          title:
-            type: "string"
-          lang:
-            type: "string"
-          online:
-            type: "boolean"
-
-      ApiPage:
-        title: "Page"
-        type: "object"
-        properties:
-          page:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/ApiEntity'
-          pageTemplate:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/ApiPageTemplate'
-          node:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/PostNode'
-          seo:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/Seo'
-          author:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/Author'
-          nodeTranslation:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/PostNodeTranslation'
-
-      Seo:
-        title: "Seo"
-        type: "object"
-        properties:
-          metaTitle:
-            type: string
-          metaDescription:
-            type: string
-          metaAuthor:
-            type: string
-          metaRobots:
-            type: string
-          ogType:
-            type: string
-          ogTitle:
-            type: string
-          ogDescription:
-            type: string
-          extraMetaData:
-            type: string
-          ogImage:
-            type: "object"
-            allOf:
-              - $ref: '#/definitions/Media'
-
-      GetNode:
-        allOf:
-          - $ref: '#/definitions/Node'
-          - properties:
-              parent:
-                type: "object"
-                allOf:
-                  - $ref: '#/definitions/Node'
-
-      PostNode:
-        allOf:
-          - $ref: '#/definitions/Node'
-          - properties:
-              parent:
-                type: "object"
-                allOf:
-                  - $ref: '#/definitions/Node'
-
-      GetNodeTranslation:
-        allOf:
-          - $ref: '#/definitions/NodeTranslation'
-          - properties:
-              id:
-                type: "integer"
-              weight:
-                type: "integer"
-              created:
-                type: "string"
-                format: "date-time"
-              updated:
-                type: "string"
-                format: "date-time"
-
-      PostNodeTranslation:
-         allOf:
-          - $ref: '#/definitions/NodeTranslation'
-
-      NodeVersion:
-        title: "nodeVersion"
-        type: "object"
-        properties:
-          id:
-            type: "integer"
-          owner:
-            type: "id"
-          ref_id:
-            type: "integer"
-          ref_entity_name:
-            type: "string"
-
-      NodeList:
-        title: "NodeList"
-        type: "array"
-        items:
-          allOf:
-            - $ref: '#/definitions/GetNode'
-
-      ApiEntity:
-        title: "ApiEntity"
-        type: "object"
-        properties:
-          type:
-            type: "string"
-            example: 'Kunstmaan\SomeBundle\Entity\Pages\HomePage'
-          data:
-            type: "object"
-
-      ApiPagePart:
-        title: "ApiPagePart"
-        type: "object"
-        properties:
-          type:
-            type: "string"
-          data:
-            type: "object"
-
-      ApiContext:
-        title: "ApiContext"
-        type: "object"
-        properties:
-          name:
-            type: "string"
-          pageparts:
-            type: "array"
-            items:
-              allOf:
-                - $ref: '#/definitions/ApiPagePart'
-
-      ApiPageTemplate:
-        title: "ApiPageTemplate"
-        type: "object"
-        properties:
-          name:
-            type: "string"
-          contexts:
-            type: "array"
-            items:
-              allOf:
-                - $ref: '#/definitions/ApiContext'
-
-      GetApiPage:
-        allOf:
-          - $ref: '#/definitions/ApiPage'
-          - properties:
-            nodeVersion:
+        ApiPage:
+          title: "Page"
+          type: "object"
+          properties:
+            page:
               type: "object"
               allOf:
-                - $ref: '#/definitions/NodeVersion'
+                - $ref: '#/components/schemas/ApiEntity'
+            pageTemplate:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/ApiPageTemplate'
+            node:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/PostNode'
+            seo:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/Seo'
+            author:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/Author'
+            nodeTranslation:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/PostNodeTranslation'
 
-      PostApiPage:
-        allOf:
-          - $ref: '#/definitions/ApiPage'
+        Seo:
+          title: "Seo"
+          type: "object"
+          properties:
+            metaTitle:
+              type: string
+            metaDescription:
+              type: string
+            metaAuthor:
+              type: string
+            metaRobots:
+              type: string
+            ogType:
+              type: string
+            ogTitle:
+              type: string
+            ogDescription:
+              type: string
+            extraMetaData:
+              type: string
+            ogImage:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/Media'
 
-      PutApiPage:
-        allOf:
-          - $ref: '#/definitions/ApiPage'
+        GetNode:
+          allOf:
+            - $ref: '#/components/schemas/Node'
+            - properties:
+                parent:
+                  type: "object"
+                  allOf:
+                    - $ref: '#/components/schemas/Node'
+
+        PostNode:
+          allOf:
+            - $ref: '#/components/schemas/Node'
+            - properties:
+                parent:
+                  type: "object"
+                  allOf:
+                    - $ref: '#/components/schemas/Node'
+
+        GetNodeTranslation:
+          allOf:
+            - $ref: '#/components/schemas/NodeTranslation'
+            - properties:
+                id:
+                  type: "integer"
+                weight:
+                  type: "integer"
+                created:
+                  type: "string"
+                  format: "date-time"
+                updated:
+                  type: "string"
+                  format: "date-time"
+
+        PostNodeTranslation:
+           allOf:
+            - $ref: '#/components/schemas/NodeTranslation'
+
+        NodeVersion:
+          title: "nodeVersion"
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+            owner:
+              type: "id"
+            ref_id:
+              type: "integer"
+            ref_entity_name:
+              type: "string"
+
+        NodeList:
+          title: "NodeList"
+          type: "array"
+          items:
+            allOf:
+              - $ref: '#/components/schemas/GetNode'
+
+        ApiEntity:
+          title: "ApiEntity"
+          type: "object"
+          properties:
+            type:
+              type: "string"
+              example: 'Kunstmaan\SomeBundle\Entity\Pages\HomePage'
+            data:
+              type: "object"
+
+        ApiPagePart:
+          title: "ApiPagePart"
+          type: "object"
+          properties:
+            type:
+              type: "string"
+            data:
+              type: "object"
+
+        ApiContext:
+          title: "ApiContext"
+          type: "object"
+          properties:
+            name:
+              type: "string"
+            pageparts:
+              type: "array"
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/ApiPagePart'
+
+        ApiPageTemplate:
+          title: "ApiPageTemplate"
+          type: "object"
+          properties:
+            name:
+              type: "string"
+            contexts:
+              type: "array"
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/ApiContext'
+
+        GetApiPage:
+          allOf:
+            - $ref: '#/components/schemas/ApiPage'
+            - properties:
+              nodeVersion:
+                type: "object"
+                allOf:
+                  - $ref: '#/components/schemas/NodeVersion'
+
+        PostApiPage:
+          allOf:
+            - $ref: '#/components/schemas/ApiPage'
+
+        PutApiPage:
+          allOf:
+            - $ref: '#/components/schemas/ApiPage'
