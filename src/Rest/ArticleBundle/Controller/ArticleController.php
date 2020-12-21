@@ -39,7 +39,6 @@ class ArticleController extends AbstractApiController
      *     path="/api/authors/{type}",
      *     description="get all authors",
      *     operationId="getAuthors",
-     *     produces={"application/json"},
      *     tags={"article"},
      *     @OA\Parameter(
      *         name="X-Api-Key",

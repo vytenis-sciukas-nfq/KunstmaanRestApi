@@ -56,7 +56,6 @@ class UserController extends AbstractApiController
      *     path="/api/user",
      *     description="Get all users",
      *     operationId="getUsers",
-     *     produces={"application/json"},
      *     tags={"user"},
      *     @OA\Parameter(
      *         name="page",
@@ -149,7 +148,6 @@ class UserController extends AbstractApiController
      *     path="/api/user/{id}",
      *     description="update a User",
      *     operationId="updateUser",
-     *     produces={"application/json"},
      *     tags={"user"},
      *     @OA\Parameter(
      *         name="userModel",
@@ -272,7 +270,6 @@ class UserController extends AbstractApiController
      *     path="/api/user",
      *     description="create a User",
      *     operationId="createUser",
-     *     produces={"application/json"},
      *     tags={"user"},
      *     @OA\Parameter(
      *         name="userModel",
@@ -368,7 +365,6 @@ class UserController extends AbstractApiController
      *     path="/api/user/{id}",
      *     description="deletes a User",
      *     operationId="deleteUser",
-     *     produces={"application/json"},
      *     tags={"user"},
      *     @OA\Parameter(
      *         name="id",
@@ -423,7 +419,6 @@ class UserController extends AbstractApiController
      *     path="/api/user/{id}/toggle-enabled",
      *     description="toggle a Users enabled state",
      *     operationId="toggleEnabledUser",
-     *     produces={"application/json"},
      *     tags={"user"},
      *     @OA\Parameter(
      *         name="id",
@@ -486,7 +481,6 @@ class UserController extends AbstractApiController
      *     path="/api/user/{id}/refresh-key",
      *     description="refresh api key",
      *     operationId="refreshApiKey",
-     *     produces={"application/json"},
      *     tags={"user"},
      *     @OA\Parameter(
      *         name="id",

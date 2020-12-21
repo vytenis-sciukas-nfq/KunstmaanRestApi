@@ -47,7 +47,6 @@ class NodesController extends AbstractApiController
      *     path="/api/nodes",
      *     description="Get all nodes",
      *     operationId="getNodes",
-     *     produces={"application/json"},
      *     tags={"nodes"},
      *     @OA\Parameter(
      *         name="page",
@@ -171,7 +170,6 @@ class NodesController extends AbstractApiController
      *     path="/api/nodes/{id}",
      *     description="Get a node by ID",
      *     operationId="getNode",
-     *     produces={"application/json"},
      *     tags={"nodes"},
      *     @OA\Parameter(
      *         name="id",
@@ -215,7 +213,6 @@ class NodesController extends AbstractApiController
      *     path="/api/nodes/{id}/children",
      *     description="Retrieve a single node's children",
      *     operationId="getNodeChildren",
-     *     produces={"application/json"},
      *     tags={"nodes"},
      *     @OA\Parameter(
      *         name="id",
@@ -285,7 +282,6 @@ class NodesController extends AbstractApiController
      *     path="/api/nodes/{id}/parent",
      *     description="Retrieve a single node's parent",
      *     operationId="getNodeParent",
-     *     produces={"application/json"},
      *     tags={"nodes"},
      *     @OA\Parameter(
      *         name="id",

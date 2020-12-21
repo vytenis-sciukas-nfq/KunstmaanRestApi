@@ -46,7 +46,6 @@ class RoleController extends AbstractApiController
      *     path="/api/role",
      *     description="Get all roles",
      *     operationId="getRoles",
-     *     produces={"application/json"},
      *     tags={"role"},
      *     @OA\Parameter(
      *         name="page",
@@ -122,7 +121,6 @@ class RoleController extends AbstractApiController
      *     path="/api/role/{id}",
      *     description="deletes a Role",
      *     operationId="deleteRole",
-     *     produces={"application/json"},
      *     tags={"role"},
      *     @OA\Parameter(
      *         name="id",
@@ -177,7 +175,6 @@ class RoleController extends AbstractApiController
      *     path="/api/role",
      *     description="create a Role",
      *     operationId="createRole",
-     *     produces={"application/json"},
      *     tags={"role"},
      *     @OA\Parameter(
      *         name="role",
@@ -245,7 +242,6 @@ class RoleController extends AbstractApiController
      *     path="/api/role/{id}",
      *     description="update a Role",
      *     operationId="updateRole",
-     *     produces={"application/json"},
      *     tags={"role"},
      *     @OA\Parameter(
      *         name="role",

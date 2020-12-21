@@ -44,7 +44,6 @@ class GroupController extends AbstractApiController
      *     path="/api/group",
      *     description="Get all groups",
      *     operationId="getGroups",
-     *     produces={"application/json"},
      *     tags={"group"},
      *     @OA\Parameter(
      *         name="page",
@@ -120,7 +119,6 @@ class GroupController extends AbstractApiController
      *     path="/api/group/{id}",
      *     description="deletes a Group",
      *     operationId="deleteGroup",
-     *     produces={"application/json"},
      *     tags={"group"},
      *     @OA\Parameter(
      *         name="id",
@@ -175,7 +173,6 @@ class GroupController extends AbstractApiController
      *     path="/api/group",
      *     description="create a Group",
      *     operationId="createGroup",
-     *     produces={"application/json"},
      *     tags={"group"},
      *     @OA\Parameter(
      *         name="group",
@@ -243,7 +240,6 @@ class GroupController extends AbstractApiController
      *     path="/api/group/{id}",
      *     description="update a Group",
      *     operationId="updateGroup",
-     *     produces={"application/json"},
      *     tags={"group"},
      *     @OA\Parameter(
      *         name="group",

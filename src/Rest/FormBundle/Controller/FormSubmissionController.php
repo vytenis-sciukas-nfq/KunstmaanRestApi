@@ -43,7 +43,6 @@ class FormSubmissionController extends AbstractApiController
      *     path="/api/form-submission",
      *     description="Get all form-submissions",
      *     operationId="getFormSubmissions",
-     *     produces={"application/json"},
      *     tags={"form-submission"},
      *     @OA\Parameter(
      *         name="page",

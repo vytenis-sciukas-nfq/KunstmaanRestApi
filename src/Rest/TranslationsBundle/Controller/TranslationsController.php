@@ -41,7 +41,6 @@ class TranslationsController extends AbstractFOSRestController
      *     path="/api/public/translations",
      *     description="Get a list of all translations",
      *     operationId="getTranslations",
-     *     produces={"application/json"},
      *     tags={"translations"},
      *     @OA\Parameter(
      *         name="locale",
@@ -95,7 +94,6 @@ class TranslationsController extends AbstractFOSRestController
      *     path="/api/public/translations/{domain}",
      *     description="Get a list of all translations by domain only",
      *     operationId="getTranslationsByDomain",
-     *     produces={"application/json"},
      *     tags={"translations"},
      *     @OA\Parameter(
      *         name="locale",
@@ -157,7 +155,6 @@ class TranslationsController extends AbstractFOSRestController
      *     path="/api/public/translations/{domain}/{keyword}",
      *     description="Get a translation",
      *     operationId="getTranslation",
-     *     produces={"application/json"},
      *     tags={"translations"},
      *     @OA\Parameter(
      *         name="locale",
@@ -231,7 +228,6 @@ class TranslationsController extends AbstractFOSRestController
      *     path="/api/translations/{domain}",
      *     description="Create multiple translations",
      *     operationId="createTranslation",
-     *     produces={"application/json"},
      *     tags={"translations"},
      *     @OA\Parameter(
      *         name="translation",
@@ -313,7 +309,6 @@ class TranslationsController extends AbstractFOSRestController
      *     path="/api/translations/deprecate/{domain}",
      *     description="deprecate translations by keyword",
      *     operationId="deprecateTranslation",
-     *     produces={"application/json"},
      *     tags={"translations"},
      *     @OA\Parameter(
      *         name="deprecatedTranslation",
@@ -381,7 +376,6 @@ class TranslationsController extends AbstractFOSRestController
      *     path="/api/translations/disable/{domain}",
      *     description="disable translations by keyword",
      *     operationId="disableTranslation",
-     *     produces={"application/json"},
      *     tags={"translations"},
      *     @OA\Parameter(
      *         name="disabledTranslation",
@@ -443,7 +437,6 @@ class TranslationsController extends AbstractFOSRestController
      *     path="/api/translations/enable/{domain}",
      *     description="re-enable translations by keyword",
      *     operationId="enableTranslation",
-     *     produces={"application/json"},
      *     tags={"translations"},
      *     @OA\Parameter(
      *         name="enabledTranslation",

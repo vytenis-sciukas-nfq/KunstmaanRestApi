@@ -70,7 +70,6 @@ class MediaController extends AbstractApiController
      *     path="/api/media",
      *     description="Get all media",
      *     operationId="getMedia",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="page",
@@ -162,7 +161,6 @@ class MediaController extends AbstractApiController
      *     path="/api/media/{id}",
      *     description="Get a media by ID",
      *     operationId="getMediaItem",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="id",
@@ -206,7 +204,6 @@ class MediaController extends AbstractApiController
      *     path="/api/folder",
      *     description="Get all folder",
      *     operationId="getFolder",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="page",
@@ -288,7 +285,6 @@ class MediaController extends AbstractApiController
      *     path="/api/folder/{parentId}",
      *     description="Creates a Folder",
      *     operationId="postFolder",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="folder",
@@ -378,7 +374,6 @@ class MediaController extends AbstractApiController
      *     path="/api/media",
      *     description="Creates a Media",
      *     operationId="postMedia",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="media",
@@ -483,7 +478,6 @@ class MediaController extends AbstractApiController
      *     path="/api/media/{id}",
      *     description="update a Media",
      *     operationId="updateMedia",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="media",
@@ -584,7 +578,6 @@ class MediaController extends AbstractApiController
      *     path="/api/folder/{id}",
      *     description="updates a Folder",
      *     operationId="putFolder",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="folder",
@@ -686,7 +679,6 @@ class MediaController extends AbstractApiController
      *     path="/api/folder/{id}/{targetId}",
      *     description="moves a Folder",
      *     operationId="moveFolder",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -767,7 +759,6 @@ class MediaController extends AbstractApiController
      *     path="/api/folder/{id}",
      *     description="deletes a Folder",
      *     operationId="deleteFolder",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="X-Api-Key",
@@ -825,7 +816,6 @@ class MediaController extends AbstractApiController
      *     path="/api/media/{id}",
      *     description="deletes a media",
      *     operationId="deleteMedia",
-     *     produces={"application/json"},
      *     tags={"media"},
      *     @OA\Parameter(
      *         name="id",

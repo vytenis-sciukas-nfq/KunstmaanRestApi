@@ -47,7 +47,6 @@ class MenuController extends AbstractApiController
      *     path="/api/menu",
      *     description="Get all menu",
      *     operationId="getMenus",
-     *     produces={"application/json"},
      *     tags={"menu"},
      *     @OA\Parameter(
      *         name="page",
@@ -119,7 +118,6 @@ class MenuController extends AbstractApiController
      *     path="/api/menu/{id}/items",
      *     description="Get all menu items for menu",
      *     operationId="getMenuItems",
-     *     produces={"application/json"},
      *     tags={"menu"},
      *     @OA\Parameter(
      *         name="page",
@@ -204,7 +202,6 @@ class MenuController extends AbstractApiController
      *     path="/api/menu-item/{id}",
      *     description="deletes a menu item",
      *     operationId="deleteMenuItem",
-     *     produces={"application/json"},
      *     tags={"menu"},
      *     @OA\Parameter(
      *         name="id",
@@ -265,7 +262,6 @@ class MenuController extends AbstractApiController
      *     path="/api/menu/{id}",
      *     description="deletes a menu",
      *     operationId="deleteMenu",
-     *     produces={"application/json"},
      *     tags={"menu"},
      *     @OA\Parameter(
      *         name="id",
@@ -330,7 +326,6 @@ class MenuController extends AbstractApiController
      *     path="/api/menu",
      *     description="Creates a Menu",
      *     operationId="postMenu",
-     *     produces={"application/json"},
      *     tags={"menu"},
      *     @OA\Parameter(
      *         name="menu",
@@ -410,7 +405,6 @@ class MenuController extends AbstractApiController
      *     path="/api/menu/{id}/add",
      *     description="add a new menu item to a menu",
      *     operationId="addMenuItem",
-     *     produces={"application/json"},
      *     tags={"menu"},
      *     @OA\Parameter(
      *         name="menuItem",
@@ -505,7 +499,6 @@ class MenuController extends AbstractApiController
      *     path="/api/menu/{id}",
      *     description="updates a Menu",
      *     operationId="putMenu",
-     *     produces={"application/json"},
      *     tags={"menu"},
      *     @OA\Parameter(
      *         name="menu",
@@ -600,7 +593,6 @@ class MenuController extends AbstractApiController
      *     path="/api/menu-item/{id}",
      *     description="updates a MenuItem",
      *     operationId="putMenuItem",
-     *     produces={"application/json"},
      *     tags={"menu"},
      *     @OA\Parameter(
      *         name="menuItem",

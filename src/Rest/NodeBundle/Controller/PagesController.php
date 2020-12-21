@@ -74,7 +74,6 @@ class PagesController extends AbstractApiController
      *     path="/api/public/pages",
      *     description="Get a pages of a certain type",
      *     operationId="getPages",
-     *     produces={"application/json"},
      *     tags={"pages"},
      *     @OA\Parameter(
      *         name="page",
@@ -211,7 +210,6 @@ class PagesController extends AbstractApiController
      *     path="/api/public/pages/{id}",
      *     description="Get a page by node translation ID",
      *     operationId="getPage",
-     *     produces={"application/json"},
      *     tags={"pages"},
      *     @OA\Parameter(
      *         name="id",
@@ -272,7 +270,6 @@ class PagesController extends AbstractApiController
      *     path="/api/pages/{id}",
      *     description="Update a ApiPage",
      *     operationId="putApiPage",
-     *     produces={"application/json"},
      *     tags={"pages"},
      *     @OA\Parameter(
      *         name="id",
@@ -369,7 +366,6 @@ class PagesController extends AbstractApiController
      *     path="/api/pages",
      *     description="Creates a ApiPage",
      *     operationId="postApiPage",
-     *     produces={"application/json"},
      *     tags={"pages"},
      *     @OA\Parameter(
      *         name="apiPage",

@@ -4,15 +4,13 @@ namespace Kunstmaan\Rest\ConfigBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\RestBundle\Controller\ControllerTrait;
-use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Kunstmaan\ConfigBundle\Entity\AbstractConfig;
-use OpenApi\Annotations as OA;
-use Hateoas\Representation\PaginatedRepresentation;
-use Kunstmaan\FormBundle\Entity\FormSubmission;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\ControllerTrait;
+use Kunstmaan\ConfigBundle\Entity\AbstractConfig;
+use Kunstmaan\FormBundle\Entity\FormSubmission;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -41,7 +39,6 @@ class ConfigController extends AbstractApiController
      *     path="/api/config/{internalName}",
      *     description="Get config by internal name",
      *     operationId="getConfig",
-     *     produces={"application/json"},
      *     tags={"config"},
      *     @OA\Parameter(
      *         name="X-Api-Key",

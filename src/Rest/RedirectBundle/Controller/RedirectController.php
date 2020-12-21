@@ -33,7 +33,6 @@ class RedirectController extends AbstractApiController
      *     path="/api/redirects",
      *     description="Get all redirects",
      *     operationId="getRedirects",
-     *     produces={"application/json"},
      *     tags={"redirect"},
      *     @OA\Parameter(
      *         name="X-Api-Key",
