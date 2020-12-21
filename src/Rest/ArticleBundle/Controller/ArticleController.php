@@ -43,7 +43,6 @@ class ArticleController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -55,21 +54,18 @@ class ArticleController extends AbstractApiController
      *     @OA\Parameter(
      *         name="type",
      *         in="path",
-     *         type="string",
      *         description="The type of author",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),

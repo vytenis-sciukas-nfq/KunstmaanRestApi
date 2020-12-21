@@ -78,56 +78,48 @@ class PagesController extends AbstractApiController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="type",
      *         in="query",
-     *         type="string",
      *         description="The FQCN of the page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="locale",
      *         in="query",
-     *         type="string",
      *         description="The language of your content",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="internalName",
      *         in="query",
-     *         type="string",
      *         description="The internal name of the page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="nodeId",
      *         in="query",
-     *         type="integer",
      *         description="Node id",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="online",
      *         in="query",
-     *         type="boolean",
      *         description="Include only online nodes",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="versionType",
      *         in="query",
-     *         type="string",
      *         description="VersionType (public or draft)",
      *         required=false,
      *     ),
@@ -214,7 +206,6 @@ class PagesController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The node translation ID",
      *         required=true,
      *     ),
@@ -274,14 +265,12 @@ class PagesController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The node translation ID",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="apiPage",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/ApiPage")
      *     ),
      *     @OA\Response(
@@ -370,7 +359,6 @@ class PagesController extends AbstractApiController
      *     @OA\Parameter(
      *         name="apiPage",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PostApiPage"),
      *     ),
      *     @OA\Response(

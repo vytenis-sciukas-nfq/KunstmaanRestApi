@@ -74,28 +74,24 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="name",
      *         in="query",
-     *         type="string",
      *         description="The name of the media",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="folderId",
      *         in="query",
-     *         type="integer",
      *         description="The id of the folder to limit the search to",
      *         required=false,
      *     ),
@@ -165,7 +161,6 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The media ID",
      *         required=true,
      *     ),
@@ -208,21 +203,18 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="name",
      *         in="query",
-     *         type="string",
      *         description="The name of the folder",
      *         required=false,
      *     ),
@@ -289,13 +281,11 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="folder",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PostFolder"),
      *     ),
      *     @OA\Parameter(
      *         name="parentId",
      *         in="path",
-     *         type="integer",
      *         description="The ID of the folder parent",
      *         required=true,
      *     ),
@@ -378,13 +368,11 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="media",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/UploadMedia"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -482,13 +470,11 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="media",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/putMedia"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -582,20 +568,17 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="folder",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PostFolder"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the folder",
      *         required=true,
      *     ),
@@ -683,21 +666,18 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the folder",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="targetId",
      *         in="path",
-     *         type="integer",
      *         description="The id of the target folder",
      *         required=true,
      *     ),
@@ -763,14 +743,12 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the folder",
      *         required=true,
      *     ),
@@ -820,14 +798,12 @@ class MediaController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the media",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),

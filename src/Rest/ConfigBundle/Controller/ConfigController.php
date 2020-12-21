@@ -43,7 +43,6 @@ class ConfigController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),

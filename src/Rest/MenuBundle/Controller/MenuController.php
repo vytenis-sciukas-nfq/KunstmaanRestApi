@@ -51,21 +51,18 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -122,28 +119,24 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the menu",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -206,7 +199,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the menu item",
      *         required=true,
      *     ),
@@ -222,7 +214,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -266,7 +257,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the menu",
      *         required=true,
      *     ),
@@ -277,7 +267,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -330,7 +319,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="menu",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PostMenu"),
      *     ),
      *     @OA\Response(
@@ -340,7 +328,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -409,13 +396,11 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="menuItem",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PostMenuItem"),
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the menu",
      *         required=true,
      *     ),
@@ -426,7 +411,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -503,13 +487,11 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="menu",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PostMenu"),
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the menu",
      *         required=true,
      *     ),
@@ -520,7 +502,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -597,13 +578,11 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="menuItem",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PutMenuItem"),
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the menuItem",
      *         required=true,
      *     ),
@@ -614,7 +593,6 @@ class MenuController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),

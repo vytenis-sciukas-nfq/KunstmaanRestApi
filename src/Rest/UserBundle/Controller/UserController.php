@@ -60,28 +60,24 @@ class UserController extends AbstractApiController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="groupId",
      *         in="query",
-     *         type="integer",
      *         description="The id of the group of the user",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -152,7 +148,6 @@ class UserController extends AbstractApiController
      *     @OA\Parameter(
      *         name="userModel",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PutUser"),
      *     ),
      *     @OA\Response(
@@ -162,7 +157,6 @@ class UserController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -274,13 +268,11 @@ class UserController extends AbstractApiController
      *     @OA\Parameter(
      *         name="userModel",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/PostUser"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -369,7 +361,6 @@ class UserController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the user",
      *         required=true,
      *     ),
@@ -423,14 +414,12 @@ class UserController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the user",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -485,14 +474,12 @@ class UserController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the user",
      *         required=true,
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),

@@ -48,21 +48,18 @@ class GroupController extends AbstractApiController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -123,7 +120,6 @@ class GroupController extends AbstractApiController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the group",
      *         required=true,
      *     ),
@@ -177,13 +173,11 @@ class GroupController extends AbstractApiController
      *     @OA\Parameter(
      *         name="group",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/Group"),
      *     ),
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
@@ -244,13 +238,11 @@ class GroupController extends AbstractApiController
      *     @OA\Parameter(
      *         name="group",
      *         in="body",
-     *         type="object",
      *         @OA\JsonContent(ref="#/definitions/Group"),
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         type="integer",
      *         description="The id of the group",
      *         required=true,
      *     ),
@@ -261,7 +253,6 @@ class GroupController extends AbstractApiController
      *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
-     *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
