@@ -11,14 +11,10 @@ use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\UserBundle\Doctrine\UserManager;
 use Hateoas\Representation\PaginatedRepresentation;
-use Kunstmaan\AdminBundle\Entity\Group;
 use Kunstmaan\FormBundle\Entity\FormSubmission;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  */
@@ -43,47 +39,47 @@ class FormSubmissionController extends AbstractApiController
     /**
      * Retrieve form submissions paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/form-submission",
      *     description="Get all form-submissions",
      *     operationId="getFormSubmissions",
      *     produces={"application/json"},
      *     tags={"form-submission"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/FormSubmissionList")
+     *         @OA\JsonContent(ref="#/definitions/FormSubmissionList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

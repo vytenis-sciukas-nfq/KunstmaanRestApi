@@ -14,7 +14,7 @@ use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\MenuBundle\Entity\Menu;
 use Kunstmaan\MenuBundle\Entity\MenuItem;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -43,47 +43,47 @@ class MenuController extends AbstractApiController
     /**
      * Retrieve menu paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/menu",
      *     description="Get all menu",
      *     operationId="getMenus",
      *     produces={"application/json"},
      *     tags={"menu"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/MenuList")
+     *         @OA\JsonContent(ref="#/definitions/MenuList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -115,54 +115,54 @@ class MenuController extends AbstractApiController
     /**
      * Retrieve menu items paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/menu/{id}/items",
      *     description="Get all menu items for menu",
      *     operationId="getMenuItems",
      *     produces={"application/json"},
      *     tags={"menu"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the menu",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/MenuItemList")
+     *         @OA\JsonContent(ref="#/definitions/MenuItemList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -200,39 +200,39 @@ class MenuController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/api/menu-item/{id}",
      *     description="deletes a menu item",
      *     operationId="deleteMenuItem",
      *     produces={"application/json"},
      *     tags={"menu"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the menu item",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -261,39 +261,39 @@ class MenuController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/api/menu/{id}",
      *     description="deletes a menu",
      *     operationId="deleteMenu",
      *     produces={"application/json"},
      *     tags={"menu"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the menu",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -326,38 +326,38 @@ class MenuController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/menu",
      *     description="Creates a Menu",
      *     operationId="postMenu",
      *     produces={"application/json"},
      *     tags={"menu"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="menu",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PostMenu"),
+     *         @OA\JsonContent(ref="#/definitions/PostMenu"),
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -406,45 +406,45 @@ class MenuController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/menu/{id}/add",
      *     description="add a new menu item to a menu",
      *     operationId="addMenuItem",
      *     produces={"application/json"},
      *     tags={"menu"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="menuItem",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PostMenuItem"),
+     *         @OA\JsonContent(ref="#/definitions/PostMenuItem"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the menu",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -501,45 +501,45 @@ class MenuController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/menu/{id}",
      *     description="updates a Menu",
      *     operationId="putMenu",
      *     produces={"application/json"},
      *     tags={"menu"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="menu",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PostMenu"),
+     *         @OA\JsonContent(ref="#/definitions/PostMenu"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the menu",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -596,45 +596,45 @@ class MenuController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/menu-item/{id}",
      *     description="updates a MenuItem",
      *     operationId="putMenuItem",
      *     produces={"application/json"},
      *     tags={"menu"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="menuItem",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PutMenuItem"),
+     *         @OA\JsonContent(ref="#/definitions/PutMenuItem"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the menuItem",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

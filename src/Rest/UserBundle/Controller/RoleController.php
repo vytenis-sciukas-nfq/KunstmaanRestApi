@@ -11,15 +11,10 @@ use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\UserBundle\Doctrine\UserManager;
 use Hateoas\Representation\PaginatedRepresentation;
-use Kunstmaan\AdminBundle\Entity\BaseUser;
 use Kunstmaan\AdminBundle\Entity\Role;
-use Kunstmaan\AdminBundle\Repository\UserRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
-use Kunstmaan\Rest\CoreBundle\Entity\RestUser;
-use Kunstmaan\Rest\CoreBundle\Helper\GenerateApiKeyFunctionTrait;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Kunstmaan\Rest\UserBundle\Model\UserModel;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -47,47 +42,47 @@ class RoleController extends AbstractApiController
     /**
      * Retrieve Roles paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/role",
      *     description="Get all roles",
      *     operationId="getRoles",
      *     produces={"application/json"},
      *     tags={"role"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/RoleList")
+     *         @OA\JsonContent(ref="#/definitions/RoleList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -123,32 +118,32 @@ class RoleController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/api/role/{id}",
      *     description="deletes a Role",
      *     operationId="deleteRole",
      *     produces={"application/json"},
      *     tags={"role"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the role",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -178,38 +173,38 @@ class RoleController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/role",
      *     description="create a Role",
      *     operationId="createRole",
      *     produces={"application/json"},
      *     tags={"role"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="role",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/Role"),
+     *         @OA\JsonContent(ref="#/definitions/Role"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -246,38 +241,38 @@ class RoleController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/role/{id}",
      *     description="update a Role",
      *     operationId="updateRole",
      *     produces={"application/json"},
      *     tags={"role"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="role",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/Role"),
+     *         @OA\JsonContent(ref="#/definitions/Role"),
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

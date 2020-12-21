@@ -27,7 +27,7 @@ use Kunstmaan\MediaBundle\Repository\MediaRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Kunstmaan\Rest\MediaBundle\Model\MediaModel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,54 +66,54 @@ class MediaController extends AbstractApiController
     /**
      * Retrieve media paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/media",
      *     description="Get all media",
      *     operationId="getMedia",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="name",
      *         in="query",
      *         type="string",
      *         description="The name of the media",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="folderId",
      *         in="query",
      *         type="integer",
      *         description="The id of the folder to limit the search to",
      *         required=false,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/MediaList")
+     *         @OA\JsonContent(ref="#/definitions/MediaList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -158,33 +158,33 @@ class MediaController extends AbstractApiController
     /**
      * Retrieve a single media
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/media/{id}",
      *     description="Get a media by ID",
      *     operationId="getMediaItem",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The media ID",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/Media")
+     *         @OA\JsonContent(ref="#/definitions/Media")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -202,47 +202,47 @@ class MediaController extends AbstractApiController
     /**
      * Retrieve folders paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/folder",
      *     description="Get all folder",
      *     operationId="getFolder",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="name",
      *         in="query",
      *         type="string",
      *         description="The name of the folder",
      *         required=false,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/FolderList")
+     *         @OA\JsonContent(ref="#/definitions/FolderList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -284,38 +284,38 @@ class MediaController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/folder/{parentId}",
      *     description="Creates a Folder",
      *     operationId="postFolder",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="folder",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PostFolder"),
+     *         @OA\JsonContent(ref="#/definitions/PostFolder"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="parentId",
      *         in="path",
      *         type="integer",
      *         description="The ID of the folder parent",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -374,38 +374,38 @@ class MediaController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/media",
      *     description="Creates a Media",
      *     operationId="postMedia",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="media",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/UploadMedia"),
+     *         @OA\JsonContent(ref="#/definitions/UploadMedia"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -479,38 +479,38 @@ class MediaController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/media/{id}",
      *     description="update a Media",
      *     operationId="updateMedia",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="media",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/putMedia"),
+     *         @OA\JsonContent(ref="#/definitions/putMedia"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -580,45 +580,45 @@ class MediaController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/folder/{id}",
      *     description="updates a Folder",
      *     operationId="putFolder",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="folder",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PostFolder"),
+     *         @OA\JsonContent(ref="#/definitions/PostFolder"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the folder",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -682,46 +682,46 @@ class MediaController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/folder/{id}/{targetId}",
      *     description="moves a Folder",
      *     operationId="moveFolder",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the folder",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="targetId",
      *         in="path",
      *         type="integer",
      *         description="The id of the target folder",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -763,39 +763,39 @@ class MediaController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/api/folder/{id}",
      *     description="deletes a Folder",
      *     operationId="deleteFolder",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the folder",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -821,39 +821,39 @@ class MediaController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/api/media/{id}",
      *     description="deletes a media",
      *     operationId="deleteMedia",
      *     produces={"application/json"},
      *     tags={"media"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the media",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

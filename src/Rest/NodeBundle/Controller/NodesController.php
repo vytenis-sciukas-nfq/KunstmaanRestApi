@@ -22,11 +22,8 @@ use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Repository\NodeRepository;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 
-/**
- * Class NodesController
- */
 class NodesController extends AbstractApiController
 {
     use ControllerTrait;
@@ -46,68 +43,68 @@ class NodesController extends AbstractApiController
     /**
      * Retrieve nodes paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/nodes",
      *     description="Get all nodes",
      *     operationId="getNodes",
      *     produces={"application/json"},
      *     tags={"nodes"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="internalName",
      *         in="query",
      *         type="string",
      *         description="The internal name of the node",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="locale",
      *         in="query",
      *         type="string",
      *         description="Locale",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="hiddenFromNav",
      *         in="query",
      *         type="boolean",
      *         description="If true, only nodes hidden from nav will be returned",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="refEntityName",
      *         in="query",
      *         type="string",
      *         description="Which pages you want to have returned",
      *         required=false,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/NodeList")
+     *         @OA\JsonContent(ref="#/definitions/NodeList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -170,33 +167,33 @@ class NodesController extends AbstractApiController
     /**
      * Retrieve a single node
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/nodes/{id}",
      *     description="Get a node by ID",
      *     operationId="getNode",
      *     produces={"application/json"},
      *     tags={"nodes"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The node ID",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/Node")
+     *         @OA\JsonContent(ref="#/definitions/Node")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -214,47 +211,47 @@ class NodesController extends AbstractApiController
     /**
      * Retrieve a single node's children
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/nodes/{id}/children",
      *     description="Retrieve a single node's children",
      *     operationId="getNodeChildren",
      *     produces={"application/json"},
      *     tags={"nodes"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The node ID",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/NodeList")
+     *         @OA\JsonContent(ref="#/definitions/NodeList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -284,33 +281,33 @@ class NodesController extends AbstractApiController
     /**
      * Retrieve a single node's parent
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/nodes/{id}/parent",
      *     description="Retrieve a single node's parent",
      *     operationId="getNodeParent",
      *     produces={"application/json"},
      *     tags={"nodes"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The node ID",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/Node")
+     *         @OA\JsonContent(ref="#/definitions/Node")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

@@ -10,13 +10,10 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Kunstmaan\Rest\TranslationsBundle\Model\Exception\TranslationException;
 use Kunstmaan\Rest\TranslationsBundle\Service\TranslationService;
 use Kunstmaan\TranslatorBundle\Entity\Translation;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use OpenApi\Annotations as OA;
 
-/**
- * Class TranslationsController.
- */
 class TranslationsController extends AbstractFOSRestController
 {
     /** @var TranslationService */
@@ -40,28 +37,28 @@ class TranslationsController extends AbstractFOSRestController
      * @return array
      *
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/public/translations",
      *     description="Get a list of all translations",
      *     operationId="getTranslations",
      *     produces={"application/json"},
      *     tags={"translations"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="locale",
      *         in="query",
      *         type="string",
      *         description="the locale of the languages you want",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/listTranslation")
+     *         @OA\JsonContent(ref="#/definitions/listTranslation")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(
+     *         @OA\JsonContent(
      *             ref="#/definitions/ErrorModel"
      *         )
      *     )
@@ -94,35 +91,35 @@ class TranslationsController extends AbstractFOSRestController
      * @return array
      *
      *
-     * * @SWG\Get(
+     * * @OA\Get(
      *     path="/api/public/translations/{domain}",
      *     description="Get a list of all translations by domain only",
      *     operationId="getTranslationsByDomain",
      *     produces={"application/json"},
      *     tags={"translations"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="locale",
      *         in="query",
      *         type="string",
      *         description="the locale of the languages you want",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="domain",
      *         in="path",
      *         type="string",
      *         description="the domain of the languages you want",
      *         required=false,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/listTranslation")
+     *         @OA\JsonContent(ref="#/definitions/listTranslation")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(
+     *         @OA\JsonContent(
      *             ref="#/definitions/ErrorModel"
      *         )
      *     )
@@ -156,42 +153,42 @@ class TranslationsController extends AbstractFOSRestController
      * @return Translation
      *
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/public/translations/{domain}/{keyword}",
      *     description="Get a translation",
      *     operationId="getTranslation",
      *     produces={"application/json"},
      *     tags={"translations"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="locale",
      *         in="query",
      *         type="string",
      *         description="the locale of the languages you want",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="keyword",
      *         in="path",
      *         type="string",
      *         description="the keyword of the translation you want",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="domain",
      *         in="path",
      *         type="string",
      *         description="the domain of the languages you want",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/singleTranslation")
+     *         @OA\JsonContent(ref="#/definitions/singleTranslation")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(
+     *         @OA\JsonContent(
      *             ref="#/definitions/ErrorModel"
      *         )
      *     )
@@ -230,54 +227,54 @@ class TranslationsController extends AbstractFOSRestController
      * @return array
      *
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/translations/{domain}",
      *     description="Create multiple translations",
      *     operationId="createTranslation",
      *     produces={"application/json"},
      *     tags={"translations"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="translation",
      *         in="body",
      *         required=true,
      *         description="The posted translations",
-     *         @SWG\Schema(ref="#/definitions/postTranslations"),
+     *         @OA\JsonContent(ref="#/definitions/postTranslations"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="domain",
      *         in="path",
      *         type="string",
      *         description="the domain of the languages you want",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="force",
      *         in="query",
      *         type="boolean",
      *         description="Force=true will overwrite existing translations, otherwise will be skipped",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=201,
      *         description="Returned when successfully created",
-     *         @SWG\Schema(ref="#/definitions/listTranslation")
+     *         @OA\JsonContent(ref="#/definitions/listTranslation")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=404,
      *         description="Returned when no translations are provided",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(
+     *         @OA\JsonContent(
      *             ref="#/definitions/ErrorModel"
      *         )
      *     )
@@ -312,41 +309,41 @@ class TranslationsController extends AbstractFOSRestController
      *
      * @Rest\Put("/translations/deprecate/{domain}")
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/translations/deprecate/{domain}",
      *     description="deprecate translations by keyword",
      *     operationId="deprecateTranslation",
      *     produces={"application/json"},
      *     tags={"translations"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="deprecatedTranslation",
      *         in="body",
      *         required=true,
      *         description="The posted translations",
-     *         @SWG\Schema(ref="#/definitions/keywordCollection"),
+     *         @OA\JsonContent(ref="#/definitions/keywordCollection"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="domain",
      *         in="path",
      *         type="string",
      *         description="the domain of the languages you want",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=201,
      *         description="Returned when successfully deprecated"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(
+     *         @OA\JsonContent(
      *             ref="#/definitions/ErrorModel"
      *         )
      *     )
@@ -380,41 +377,41 @@ class TranslationsController extends AbstractFOSRestController
      *
      * @Rest\Put("/translations/disable/{domain}")
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/translations/disable/{domain}",
      *     description="disable translations by keyword",
      *     operationId="disableTranslation",
      *     produces={"application/json"},
      *     tags={"translations"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="disabledTranslation",
      *         in="body",
      *         required=true,
      *         description="The posted translations",
-     *         @SWG\Schema(ref="#/definitions/disablingDate"),
+     *         @OA\JsonContent(ref="#/definitions/disablingDate"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="domain",
      *         in="path",
      *         type="string",
      *         description="the domain of the languages you want",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=201,
      *         description="Returned when successfully disabled"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(
+     *         @OA\JsonContent(
      *             ref="#/definitions/ErrorModel"
      *         )
      *     )
@@ -442,42 +439,42 @@ class TranslationsController extends AbstractFOSRestController
      *
      * @Rest\Put("/translations/enable/{domain}")
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/translations/enable/{domain}",
      *     description="re-enable translations by keyword",
      *     operationId="enableTranslation",
      *     produces={"application/json"},
      *     tags={"translations"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="enabledTranslation",
      *         in="body",
      *         required=true,
      *         type="single",
      *         description="The posted translations",
-     *         @SWG\Schema(ref="#/definitions/keywordCollection"),
+     *         @OA\JsonContent(ref="#/definitions/keywordCollection"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="domain",
      *         in="path",
      *         type="string",
      *         description="the domain of the languages you want",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=201,
      *         description="Returned when successfully enabled"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(
+     *         @OA\JsonContent(
      *             ref="#/definitions/ErrorModel"
      *         )
      *     )

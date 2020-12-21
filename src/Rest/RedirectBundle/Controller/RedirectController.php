@@ -12,7 +12,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\RedirectBundle\Entity\Redirect;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 
 class RedirectController extends AbstractApiController
 {
@@ -29,47 +29,47 @@ class RedirectController extends AbstractApiController
     /**
      * Retrieve form submissions paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/redirects",
      *     description="Get all redirects",
      *     operationId="getRedirects",
      *     produces={"application/json"},
      *     tags={"redirect"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/listRedirects")
+     *         @OA\JsonContent(ref="#/definitions/listRedirects")
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")

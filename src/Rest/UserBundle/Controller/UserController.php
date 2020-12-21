@@ -17,15 +17,11 @@ use Kunstmaan\Rest\CoreBundle\Entity\RestUser;
 use Kunstmaan\Rest\CoreBundle\Helper\GenerateApiKeyFunctionTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Kunstmaan\Rest\UserBundle\Model\UserModel;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-/**
- * Class UserController
- *
- */
 class UserController extends AbstractApiController
 {
     use ControllerTrait;
@@ -56,54 +52,54 @@ class UserController extends AbstractApiController
     /**
      * Retrieve Users paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/user",
      *     description="Get all users",
      *     operationId="getUsers",
      *     produces={"application/json"},
      *     tags={"user"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="groupId",
      *         in="query",
      *         type="integer",
      *         description="The id of the group of the user",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/UserList")
+     *         @OA\JsonContent(ref="#/definitions/UserList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -149,38 +145,38 @@ class UserController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/user/{id}",
      *     description="update a User",
      *     operationId="updateUser",
      *     produces={"application/json"},
      *     tags={"user"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="userModel",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PutUser"),
+     *         @OA\JsonContent(ref="#/definitions/PutUser"),
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -272,38 +268,38 @@ class UserController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/user",
      *     description="create a User",
      *     operationId="createUser",
      *     produces={"application/json"},
      *     tags={"user"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="userModel",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PostUser"),
+     *         @OA\JsonContent(ref="#/definitions/PostUser"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -368,32 +364,32 @@ class UserController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/api/user/{id}",
      *     description="deletes a User",
      *     operationId="deleteUser",
      *     produces={"application/json"},
      *     tags={"user"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the user",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -423,39 +419,39 @@ class UserController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/user/{id}/toggle-enabled",
      *     description="toggle a Users enabled state",
      *     operationId="toggleEnabledUser",
      *     produces={"application/json"},
      *     tags={"user"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the user",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -486,39 +482,39 @@ class UserController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/user/{id}/refresh-key",
      *     description="refresh api key",
      *     operationId="refreshApiKey",
      *     produces={"application/json"},
      *     tags={"user"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the user",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

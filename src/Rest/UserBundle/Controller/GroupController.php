@@ -14,13 +14,11 @@ use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\AdminBundle\Entity\Group;
 use Kunstmaan\Rest\CoreBundle\Controller\AbstractApiController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-/**
- */
 class GroupController extends AbstractApiController
 {
     use ControllerTrait;
@@ -42,47 +40,47 @@ class GroupController extends AbstractApiController
     /**
      * Retrieve Groups paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/group",
      *     description="Get all groups",
      *     operationId="getGroups",
      *     produces={"application/json"},
      *     tags={"group"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/GroupList")
+     *         @OA\JsonContent(ref="#/definitions/GroupList")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -118,32 +116,32 @@ class GroupController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/api/group/{id}",
      *     description="deletes a Group",
      *     operationId="deleteGroup",
      *     produces={"application/json"},
      *     tags={"group"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the group",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -173,38 +171,38 @@ class GroupController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/group",
      *     description="create a Group",
      *     operationId="createGroup",
      *     produces={"application/json"},
      *     tags={"group"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="group",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/Group"),
+     *         @OA\JsonContent(ref="#/definitions/Group"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -241,45 +239,45 @@ class GroupController extends AbstractApiController
      *     statusCode=202
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/group/{id}",
      *     description="update a Group",
      *     operationId="updateGroup",
      *     produces={"application/json"},
      *     tags={"group"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="group",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/Group"),
+     *         @OA\JsonContent(ref="#/definitions/Group"),
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The id of the group",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

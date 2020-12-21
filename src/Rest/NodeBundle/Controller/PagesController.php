@@ -27,15 +27,12 @@ use Kunstmaan\Rest\CoreBundle\Service\DataTransformerService;
 use Kunstmaan\Rest\NodeBundle\Model\ApiPage;
 use Kunstmaan\Rest\NodeBundle\Service\Helper\PagePartHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-/**
- * Class PagesController
- */
 class PagesController extends AbstractApiController
 {
     use ControllerTrait;
@@ -73,82 +70,82 @@ class PagesController extends AbstractApiController
     /**
      * Retrieve nodes paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/public/pages",
      *     description="Get a pages of a certain type",
      *     operationId="getPages",
      *     produces={"application/json"},
      *     tags={"pages"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="type",
      *         in="query",
      *         type="string",
      *         description="The FQCN of the page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="locale",
      *         in="query",
      *         type="string",
      *         description="The language of your content",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="internalName",
      *         in="query",
      *         type="string",
      *         description="The internal name of the page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="nodeId",
      *         in="query",
      *         type="integer",
      *         description="Node id",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="online",
      *         in="query",
      *         type="boolean",
      *         description="Include only online nodes",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="versionType",
      *         in="query",
      *         type="string",
      *         description="VersionType (public or draft)",
      *         required=false,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/ApiPage")
+     *         @OA\JsonContent(ref="#/definitions/ApiPage")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @SWG\Schema(ref="#/definitions/Node")
+     *         @OA\JsonContent(ref="#/definitions/Node")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/Node")
+     *         @OA\JsonContent(ref="#/definitions/Node")
      *     )
      * )
      *
@@ -210,33 +207,33 @@ class PagesController extends AbstractApiController
     /**
      * Get a page by node translation ID
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/public/pages/{id}",
      *     description="Get a page by node translation ID",
      *     operationId="getPage",
      *     produces={"application/json"},
      *     tags={"pages"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The node translation ID",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/GetApiPage")
+     *         @OA\JsonContent(ref="#/definitions/GetApiPage")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -271,39 +268,39 @@ class PagesController extends AbstractApiController
      *     statusCode=204
      * )
      *
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/api/pages/{id}",
      *     description="Update a ApiPage",
      *     operationId="putApiPage",
      *     produces={"application/json"},
      *     tags={"pages"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         type="integer",
      *         description="The node translation ID",
      *         required=true,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="apiPage",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/ApiPage")
+     *         @OA\JsonContent(ref="#/definitions/ApiPage")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=204,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/PutApiPage")
+     *         @OA\JsonContent(ref="#/definitions/PutApiPage")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *
@@ -368,32 +365,32 @@ class PagesController extends AbstractApiController
      * )
      *
      *
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/api/pages",
      *     description="Creates a ApiPage",
      *     operationId="postApiPage",
      *     produces={"application/json"},
      *     tags={"pages"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="apiPage",
      *         in="body",
      *         type="object",
-     *         @SWG\Schema(ref="#/definitions/PostApiPage"),
+     *         @OA\JsonContent(ref="#/definitions/PostApiPage"),
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=204,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/ApiPage")
+     *         @OA\JsonContent(ref="#/definitions/ApiPage")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch nodes",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

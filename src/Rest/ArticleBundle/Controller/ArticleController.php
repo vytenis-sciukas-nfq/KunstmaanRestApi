@@ -9,7 +9,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Kunstmaan\ArticleBundle\Entity\AbstractAuthor;
 use Kunstmaan\ConfigBundle\Entity\AbstractConfig;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\FormBundle\Entity\FormSubmission;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -35,54 +35,54 @@ class ArticleController extends AbstractApiController
     /**
      * Retrieve form submissions paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/authors/{type}",
      *     description="get all authors",
      *     operationId="getAuthors",
      *     produces={"application/json"},
      *     tags={"article"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/listAuthors")
+     *         @OA\JsonContent(ref="#/definitions/listAuthors")
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="type",
      *         in="path",
      *         type="string",
      *         description="The type of author",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="page",
      *         in="query",
      *         type="integer",
      *         description="The current page",
      *         required=false,
      *     ),
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="limit",
      *         in="query",
      *         type="integer",
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

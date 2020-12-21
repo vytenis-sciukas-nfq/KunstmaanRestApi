@@ -8,7 +8,7 @@ use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Kunstmaan\ConfigBundle\Entity\AbstractConfig;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\FormBundle\Entity\FormSubmission;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -37,33 +37,33 @@ class ConfigController extends AbstractApiController
     /**
      * Retrieve form submissions paginated
      *
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/api/config/{internalName}",
      *     description="Get config by internal name",
      *     operationId="getConfig",
      *     produces={"application/json"},
      *     tags={"config"},
-     *     @SWG\Parameter(
+     *     @OA\Parameter(
      *         name="X-Api-Key",
      *         in="header",
      *         type="string",
      *         description="The authentication access token",
      *         required=true,
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @SWG\Schema(ref="#/definitions/singleConfig")
+     *         @OA\JsonContent(ref="#/definitions/singleConfig")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized to fetch media",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
-     *         @SWG\Schema(ref="#/definitions/ErrorModel")
+     *         @OA\JsonContent(ref="#/definitions/ErrorModel")
      *     )
      * )
      *

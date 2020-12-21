@@ -11,21 +11,19 @@
 
 namespace Kunstmaan\Rest\CoreBundle\Model;
 
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 
 /**
- * Class PaginatedCollection
- *
- * @SWG\Definition()
+ * @OA\Definition()
  */
 class PaginatedCollection
 {
     /**
      * @var array
      *
-     * @SWG\Property(
+     * @OA\Property(
      *     type="array",
-     *     @SWG\Items(
+     *     @OA\Items(
      *
      *    )
      * )
@@ -35,14 +33,14 @@ class PaginatedCollection
     /**
      * @var int
      *
-     * @SWG\Property(type="integer")
+     * @OA\Property(type="integer")
      */
     private $total;
 
     /**
      * @var int
      *
-     * @SWG\Property(type="integer")
+     * @OA\Property(type="integer")
      */
     private $count;
 
