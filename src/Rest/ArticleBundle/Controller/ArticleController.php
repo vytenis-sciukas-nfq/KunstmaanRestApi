@@ -49,7 +49,7 @@ class ArticleController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/listAuthors")
+     *         @OA\JsonContent(ref="#/components/schemas/listAuthor")
      *     ),
      *     @OA\Parameter(
      *         name="type",

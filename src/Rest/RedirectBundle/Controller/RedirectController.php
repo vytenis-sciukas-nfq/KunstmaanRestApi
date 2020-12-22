@@ -43,7 +43,7 @@ class RedirectController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/listRedirects")
+     *         @OA\JsonContent(ref="#/components/schemas/listRedirect")
      *     ),
      *     @OA\Parameter(
      *         name="page",

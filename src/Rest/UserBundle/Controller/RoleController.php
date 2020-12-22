@@ -172,9 +172,7 @@ class RoleController extends AbstractApiController
      *     description="create a Role",
      *     operationId="createRole",
      *     tags={"role"},
-     *     @OA\Parameter(
-     *         name="role",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/Role"),
      *     ),
      *     @OA\Parameter(
@@ -237,9 +235,7 @@ class RoleController extends AbstractApiController
      *     description="update a Role",
      *     operationId="updateRole",
      *     tags={"role"},
-     *     @OA\Parameter(
-     *         name="role",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/Role"),
      *     ),
      *     @OA\Response(

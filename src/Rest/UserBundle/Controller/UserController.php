@@ -145,9 +145,7 @@ class UserController extends AbstractApiController
      *     description="update a User",
      *     operationId="updateUser",
      *     tags={"user"},
-     *     @OA\Parameter(
-     *         name="userModel",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PutUser"),
      *     ),
      *     @OA\Response(
@@ -265,9 +263,7 @@ class UserController extends AbstractApiController
      *     description="create a User",
      *     operationId="createUser",
      *     tags={"user"},
-     *     @OA\Parameter(
-     *         name="userModel",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PostUser"),
      *     ),
      *     @OA\Parameter(

@@ -6,7 +6,7 @@ nelmio_api_doc:
           properties:
             roles:
               type: "array"
-              roles:
+              items:
                 allOf:
                   - $ref: '#/components/schemas/Role'
           title: "RoleList"
@@ -24,7 +24,7 @@ nelmio_api_doc:
           properties:
             groups:
               type: "array"
-              roles:
+              items:
                 allOf:
                   - $ref: '#/components/schemas/Group'
           title: "GroupList"
@@ -39,7 +39,7 @@ nelmio_api_doc:
               type: "string"
             roles:
               type: "array"
-              roles:
+              items:
                 allOf:
                   - $ref: '#/components/schemas/Role'
 
@@ -47,7 +47,7 @@ nelmio_api_doc:
           properties:
             users:
               type: "array"
-              users:
+              items:
                 allOf:
                   - $ref: '#/components/schemas/User'
           title: "UserList"
@@ -63,7 +63,7 @@ nelmio_api_doc:
             email:
               type: "string"
             groups:
-              type: "array"
+              type: "string"
             enabled:
               type: "boolean"
             adminLocale:
@@ -78,7 +78,7 @@ nelmio_api_doc:
             email:
               type: "string"
             groups:
-              type: "array"
+              type: "string"
             enabled:
               type: "boolean"
             adminLocale:
@@ -97,7 +97,7 @@ nelmio_api_doc:
             email:
               type: "string"
             groups:
-              type: "array"
+              type: "string"
             adminLocale:
               type: "string"
             password:

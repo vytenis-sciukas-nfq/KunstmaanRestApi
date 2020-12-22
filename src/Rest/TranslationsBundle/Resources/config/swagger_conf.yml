@@ -30,8 +30,9 @@ nelmio_api_doc:
         keywordCollection:
           title: "keywordCollection"
           type: "array"
-          allOf:
-            - $ref: '#/components/schemas/deprecateKeyword'
+          items:
+            allOf:
+              - $ref: '#/components/schemas/deprecateKeyword'
 
         disablingDate:
           title: "disablingDate"

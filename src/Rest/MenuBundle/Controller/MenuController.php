@@ -316,9 +316,7 @@ class MenuController extends AbstractApiController
      *     description="Creates a Menu",
      *     operationId="postMenu",
      *     tags={"menu"},
-     *     @OA\Parameter(
-     *         name="menu",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PostMenu"),
      *     ),
      *     @OA\Response(
@@ -393,9 +391,7 @@ class MenuController extends AbstractApiController
      *     description="add a new menu item to a menu",
      *     operationId="addMenuItem",
      *     tags={"menu"},
-     *     @OA\Parameter(
-     *         name="menuItem",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PostMenuItem"),
      *     ),
      *     @OA\Parameter(
@@ -484,9 +480,7 @@ class MenuController extends AbstractApiController
      *     description="updates a Menu",
      *     operationId="putMenu",
      *     tags={"menu"},
-     *     @OA\Parameter(
-     *         name="menu",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PostMenu"),
      *     ),
      *     @OA\Parameter(
@@ -575,9 +569,7 @@ class MenuController extends AbstractApiController
      *     description="updates a MenuItem",
      *     operationId="putMenuItem",
      *     tags={"menu"},
-     *     @OA\Parameter(
-     *         name="menuItem",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PutMenuItem"),
      *     ),
      *     @OA\Parameter(

@@ -268,9 +268,8 @@ class PagesController extends AbstractApiController
      *         description="The node translation ID",
      *         required=true,
      *     ),
-     *     @OA\Parameter(
-     *         name="apiPage",
-     *         in="body",
+     *     @OA\RequestBody(
+     *         description="apiPage",
      *         @OA\JsonContent(ref="#/components/schemas/ApiPage")
      *     ),
      *     @OA\Response(
@@ -356,9 +355,8 @@ class PagesController extends AbstractApiController
      *     description="Creates a ApiPage",
      *     operationId="postApiPage",
      *     tags={"pages"},
-     *     @OA\Parameter(
-     *         name="apiPage",
-     *         in="body",
+     *     @OA\RequestBody(
+     *         description="apiPage",
      *         @OA\JsonContent(ref="#/components/schemas/PostApiPage"),
      *     ),
      *     @OA\Response(

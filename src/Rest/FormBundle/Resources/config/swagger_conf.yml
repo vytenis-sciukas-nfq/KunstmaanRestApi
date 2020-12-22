@@ -6,7 +6,7 @@ nelmio_api_doc:
           properties:
             submissions:
               type: "array"
-              roles:
+              items:
                 allOf:
                   - $ref: '#/components/schemas/FormSubmission'
           title: "FormSubmisssionList"
@@ -26,6 +26,6 @@ nelmio_api_doc:
             ipAddress:
               type: "string"
             fields:
-              type: "array"
+              type: "sting"
             node:
               type: "object"

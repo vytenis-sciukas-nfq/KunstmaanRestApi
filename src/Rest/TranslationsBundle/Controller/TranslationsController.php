@@ -84,13 +84,7 @@ class TranslationsController extends AbstractFOSRestController
      * @Rest\QueryParam(name="locale", nullable=false, description="locale")
      * @Rest\Get("/public/translations/{domain}/")
      *
-     * @param ParamFetcherInterface $paramFetcher
-     *
-     * @return array
-     *
-     *
-     * * @OA\Get(
-     *     path="/api/public/translations/{domain}",
+     * @OA\Get(
      *     description="Get a list of all translations by domain only",
      *     operationId="getTranslationsByDomain",
      *     tags={"translations"},
@@ -223,9 +217,7 @@ class TranslationsController extends AbstractFOSRestController
      *     description="Create multiple translations",
      *     operationId="createTranslation",
      *     tags={"translations"},
-     *     @OA\Parameter(
-     *         name="translation",
-     *         in="body",
+     *     @OA\RequestBody(
      *         required=true,
      *         description="The posted translations",
      *         @OA\JsonContent(ref="#/components/schemas/postTranslations"),
@@ -301,9 +293,7 @@ class TranslationsController extends AbstractFOSRestController
      *     description="deprecate translations by keyword",
      *     operationId="deprecateTranslation",
      *     tags={"translations"},
-     *     @OA\Parameter(
-     *         name="deprecatedTranslation",
-     *         in="body",
+     *     @OA\RequestBody(
      *         required=true,
      *         description="The posted translations",
      *         @OA\JsonContent(ref="#/components/schemas/keywordCollection"),
@@ -366,9 +356,7 @@ class TranslationsController extends AbstractFOSRestController
      *     description="disable translations by keyword",
      *     operationId="disableTranslation",
      *     tags={"translations"},
-     *     @OA\Parameter(
-     *         name="disabledTranslation",
-     *         in="body",
+     *     @OA\RequestBody(
      *         required=true,
      *         description="The posted translations",
      *         @OA\JsonContent(ref="#/components/schemas/disablingDate"),
@@ -425,9 +413,7 @@ class TranslationsController extends AbstractFOSRestController
      *     description="re-enable translations by keyword",
      *     operationId="enableTranslation",
      *     tags={"translations"},
-     *     @OA\Parameter(
-     *         name="enabledTranslation",
-     *         in="body",
+     *     @OA\RequestBody(
      *         required=true,
      *         description="The posted translations",
      *         @OA\JsonContent(ref="#/components/schemas/keywordCollection"),

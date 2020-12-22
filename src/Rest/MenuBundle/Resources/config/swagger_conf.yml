@@ -6,7 +6,7 @@ nelmio_api_doc:
           properties:
             menus:
               type: "array"
-              roles:
+              items:
                 allOf:
                   - $ref: '#/components/schemas/Menu'
           title: "MenuList"
@@ -17,7 +17,7 @@ nelmio_api_doc:
           properties:
             menu-items:
               type: "array"
-              roles:
+              items:
                 allOf:
                   - $ref: '#/components/schemas/MenuItem'
           title: "MenuItemList"

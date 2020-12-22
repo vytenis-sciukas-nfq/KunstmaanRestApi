@@ -278,9 +278,7 @@ class MediaController extends AbstractApiController
      *     description="Creates a Folder",
      *     operationId="postFolder",
      *     tags={"media"},
-     *     @OA\Parameter(
-     *         name="folder",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PostFolder"),
      *     ),
      *     @OA\Parameter(
@@ -365,9 +363,7 @@ class MediaController extends AbstractApiController
      *     description="Creates a Media",
      *     operationId="postMedia",
      *     tags={"media"},
-     *     @OA\Parameter(
-     *         name="media",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/UploadMedia"),
      *     ),
      *     @OA\Parameter(
@@ -467,9 +463,7 @@ class MediaController extends AbstractApiController
      *     description="update a Media",
      *     operationId="updateMedia",
      *     tags={"media"},
-     *     @OA\Parameter(
-     *         name="media",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/putMedia"),
      *     ),
      *     @OA\Parameter(
@@ -565,9 +559,7 @@ class MediaController extends AbstractApiController
      *     description="updates a Folder",
      *     operationId="putFolder",
      *     tags={"media"},
-     *     @OA\Parameter(
-     *         name="folder",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PostFolder"),
      *     ),
      *     @OA\Parameter(

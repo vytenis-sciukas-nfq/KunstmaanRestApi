@@ -170,9 +170,7 @@ class GroupController extends AbstractApiController
      *     description="create a Group",
      *     operationId="createGroup",
      *     tags={"group"},
-     *     @OA\Parameter(
-     *         name="group",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/Group"),
      *     ),
      *     @OA\Parameter(
@@ -235,9 +233,7 @@ class GroupController extends AbstractApiController
      *     description="update a Group",
      *     operationId="updateGroup",
      *     tags={"group"},
-     *     @OA\Parameter(
-     *         name="group",
-     *         in="body",
+     *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/Group"),
      *     ),
      *     @OA\Parameter(
