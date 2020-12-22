@@ -91,38 +91,38 @@ nelmio_api_doc:
         GetNode:
           allOf:
             - $ref: '#/components/schemas/Node'
-            - properties:
-                parent:
-                  type: "object"
-                  allOf:
-                    - $ref: '#/components/schemas/Node'
+          properties:
+            parent:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/Node'
 
         PostNode:
           allOf:
             - $ref: '#/components/schemas/Node'
-            - properties:
-                parent:
-                  type: "object"
-                  allOf:
-                    - $ref: '#/components/schemas/Node'
+          properties:
+            parent:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/Node'
 
         GetNodeTranslation:
           allOf:
             - $ref: '#/components/schemas/NodeTranslation'
-            - properties:
-                id:
-                  type: "integer"
-                weight:
-                  type: "integer"
-                created:
-                  type: "string"
-                  format: "date-time"
-                updated:
-                  type: "string"
-                  format: "date-time"
+          properties:
+            id:
+              type: "integer"
+            weight:
+              type: "integer"
+            created:
+              type: "string"
+              format: "date-time"
+            updated:
+              type: "string"
+              format: "date-time"
 
         PostNodeTranslation:
-           allOf:
+          allOf:
             - $ref: '#/components/schemas/NodeTranslation'
 
         NodeVersion:
@@ -191,11 +191,11 @@ nelmio_api_doc:
         GetApiPage:
           allOf:
             - $ref: '#/components/schemas/ApiPage'
-            - properties:
-              nodeVersion:
-                type: "object"
-                allOf:
-                  - $ref: '#/components/schemas/NodeVersion'
+          properties:
+            nodeVersion:
+              type: "object"
+              allOf:
+                - $ref: '#/components/schemas/NodeVersion'
 
         PostApiPage:
           allOf:

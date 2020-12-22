@@ -29,43 +29,34 @@ nelmio_api_doc:
           properties:
             name:
               type: "string"
-              required: false
             locale:
               type: "string"
-              required: false
         PostMenuItem:
           title: "PostMenu"
           type: "object"
           properties:
             name:
               type: "string"
-              required: false
             locale:
               type: "string"
-              required: false
         PutMenuItem:
           title: "PostMenu"
           type: "object"
           properties:
             name:
               type: "string"
-              required: false
             locale:
               type: "string"
-              required: false
         Menu:
           title: "Menu"
           type: "object"
           properties:
             id:
               type: "integer"
-              required: false
             name:
               type: "string"
-              required: false
             locale:
               type: "string"
-              required: false
 
         MenuItem:
           title: "MenuItem"
@@ -73,7 +64,6 @@ nelmio_api_doc:
           properties:
             id:
               type: "integer"
-              required: false
             menu:
               type: "object"
               allOf:
@@ -84,22 +74,15 @@ nelmio_api_doc:
                 - $ref: '#/components/schemas/NodeTranslation'
             type:
               type: "string"
-              required: false
             title:
               type: "string"
-              required: false
             url:
               type: "string"
-              required: false
             newWindow:
               type: "boolean"
-              required: false
             lft:
               type: "integer"
-              required: false
             rgt:
               type: "integer"
-              required: false
             lvl:
               type: "integer"
-              required: false

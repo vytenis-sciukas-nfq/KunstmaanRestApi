@@ -64,10 +64,8 @@ nelmio_api_doc:
           properties:
             content:
               type: "string"
-              required: false
             url:
               type: "string"
-              required: false
             name:
               type: "string"
             description:
@@ -84,16 +82,12 @@ nelmio_api_doc:
           properties:
             name:
               type: "string"
-              required: false
             description:
               type: "string"
-              required: false
             copyRight:
               type: "string"
-              required: false
             folderId:
               type: "integer"
-              required: false
 
         MediaList:
           properties:

@@ -5,24 +5,19 @@ nelmio_api_doc:
         singleRedirect:
           title: "singleRedirect"
           type: "object"
+          required: ['domain', 'origin', 'target', 'permanent']
           properties:
             id:
               type: "integer"
-              required: false
             domain:
-              required: true
               type: "string"
             origin:
-              required: true
               type: "string"
             note:
-              required: true
               type: "string"
             target:
-              required: true
               type: "string"
             permanent:
-              required: true
               type: "boolean"
 
         listRedirect:

@@ -21,10 +21,10 @@ nelmio_api_doc:
         deprecateKeyword:
           title: "deprecateKeyword"
           type: "object"
+          required: ['keyword']
           properties:
             keyword:
               type: "string"
-              required: "true"
               example: "keyword"
 
         keywordCollection:
@@ -36,43 +36,38 @@ nelmio_api_doc:
         disablingDate:
           title: "disablingDate"
           type: "object"
+          required: ['date']
           properties:
             date:
               type: "datetime"
-              required: "true"
               example: "2048-05-12"
 
         putTranslation:
           title: "putTranslation"
           type: "object"
+          required: ['keyword', 'text', 'locale', 'domain']
           properties:
             keyword:
               type: "string"
-              required: "true"
             text:
               type: "string"
-              required: "true"
             locale:
               type: "string"
-              required: "true"
             domain:
               type: "string"
-              required: "true"
               example: "messages"
 
         postTranslation:
           title: "postTranslation"
           type: "object"
+          required: ['keyword', 'text', 'locale']
           properties:
             keyword:
               type: "string"
-              required: "true"
             text:
               type: "string"
-              required: "true"
             locale:
               type: "string"
-              required: "true"
 
         postTranslations:
           title: "postTranslations"
