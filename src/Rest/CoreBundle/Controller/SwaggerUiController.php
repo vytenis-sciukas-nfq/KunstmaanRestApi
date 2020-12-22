@@ -45,7 +45,7 @@ final class SwaggerUiController
             throw new BadRequestHttpException(sprintf('Area "%s" is not supported.', $area));
         }
 
-        $spec = $this->generatorLocator->get($area)->generate()->toArray();
+        $spec = $this->generatorLocator->get($area)->generate();
         if ('' !== $request->getBaseUrl()) {
             $spec['basePath'] = $request->getBaseUrl();
         }
