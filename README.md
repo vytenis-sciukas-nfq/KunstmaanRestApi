@@ -2,6 +2,8 @@
 RestApi
 =====================
 
+# Warning: This is still experimental and a WIP.
+
 The Kunstmaan RestApi Bundle provides a REST api for the popular Kunstmaan CMS bundles
 
 # Enabling the bundles
