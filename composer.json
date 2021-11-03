@@ -18,7 +18,6 @@
     ],
     "require": {
         "php": "^7.1|^8.0",
-        "kunstmaan/cms-pack": "*",
         "kunstmaan/config-bundle": "^5.2|^6.0",
         "kunstmaan/dashboard-bundle": "5.2|^6.0",
         "kunstmaan/menu-bundle": "5.2|^6.0",
