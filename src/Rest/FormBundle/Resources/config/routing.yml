@@ -1,5 +1,5 @@
 kunstmaan_api_form_submissions:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestFormBundle:FormSubmission'
     defaults:
         _format: json

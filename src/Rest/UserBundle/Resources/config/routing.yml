@@ -1,19 +1,19 @@
 kunstmaan_api_users:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestUserBundle:User'
     defaults:
         _format: json
     prefix:   /api
 
 kunstmaan_api_roles:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestUserBundle:Role'
     defaults:
         _format: json
     prefix:   /api
 
 kunstmaan_api_groups:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestUserBundle:Group'
     defaults:
         _format: json

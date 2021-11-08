@@ -1,4 +1,4 @@
 rest:
-    type:     rest
-    resource: '@KunstmaanRestTranslationsBundle/Controller/TranslationsController.php'
-    prefix:   /api
+  type: annotation
+  resource: '@KunstmaanRestTranslationsBundle/Controller/TranslationsController.php'
+  prefix: /api

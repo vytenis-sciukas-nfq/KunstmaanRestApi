@@ -3,14 +3,16 @@
 namespace Kunstmaan\Rest\CoreBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Model\UserInterface;
-use Kunstmaan\AdminBundle\Controller\BaseSettingsController;
 use Kunstmaan\AdminBundle\FlashMessages\FlashTypes;
 use Kunstmaan\AdminBundle\Repository\UserRepository;
 use Kunstmaan\Rest\CoreBundle\Entity\HasApiKeyInterface;
 use Kunstmaan\Rest\CoreBundle\Helper\GenerateApiKeyFunctionTrait;
 use Kunstmaan\UserManagementBundle\Event\UserEvents;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -20,9 +22,25 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * Class NodesController
  */
-class AuthenticationController extends BaseSettingsController
+class AuthenticationController extends AbstractController
 {
     use GenerateApiKeyFunctionTrait;
+
+    /** @var EntityManagerInterface */
+    private $em;
+
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
+    /** @var string */
+    private $userClass;
+
+    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, string $userClass)
+    {
+        $this->em = $em;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->userClass = $userClass;
+    }
 
     /**
      * @param Request $request
@@ -46,9 +64,9 @@ class AuthenticationController extends BaseSettingsController
         }
         $this->denyAccessUnlessGranted($requiredRole);
         /* @var $em EntityManager */
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em;
         /** @var UserRepository $repo */
-        $repo = $em->getRepository($this->getParameter('fos_user.model.user.class'));
+        $repo = $em->getRepository($this->userClass);
         /* @var UserInterface $user */
         $user = $repo->find($id);
         if (!$user instanceof HasApiKeyInterface) {
@@ -56,7 +74,7 @@ class AuthenticationController extends BaseSettingsController
         }
         if ($user !== null) {
             $userEvent = new UserEvent($user, $request);
-            $this->container->get('event_dispatcher')->dispatch(UserEvents::USER_EDIT_INITIALIZE, $userEvent);
+            $this->eventDispatcher->dispatch(UserEvents::USER_EDIT_INITIALIZE, $userEvent);
             $user->setApiKey($this->generateApiKey());
             $em->flush();
             $this->addFlash(

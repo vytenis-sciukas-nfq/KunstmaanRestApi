@@ -1,13 +1,13 @@
 kunstmaan_api_nodes:
-    type: rest
-    resource: 'KunstmaanRestNodeBundle:Nodes'
-    defaults:
-        _format: json
-    prefix:   /api
+  type: annotation
+  resource: '@KunstmaanRestNodeBundle/Controller/NodesController.php'
+  defaults:
+    _format: json
+  prefix: /api
 
 kunstmaan_api_pages:
-    type: rest
-    resource: 'KunstmaanRestNodeBundle:Pages'
-    defaults:
-        _format: json
-    prefix:   /api
+  type: annotation
+  resource: '@KunstmaanRestNodeBundle/Controller/PagesController.php'
+  defaults:
+    _format: json
+  prefix: /api

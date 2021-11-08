@@ -1,5 +1,5 @@
 kunstmaan_api_config:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestConfigBundle:Config'
     defaults:
         _format: json

@@ -1,5 +1,5 @@
 kunstmaan_api_article:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestArticleBundle:Article'
     defaults:
         _format: json

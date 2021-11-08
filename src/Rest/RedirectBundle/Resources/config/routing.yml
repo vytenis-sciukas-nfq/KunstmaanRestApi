@@ -1,5 +1,5 @@
 kunstmaan_api_redirect:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestRedirectBundle:Redirect'
     defaults:
         _format: json

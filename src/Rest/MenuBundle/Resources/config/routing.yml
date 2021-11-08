@@ -1,5 +1,5 @@
 kunstmaan_api_menu_menu:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestMenuBundle:Menu'
     defaults:
         _format: json

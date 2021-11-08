@@ -1,5 +1,5 @@
 kunstmaan_api_medias:
-    type: rest
+    type: annotation
     resource: 'KunstmaanRestMediaBundle:Media'
     defaults:
         _format: json
