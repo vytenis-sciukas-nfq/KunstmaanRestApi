@@ -28,6 +28,8 @@ services:
 
   Kunstmaan\Rest\CoreBundle\Controller\AuthenticationController:
     public: true
+    calls:
+      - [ setContainer, [ '@service_container' ] ]
     tags: ['controller.service_arguments']
     arguments:
       - '@doctrine.orm.entity_manager'

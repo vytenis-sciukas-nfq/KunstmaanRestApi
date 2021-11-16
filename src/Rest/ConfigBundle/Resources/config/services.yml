@@ -6,3 +6,4 @@ services:
             - '%kunstmaan_config%'
         calls:
             - [setViewHandler, ['@fos_rest.view_handler.default']]
+            - [ setContainer, [ '@service_container' ] ]

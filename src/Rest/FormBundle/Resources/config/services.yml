@@ -1,7 +1,8 @@
 services:
-    Kunstmaan\Rest\FormBundle\Controller\FormSubmissionController:
-        public: true
-        arguments:
-            - '@doctrine'
-        calls:
-            - [setViewHandler, ['@fos_rest.view_handler.default']]
+  Kunstmaan\Rest\FormBundle\Controller\FormSubmissionController:
+    public: true
+    arguments:
+      - '@doctrine'
+    calls:
+      - [ setViewHandler, [ '@fos_rest.view_handler.default' ] ]
+      - [ setContainer, [ '@service_container' ] ]

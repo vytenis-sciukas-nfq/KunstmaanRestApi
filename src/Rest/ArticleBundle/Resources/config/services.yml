@@ -5,3 +5,4 @@ services:
             - '@doctrine.orm.default_entity_manager'
         calls:
             - [setViewHandler, ['@fos_rest.view_handler.default']]
+            - [ setContainer, [ '@service_container' ] ]

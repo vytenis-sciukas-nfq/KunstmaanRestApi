@@ -1,9 +1,10 @@
 services:
-    Kunstmaan\Rest\MediaBundle\Controller\MediaController:
-        public: true
-        arguments:
-            - '@kunstmaan_media.media_manager'
-            - '@filesystem'
-            - '@doctrine'
-        calls:
-            - [setViewHandler, ['@fos_rest.view_handler.default']]
+  Kunstmaan\Rest\MediaBundle\Controller\MediaController:
+    public: true
+    arguments:
+      - '@kunstmaan_media.media_manager'
+      - '@filesystem'
+      - '@doctrine'
+    calls:
+      - [ setViewHandler, [ '@fos_rest.view_handler.default' ] ]
+      - [ setContainer, [ '@service_container' ] ]
