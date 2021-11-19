@@ -9,5 +9,5 @@ Kunstmaan\Rest\NodeBundle\Model\ApiContext:
 
     pageParts:
       expose: true
-      type: 'array<Kunstmaan\Rest\NodeBundle\Model\ApiPagePart>'
+      type: 'ArrayCollection<Kunstmaan\Rest\NodeBundle\Model\ApiPagePart>'
       groups: [edit, create]
