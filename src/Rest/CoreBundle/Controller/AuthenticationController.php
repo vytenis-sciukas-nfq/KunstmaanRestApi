@@ -4,12 +4,12 @@ namespace Kunstmaan\Rest\CoreBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\UserBundle\Event\UserEvent;
-use FOS\UserBundle\Model\UserInterface;
+use Kunstmaan\AdminBundle\Entity\UserInterface;
 use Kunstmaan\AdminBundle\FlashMessages\FlashTypes;
 use Kunstmaan\AdminBundle\Repository\UserRepository;
 use Kunstmaan\Rest\CoreBundle\Entity\HasApiKeyInterface;
 use Kunstmaan\Rest\CoreBundle\Helper\GenerateApiKeyFunctionTrait;
+use Kunstmaan\UserManagementBundle\Event\EditUserInitializeEvent;
 use Kunstmaan\UserManagementBundle\Event\UserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -73,8 +73,8 @@ class AuthenticationController extends AbstractController
             throw new BadRequestHttpException('user needs to have api key implemented');
         }
         if ($user !== null) {
-            $userEvent = new UserEvent($user, $request);
-            $this->eventDispatcher->dispatch(UserEvents::USER_EDIT_INITIALIZE, $userEvent);
+            $userEvent = new EditUserInitializeEvent($user, $request);
+            $this->eventDispatcher->dispatch($userEvent, UserEvents::USER_EDIT_INITIALIZE);
             $user->setApiKey($this->generateApiKey());
             $em->flush();
             $this->addFlash(
