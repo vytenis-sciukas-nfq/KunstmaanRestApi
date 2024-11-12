@@ -1,6 +1,6 @@
 kunstmaan_api_menu_menu:
     type: annotation
-    resource: 'KunstmaanRestMenuBundle:Menu'
+    resource: '@KunstmaanRestMenuBundle/Controller/MenuController.php'
     defaults:
         _format: json
     prefix:   /api

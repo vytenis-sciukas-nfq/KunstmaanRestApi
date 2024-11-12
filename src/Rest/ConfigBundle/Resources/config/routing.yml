@@ -1,6 +1,6 @@
 kunstmaan_api_config:
     type: annotation
-    resource: 'KunstmaanRestConfigBundle:Config'
+    resource: '@KunstmaanRestConfigBundle/Controller/ConfigController.php'
     defaults:
         _format: json
     prefix:   /api

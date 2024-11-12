@@ -1,6 +1,6 @@
 kunstmaan_api_article:
     type: annotation
-    resource: 'KunstmaanRestArticleBundle:Article'
+    resource: '@KunstmaanRestArticleBundle/Controller/ArticleController.php'
     defaults:
         _format: json
     prefix:   /api

@@ -1,6 +1,6 @@
 kunstmaan_api_form_submissions:
     type: annotation
-    resource: 'KunstmaanRestFormBundle:FormSubmission'
+    resource: '@KunstmaanRestFormBundle/Controller/FormSubmissionController.php'
     defaults:
         _format: json
     prefix:   /api
