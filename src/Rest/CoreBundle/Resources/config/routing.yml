@@ -1,4 +1,4 @@
 KunstmaanUserManagementBundle_user_settings:
   resource: '@KunstmaanRestCoreBundle/Controller/AuthenticationController.php'
   type:     annotation
-  prefix:   /%locale%/%kunstmaan_admin.admin_prefix%/settings/users
+  prefix:   /%kunstmaan_admin.default_locale%/%kunstmaan_admin.admin_prefix%/settings/users
