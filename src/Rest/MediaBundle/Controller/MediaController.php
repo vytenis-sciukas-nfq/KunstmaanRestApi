@@ -366,12 +366,6 @@ class MediaController extends AbstractApiController
      *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/UploadMedia"),
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
@@ -466,12 +460,6 @@ class MediaController extends AbstractApiController
      *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/putMedia"),
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
@@ -563,12 +551,6 @@ class MediaController extends AbstractApiController
      *         @OA\JsonContent(ref="#/components/schemas/PostFolder"),
      *     ),
      *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="The id of the folder",
@@ -656,12 +638,6 @@ class MediaController extends AbstractApiController
      *     operationId="moveFolder",
      *     tags={"media"},
      *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="The id of the folder",
@@ -733,12 +709,6 @@ class MediaController extends AbstractApiController
      *     operationId="deleteFolder",
      *     tags={"media"},
      *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="The id of the folder",
@@ -791,12 +761,6 @@ class MediaController extends AbstractApiController
      *         name="id",
      *         in="path",
      *         description="The id of the media",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
      *         required=true,
      *     ),
      *     @OA\Response(

@@ -57,12 +57,6 @@ class GroupController extends AbstractApiController
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
@@ -173,12 +167,6 @@ class GroupController extends AbstractApiController
      *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/Group"),
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
@@ -245,12 +233,6 @@ class GroupController extends AbstractApiController
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
      *     ),
      *     @OA\Response(
      *         response=403,

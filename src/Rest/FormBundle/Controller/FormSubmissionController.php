@@ -56,12 +56,6 @@ class FormSubmissionController extends AbstractApiController
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",

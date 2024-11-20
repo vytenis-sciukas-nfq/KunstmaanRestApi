@@ -223,12 +223,6 @@ class TranslationsController extends AbstractFOSRestController
      *         @OA\JsonContent(ref="#/components/schemas/postTranslations"),
      *     ),
      *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
      *         name="domain",
      *         in="path",
      *         description="the domain of the languages you want",
@@ -299,12 +293,6 @@ class TranslationsController extends AbstractFOSRestController
      *         @OA\JsonContent(ref="#/components/schemas/keywordCollection"),
      *     ),
      *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
      *         name="domain",
      *         in="path",
      *         description="the domain of the languages you want",
@@ -367,12 +355,6 @@ class TranslationsController extends AbstractFOSRestController
      *         description="the domain of the languages you want",
      *         required=true,
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=201,
      *         description="Returned when successfully disabled"
@@ -422,12 +404,6 @@ class TranslationsController extends AbstractFOSRestController
      *         name="domain",
      *         in="path",
      *         description="the domain of the languages you want",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
      *         required=true,
      *     ),
      *     @OA\Response(

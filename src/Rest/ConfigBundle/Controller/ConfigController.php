@@ -40,12 +40,6 @@ class ConfigController extends AbstractApiController
      *     description="Get config by internal name",
      *     operationId="getConfig",
      *     tags={"config"},
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",

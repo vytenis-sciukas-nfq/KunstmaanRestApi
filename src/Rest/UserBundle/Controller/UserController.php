@@ -75,12 +75,6 @@ class UserController extends AbstractApiController
      *         description="The id of the group of the user",
      *         required=false,
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
@@ -151,12 +145,6 @@ class UserController extends AbstractApiController
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -265,12 +253,6 @@ class UserController extends AbstractApiController
      *     tags={"user"},
      *     @OA\RequestBody(
      *         @OA\JsonContent(ref="#/components/schemas/PostUser"),
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
      *     ),
      *     @OA\Response(
      *         response=202,
@@ -413,12 +395,6 @@ class UserController extends AbstractApiController
      *         description="The id of the user",
      *         required=true,
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
@@ -471,12 +447,6 @@ class UserController extends AbstractApiController
      *         name="id",
      *         in="path",
      *         description="The id of the user",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
      *         required=true,
      *     ),
      *     @OA\Response(

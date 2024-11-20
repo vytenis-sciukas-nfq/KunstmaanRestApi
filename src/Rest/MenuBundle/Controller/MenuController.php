@@ -60,12 +60,6 @@ class MenuController extends AbstractApiController
      *         description="Amount of results (default 20)",
      *         required=false,
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
@@ -132,12 +126,6 @@ class MenuController extends AbstractApiController
      *         name="id",
      *         in="path",
      *         description="The id of the menu",
-     *         required=true,
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
      *         required=true,
      *     ),
      *     @OA\Response(
@@ -211,12 +199,6 @@ class MenuController extends AbstractApiController
      *         description="Returned when the user is not authorized",
      *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response="default",
      *         description="unexpected error",
@@ -263,12 +245,6 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -322,12 +298,6 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -403,12 +373,6 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -493,12 +457,6 @@ class MenuController extends AbstractApiController
      *         response=202,
      *         description="Returned when successful",
      *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=403,
      *         description="Returned when the user is not authorized",
@@ -581,12 +539,6 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=202,
      *         description="Returned when successful",
-     *     ),
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
      *     ),
      *     @OA\Response(
      *         response=403,

@@ -34,12 +34,6 @@ class RedirectController extends AbstractApiController
      *     description="Get all redirects",
      *     operationId="getRedirects",
      *     tags={"redirect"},
-     *     @OA\Parameter(
-     *         name="X-Api-Key",
-     *         in="header",
-     *         description="The authentication access token",
-     *         required=true,
-     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",

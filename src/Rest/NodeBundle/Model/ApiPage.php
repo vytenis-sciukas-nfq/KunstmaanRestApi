@@ -166,10 +166,10 @@ class ApiPage
     }
 
     /**
-     * @param AbstractAuthor $author
+     * @param AbstractAuthor|null $author
      * @return $this
      */
-    public function setAuthor(AbstractAuthor $author)
+    public function setAuthor(?AbstractAuthor $author)
     {
         $this->author = $author;
 
