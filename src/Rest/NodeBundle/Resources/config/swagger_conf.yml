@@ -146,52 +146,51 @@ nelmio_api_doc:
               - $ref: '#/components/schemas/GetNode'
 
         PaginatedNodeList:
-          type: object
+          type: "object"
           properties:
             _links:
-              type: object
+              type: "object"
               properties:
                 self: {
-                  type: object,
+                  type: "object",
                   properties: {
-                      href: { type: string }
+                      href: { type: "string" }
                   }
                 }
                 first: {
-                  type: object,
+                  type: "object",
                   properties: {
-                    href: { type: string }
+                    href: { type: "string" }
                   }
                 }
                 last: {
-                  type: object,
+                  type: "object",
                   properties: {
-                    href: { type: string }
+                    href: { type: "string" }
                   }
                 }
                 next: {
-                  type: object,
+                  type: "object",
                   properties: {
-                    href: { type: string }
+                    href: { type: "string" }
                   }
                 }
                 prev: {
-                  type: object,
+                  type: "object",
                   properties: {
-                    href: { type: string }
+                    href: { type: "string" }
                   }
                 }
             _embedded:
-              type: object
+              type: "object"
               properties:
                 items:
-                  type: array
+                  type: "array"
                   items:
-                    allOf:
-                      - $ref: '#/components/schemas/GetNode'
-            page: { type: integer }
-            total_pages: { type: integer }
-            total_items: { type: integer }
+                    $ref: '#/components/schemas/GetNode'
+            page: { type: "integer" }
+            total_pages: { type: "integer" }
+            total_items: { type: "integer" }
 
         ApiEntity:
           title: "ApiEntity"
