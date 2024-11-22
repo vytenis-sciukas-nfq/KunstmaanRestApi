@@ -16,3 +16,38 @@ nelmio_api_doc:
             extraData:
               type: "array"
               items: []
+        PaginatedResponse:
+          type: "object"
+          properties:
+            _links:
+              type: "object"
+              properties:
+                self:
+                  type: "object"
+                  properties:
+                    href: { type: "string" }
+                first:
+                  type: "object"
+                  properties:
+                    href: { type: "string" }
+                last:
+                  type: "object"
+                  properties:
+                    href: { type: "string" }
+                next:
+                  type: "object"
+                  properties:
+                    href: { type: "string" }
+                prev:
+                  type: "object"
+                  properties:
+                    href: { type: "string" }
+            _embedded:
+              type: "object"
+              properties:
+                items:
+                  type: "array"
+                  items: {}  # Placeholder for overriding items type
+            page: { type: "integer" }
+            total_pages: { type: "integer" }
+            total_items: { type: "integer" }

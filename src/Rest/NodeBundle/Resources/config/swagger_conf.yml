@@ -146,51 +146,17 @@ nelmio_api_doc:
               - $ref: '#/components/schemas/GetNode'
 
         PaginatedNodeList:
-          type: "object"
-          properties:
-            _links:
-              type: "object"
+          allOf:
+            - $ref: '#/components/schemas/PaginatedResponse'
+            - type: "object"
               properties:
-                self: {
-                  type: "object",
-                  properties: {
-                      href: { type: "string" }
-                  }
-                }
-                first: {
-                  type: "object",
-                  properties: {
-                    href: { type: "string" }
-                  }
-                }
-                last: {
-                  type: "object",
-                  properties: {
-                    href: { type: "string" }
-                  }
-                }
-                next: {
-                  type: "object",
-                  properties: {
-                    href: { type: "string" }
-                  }
-                }
-                prev: {
-                  type: "object",
-                  properties: {
-                    href: { type: "string" }
-                  }
-                }
-            _embedded:
-              type: "object"
-              properties:
-                items:
-                  type: "array"
-                  items:
-                    $ref: '#/components/schemas/GetNode'
-            page: { type: "integer" }
-            total_pages: { type: "integer" }
-            total_items: { type: "integer" }
+                _embedded:
+                  type: "object"
+                  properties:
+                    items:
+                      type: "array"
+                      items:
+                        $ref: '#/components/schemas/GetNode'
 
         ApiEntity:
           title: "ApiEntity"
