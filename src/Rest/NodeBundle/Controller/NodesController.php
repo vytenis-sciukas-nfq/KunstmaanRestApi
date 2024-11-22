@@ -228,7 +228,7 @@ class NodesController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/NodeList")
+     *         @OA\JsonContent(ref="#/components/schemas/PaginatedNodeList")
      *     ),
      *     @OA\Response(
      *         response=403,

@@ -145,6 +145,29 @@ nelmio_api_doc:
             allOf:
               - $ref: '#/components/schemas/GetNode'
 
+        PaginatedNodeList:
+          type: object
+          properties:
+            _links:
+              type: object
+              properties:
+                self: { type: string }
+                first: { type: string }
+                last: { type: string }
+                next: { type: string }
+                prev: { type: string }
+            _embedded:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/GetNode'
+            page: { type: integer }
+            total_pages: { type: integer }
+            total_items: { type: integer }
+
         ApiEntity:
           title: "ApiEntity"
           type: "object"
