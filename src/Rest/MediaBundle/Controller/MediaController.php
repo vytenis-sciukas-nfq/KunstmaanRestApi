@@ -98,7 +98,7 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/MediaList")
+     *         @OA\JsonContent(ref="#/components/schemas/PaginatedMediaList")
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -221,7 +221,7 @@ class MediaController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/FolderList")
+     *         @OA\JsonContent(ref="#/components/schemas/PaginatedFolderList")
      *     ),
      *     @OA\Response(
      *         response=403,

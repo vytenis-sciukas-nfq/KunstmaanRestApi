@@ -39,29 +39,17 @@ nelmio_api_doc:
           type: "object"
           properties:
             page:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/ApiEntity'
+              $ref: '#/components/schemas/ApiEntity'
             pageTemplate:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/ApiPageTemplate'
+              $ref: '#/components/schemas/ApiPageTemplate'
             node:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/PostNode'
+              $ref: '#/components/schemas/PostNode'
             seo:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/Seo'
+              $ref: '#/components/schemas/Seo'
             author:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/Author'
+              $ref: '#/components/schemas/Author'
             nodeTranslation:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/PostNodeTranslation'
+              $ref: '#/components/schemas/PostNodeTranslation'
 
         Seo:
           title: "Seo"
@@ -84,9 +72,7 @@ nelmio_api_doc:
             extraMetaData:
               type: string
             ogImage:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/Media'
+              $ref: '#/components/schemas/Media'
 
         GetNode:
           allOf:
@@ -138,13 +124,6 @@ nelmio_api_doc:
             ref_entity_name:
               type: "string"
 
-        NodeList:
-          title: "NodeList"
-          type: "array"
-          items:
-            allOf:
-              - $ref: '#/components/schemas/GetNode'
-
         PaginatedNodeList:
           allOf:
             - $ref: '#/components/schemas/PaginatedResponse'
@@ -186,8 +165,7 @@ nelmio_api_doc:
             pageparts:
               type: "array"
               items:
-                allOf:
-                  - $ref: '#/components/schemas/ApiPagePart'
+                $ref: '#/components/schemas/ApiPagePart'
 
         ApiPageTemplate:
           title: "ApiPageTemplate"
@@ -198,8 +176,7 @@ nelmio_api_doc:
             contexts:
               type: "array"
               items:
-                allOf:
-                  - $ref: '#/components/schemas/ApiContext'
+                $ref: '#/components/schemas/ApiContext'
 
         GetApiPage:
           allOf:

@@ -63,7 +63,7 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/MenuList")
+     *         @OA\JsonContent(ref="#/components/schemas/PaginatedMenuList")
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -131,7 +131,7 @@ class MenuController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/MenuItemList")
+     *         @OA\JsonContent(ref="#/components/schemas/PaginatedMenuItemList")
      *     ),
      *     @OA\Response(
      *         response=403,

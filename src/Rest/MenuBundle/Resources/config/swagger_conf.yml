@@ -2,27 +2,32 @@ nelmio_api_doc:
   documentation:
     components:
       schemas:
-        MenuList:
-          properties:
-            menus:
-              type: "array"
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Menu'
-          title: "MenuList"
-          required: ["menus"]
-          type: "object"
+        PaginatedMenuList:
+          allOf:
+            - $ref: '#/components/schemas/PaginatedResponse'
+            - type: "object"
+              properties:
+                _embedded:
+                  type: "object"
+                  properties:
+                    items:
+                      type: "array"
+                      items:
+                        $ref: '#/components/schemas/Menu'
 
-        MenuItemList:
-          properties:
-            menu-items:
-              type: "array"
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/MenuItem'
-          title: "MenuItemList"
-          required: ["menu-items"]
-          type: "object"
+        PaginatedMenuItemList:
+          allOf:
+            - $ref: '#/components/schemas/PaginatedResponse'
+            - type: "object"
+              properties:
+                _embedded:
+                  type: "object"
+                  properties:
+                    items:
+                      type: "array"
+                      items:
+                        $ref: '#/components/schemas/MenuItem'
+
         PostMenu:
           title: "PostMenu"
           type: "object"
@@ -65,13 +70,9 @@ nelmio_api_doc:
             id:
               type: "integer"
             menu:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/Folder'
+              $ref: '#/components/schemas/Folder'
             nodeTranslation:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/NodeTranslation'
+              $ref: '#/components/schemas/NodeTranslation'
             type:
               type: "string"
             title:

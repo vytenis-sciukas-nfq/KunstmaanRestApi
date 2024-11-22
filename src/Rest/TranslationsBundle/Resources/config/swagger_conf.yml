@@ -15,8 +15,7 @@ nelmio_api_doc:
           title: "listTranslation"
           type: "array"
           items:
-            allOf:
-              - $ref: '#/components/schemas/singleTranslation'
+            $ref: '#/components/schemas/singleTranslation'
 
         deprecateKeyword:
           title: "deprecateKeyword"
@@ -31,8 +30,7 @@ nelmio_api_doc:
           title: "keywordCollection"
           type: "array"
           items:
-            allOf:
-              - $ref: '#/components/schemas/deprecateKeyword'
+            $ref: '#/components/schemas/deprecateKeyword'
 
         disablingDate:
           title: "disablingDate"
@@ -74,5 +72,4 @@ nelmio_api_doc:
           title: "postTranslations"
           type: "array"
           items:
-            allOf:
-              - $ref: '#/components/schemas/postTranslation'
+            $ref: '#/components/schemas/postTranslation'

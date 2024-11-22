@@ -19,9 +19,7 @@ nelmio_api_doc:
             originalFilename:
               type: "string"
             folder:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/Folder'
+              $ref: '#/components/schemas/Folder'
             contentType:
               type: "string"
             metadata:
@@ -89,24 +87,28 @@ nelmio_api_doc:
             folderId:
               type: "integer"
 
-        MediaList:
-          properties:
-            media:
-              type: "array"
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Media'
-          title: "MediaList"
-          required: ["items"]
-          type: "object"
+        PaginatedMediaList:
+          allOf:
+            - $ref: '#/components/schemas/PaginatedResponse'
+            - type: "object"
+              properties:
+                _embedded:
+                  type: "object"
+                  properties:
+                    items:
+                      type: "array"
+                      items:
+                        $ref: '#/components/schemas/Media'
 
-        FolderList:
-          properties:
-            folder:
-              type: "array"
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Folder'
-          title: "FolderList"
-          required: ["items"]
-          type: "object"
+        PaginatedFolderList:
+          allOf:
+            - $ref: '#/components/schemas/PaginatedResponse'
+            - type: "object"
+              properties:
+                _embedded:
+                  type: "object"
+                  properties:
+                    items:
+                      type: "array"
+                      items:
+                        $ref: '#/components/schemas/Folder'

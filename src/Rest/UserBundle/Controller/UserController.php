@@ -78,7 +78,7 @@ class UserController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/UserList")
+     *         @OA\JsonContent(ref="#/components/schemas/PaginatedUserList")
      *     ),
      *     @OA\Response(
      *         response=403,

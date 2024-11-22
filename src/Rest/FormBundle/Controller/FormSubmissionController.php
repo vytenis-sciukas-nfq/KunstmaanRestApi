@@ -59,7 +59,7 @@ class FormSubmissionController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/FormSubmissionList")
+     *         @OA\JsonContent(ref="#/components/schemas/PaginatedFormSubmissionList")
      *     ),
      *     @OA\Response(
      *         response=403,

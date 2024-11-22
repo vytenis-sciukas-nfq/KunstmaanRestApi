@@ -2,16 +2,18 @@ nelmio_api_doc:
   documentation:
     components:
       schemas:
-        RoleList:
-          properties:
-            roles:
-              type: "array"
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Role'
-          title: "RoleList"
-          required: ["roles"]
-          type: "object"
+        PaginatedRoleList:
+          allOf:
+            - $ref: '#/components/schemas/PaginatedResponse'
+            - type: "object"
+              properties:
+                _embedded:
+                  type: "object"
+                  properties:
+                    items:
+                      type: "array"
+                      items:
+                        $ref: '#/components/schemas/Role'
 
         Role:
           title: "Role"
@@ -20,16 +22,18 @@ nelmio_api_doc:
             role:
               type: "string"
 
-        GroupList:
-          properties:
-            groups:
-              type: "array"
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Group'
-          title: "GroupList"
-          required: ["groups"]
-          type: "object"
+        PaginatedGroupList:
+          allOf:
+            - $ref: '#/components/schemas/PaginatedResponse'
+            - type: "object"
+              properties:
+                _embedded:
+                  type: "object"
+                  properties:
+                    items:
+                      type: "array"
+                      items:
+                        $ref: '#/components/schemas/Group'
 
         Group:
           title: "Group"
@@ -40,19 +44,20 @@ nelmio_api_doc:
             roles:
               type: "array"
               items:
-                allOf:
-                  - $ref: '#/components/schemas/Role'
+                $ref: '#/components/schemas/Role'
 
-        UserList:
-          properties:
-            users:
-              type: "array"
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/User'
-          title: "UserList"
-          required: ["users"]
-          type: "object"
+        PaginatedUserList:
+          allOf:
+            - $ref: '#/components/schemas/PaginatedResponse'
+            - type: "object"
+              properties:
+                _embedded:
+                  type: "object"
+                  properties:
+                    items:
+                      type: "array"
+                      items:
+                        $ref: '#/components/schemas/User'
 
         User:
           title: "User"
