@@ -67,9 +67,12 @@ class Paginator
         $pagerfanta->setCurrentPage($page);
         $request = $this->requestStack->getCurrentRequest();
         $route = 'get_nodes';
+        $routeParameters = [];
         if(null !== $request) {
             $route = $request->get('_route');
+            $routeParameters = $request->get('_route_params');
         }
+
 
         $items = $pagerfanta->getCurrentPageResults();
         if (null !== $closure) {
@@ -79,7 +82,7 @@ class Paginator
         return new PaginatedRepresentation(
             new CollectionRepresentation($items),
             $route,
-            [],
+            $routeParameters,
             $page,
             $limit,
             $pagerfanta->getNbPages(),
