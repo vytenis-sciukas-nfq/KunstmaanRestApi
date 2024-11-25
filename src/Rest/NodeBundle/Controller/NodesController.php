@@ -323,7 +323,10 @@ class NodesController extends AbstractApiController
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
-     *         @OA\JsonContent(ref="#/components/schemas/NestedNodeList")
+     *         @OA\JsonContent(
+     *              type="array",
+     *              items=@OA\Items(ref="#/components/schemas/NestedNode")
+     *          )
      *     ),
      *     @OA\Response(
      *         response=403,
