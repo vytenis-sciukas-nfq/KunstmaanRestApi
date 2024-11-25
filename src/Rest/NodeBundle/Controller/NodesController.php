@@ -268,7 +268,7 @@ class NodesController extends AbstractApiController
      *     )
      * )
      *
-     * @QueryParam(name="includeChildren", nullable=true, allowBlank=true, default=null, requirements="(true|false)", description="If true, child nodes will be included recursively", strict=true)
+     * @QueryParam(name="includeChildren", nullable=true, allowBlank=true, default=false, requirements="(true|false)", description="If true, child nodes will be included recursively", strict=true)
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page", strict=true)
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results", strict=true)
      *
@@ -293,6 +293,7 @@ class NodesController extends AbstractApiController
 
 
         $context = new Context();
+        $context->addGroup('get');
 
         if ($includeChildren) {
             $context->addGroup('with_children');
