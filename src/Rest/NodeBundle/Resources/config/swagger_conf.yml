@@ -82,10 +82,11 @@ nelmio_api_doc:
               type: "object"
               allOf:
                 - $ref: '#/components/schemas/Node'
-            node_translations:
-              type: array
-              items:
-                $ref: '#/components/schemas/GetNodeTranslation'
+            _embedded:
+              node_translations:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetNodeTranslation'
 
         PostNode:
           allOf:
