@@ -34,3 +34,8 @@ Kunstmaan\NodeBundle\Entity\Node:
       href: expr('/api/nodes/' ~ object.getId() ~ '/translations')
       embedded:
           content: expr(object.getNodeTranslations())
+    -
+      rel: children
+      href: expr('/api/nodes/' ~ object.getId() ~ '/children')
+      embedded:
+        content: expr(object.getChildren())
