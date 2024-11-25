@@ -36,11 +36,12 @@ Kunstmaan\NodeBundle\Entity\Node:
       href: expr('/api/nodes/' ~ object.getId() ~ '/translations')
       groups: [Default]
       embedded:
-          content: expr(object.getNodeTranslations())
+        content: expr(object.getNodeTranslations())
     -
       rel: children
       href: expr('/api/nodes/' ~ object.getId() ~ '/children')
-      groups: [NodeWithChildren]
+      group: [Default]
       embedded:
         content: expr(object.getChildren())
-        groups: [NodeWithChildren]
+        exclusion:
+          groups: [NodeWithChildren]

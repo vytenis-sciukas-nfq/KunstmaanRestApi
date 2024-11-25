@@ -268,7 +268,7 @@ class NodesController extends AbstractApiController
      *     )
      * )
      *
-     * @QueryParam(name="includeChildren", nullable=true, allowBlank=true, default=false, requirements="(true|false)", description="If true, child nodes will be included recursively", strict=true)
+     * @QueryParam(name="includeChildren", nullable=false, default=false, requirements="(true|false)", description="If true, child nodes will be included recursively", strict=true)
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page", strict=true)
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results", strict=true)
      *
@@ -286,10 +286,11 @@ class NodesController extends AbstractApiController
         $limit = $paramFetcher->get('limit');
         $includeChildren = filter_var($paramFetcher->get('includeChildren'), FILTER_VALIDATE_BOOLEAN);
 
+        $repository = $this->em->getRepository(Node::class);
 
         /** @var Node $node */
-        $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->find($id);
-        $data = $node->getChildren();
+        $node = $repository->find($id);
+        $data = $repository->childrenHierarchy($node, $includeChildren);
 
 
         $context = new Context();
@@ -303,6 +304,58 @@ class NodesController extends AbstractApiController
         $view->setContext($context);
 
         return $view;
+    }
+
+    /**
+     * Retrieve a nested nodes
+     *
+     * @OA\Get(
+     *     path="/api/nodes/{id}/nested",
+     *     description="Retrieve a single node's children",
+     *     operationId="getNodeNested",
+     *     tags={"nodes"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="The node ID, if 0 will return all nodes",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Returned when successful",
+     *         @OA\JsonContent(ref="#/components/schemas/NestedNodeList")
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized to fetch nodes",
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Get("/nodes/{id}/nested")
+     * @Rest\View(statusCode=200)
+     *
+     * @param ParamFetcher $paramFetcher
+     * @param int $id
+     *
+     * @return View
+     */
+    public function getNodeNestedAction(ParamFetcher $paramFetcher, int $id = null)
+    {
+        $repository = $this->em->getRepository(Node::class);
+
+        /** @var Node $node */
+        $node = null;
+        if (!empty($id)) {
+            $node = $repository->find($id);
+        }
+
+        return $repository->childrenHierarchy($node);
     }
 
     /**
