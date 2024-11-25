@@ -176,8 +176,7 @@ nelmio_api_doc:
         NestedNodeList:
           type: array
           items:
-            allOf:
-              - $ref: '#/components/schemas/NestedNode'
+            $ref: '#/components/schemas/NestedNode'
 
         PaginatedNodeList:
           allOf:
