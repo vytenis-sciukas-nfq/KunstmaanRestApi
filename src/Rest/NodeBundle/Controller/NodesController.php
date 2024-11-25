@@ -12,6 +12,7 @@
 namespace Kunstmaan\Rest\NodeBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -84,6 +85,12 @@ class NodesController extends AbstractApiController
      *         description="Which pages you want to have returned",
      *         required=false,
      *     ),
+     *     @OA\Parameter(
+     *          name="includeChildren",
+     *          in="query",
+     *          description="Do you want to include node children?",
+     *          required=false,
+     *      ),
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
@@ -123,6 +130,7 @@ class NodesController extends AbstractApiController
         $hiddenFromNav = $paramFetcher->get('hiddenFromNav');
         $refEntityName = $paramFetcher->get('refEntityName');
         $locale = $paramFetcher->get('locale');
+        $includeChildren = $paramFetcher->get('includeChildren');
 
         /** @var NodeRepository $repository */
         $repository = $this->em->getRepository(Node::class);
@@ -154,7 +162,18 @@ class NodesController extends AbstractApiController
             ;
         }
 
-        return $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit);
+        $context = new Context();
+
+        if ($includeChildren) {
+            $context->addGroup('with_children');
+        }
+
+        $view = new \FOS\RestBundle\View\View(
+            $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit)
+        );
+        $view->setContext($context);
+
+        return $view;
     }
 
     /**

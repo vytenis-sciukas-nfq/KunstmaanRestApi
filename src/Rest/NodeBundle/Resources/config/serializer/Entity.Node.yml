@@ -15,6 +15,7 @@ Kunstmaan\NodeBundle\Entity\Node:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\Node'
       groups: [create]
+      max_depth: 1
     lft:
       expose: true
       groups: [edit, create]
@@ -39,3 +40,4 @@ Kunstmaan\NodeBundle\Entity\Node:
       href: expr('/api/nodes/' ~ object.getId() ~ '/children')
       embedded:
         content: expr(object.getChildren())
+        groups: [with_children]
