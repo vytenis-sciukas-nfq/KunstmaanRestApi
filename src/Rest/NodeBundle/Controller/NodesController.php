@@ -117,7 +117,7 @@ class NodesController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
      * @Rest\Get("/nodes")
-     * @Rest\View(statusCode=200)
+     * @Rest\View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -209,7 +209,7 @@ class NodesController extends AbstractApiController
      * )
      *
      * @Rest\Get("/nodes/{id}")
-     * @Rest\View(statusCode=200)
+     * @Rest\View(statusCode=200, serializerGroups={"Default"})
      *
      * @param int $id
      * @return Node
@@ -273,7 +273,7 @@ class NodesController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results", strict=true)
      *
      * @Rest\Get("/nodes/{id}/children")
-     * @Rest\View(statusCode=200)
+     * @Rest\View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcher $paramFetcher
      * @param int $id
@@ -339,7 +339,7 @@ class NodesController extends AbstractApiController
      * )
      *
      * @Rest\Get("/nodes/{id}/parent")
-     * @Rest\View(statusCode=200)
+     * @Rest\View(statusCode=200, serializerGroups={"Default"})
      */
     public function getNodeParentAction($id)
     {
