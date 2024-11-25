@@ -148,26 +148,30 @@ nelmio_api_doc:
               type: "integer"
             nodeTranslations:
               type: array
-              properties:
-                id:
-                  type: integer
-                lang:
-                  type: string
-                title:
-                  type: string
-                slug:
-                  type: string
-                created:
-                  type: string
-                  format: "date-time"
-                updated:
-                  type: string
-                  format: "date-time"
-
+              items:
+                $ref: '#/components/schemas/NestedNodeTranslation'
             __children:
               type: array
               items:
                 $ref: '#/components/schemas/NestedNode'
+
+        NestedNodeTranslation:
+          type: object
+          properties:
+            id:
+              type: integer
+            lang:
+              type: string
+            title:
+              type: string
+            slug:
+              type: string
+            created:
+              type: string
+              format: "date-time"
+            updated:
+              type: string
+              format: "date-time"
 
         NestedNodeList:
           type: array
