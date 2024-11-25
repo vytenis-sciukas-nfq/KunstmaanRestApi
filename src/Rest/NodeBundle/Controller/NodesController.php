@@ -15,10 +15,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
-use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\ControllerTrait;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\View\View;
 use Hateoas\Representation\PaginatedRepresentation;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Repository\NodeRepository;
@@ -116,7 +116,7 @@ class NodesController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
      * @Rest\Get("/nodes")
-     * @View(statusCode=200)
+     * @Rest\View(statusCode=200)
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -168,7 +168,7 @@ class NodesController extends AbstractApiController
             $context->addGroup('with_children');
         }
 
-        $view = new \FOS\RestBundle\View\View(
+        $view = new View(
             $this->getPaginator()->getPaginatedQueryBuilderResult($qb, $page, $limit)
         );
         $view->setContext($context);
@@ -208,7 +208,7 @@ class NodesController extends AbstractApiController
      * )
      *
      * @Rest\Get("/nodes/{id}")
-     * @View(statusCode=200)
+     * @Rest\View(statusCode=200)
      *
      * @param int $id
      * @return Node
@@ -231,6 +231,12 @@ class NodesController extends AbstractApiController
      *         in="path",
      *         description="The node ID",
      *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="includeChildren",
+     *         in="query",
+     *         description="Do you want to include node children?",
+     *         required=false,
      *     ),
      *     @OA\Parameter(
      *         name="page",
@@ -265,23 +271,37 @@ class NodesController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results", strict=true)
      *
      * @Rest\Get("/nodes/{id}/children")
-     * @View(statusCode=200)
+     * @Rest\View(statusCode=200)
      *
      * @param ParamFetcher $paramFetcher
      * @param int $id
      *
-     * @return PaginatedRepresentation
+     * @return View
      */
     public function getNodeChildrenAction(ParamFetcher $paramFetcher, $id)
     {
         $page = $paramFetcher->get('page');
         $limit = $paramFetcher->get('limit');
+        $includeChildren = $paramFetcher->get('includeChildren');
+
 
         /** @var Node $node */
         $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->find($id);
         $data = $node->getChildren();
 
-        return $this->getPaginator()->getPaginatedArrayResult($data->toArray(), $page, $limit);
+
+        $context = new Context();
+
+        if ($includeChildren) {
+            $context->addGroup('with_children');
+        }
+
+        $view = new View(
+            $this->getPaginator()->getPaginatedArrayResult($data->toArray(), $page, $limit)
+        );
+        $view->setContext($context);
+
+        return $view;
     }
 
     /**
@@ -316,7 +336,7 @@ class NodesController extends AbstractApiController
      * )
      *
      * @Rest\Get("/nodes/{id}/parent")
-     * @View(statusCode=200)
+     * @Rest\View(statusCode=200)
      */
     public function getNodeParentAction($id)
     {
