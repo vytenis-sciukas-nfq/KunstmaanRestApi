@@ -40,7 +40,7 @@ Kunstmaan\NodeBundle\Entity\Node:
     -
       rel: children
       href: expr('/api/nodes/' ~ object.getId() ~ '/children')
-      groups: [Default]
+      groups: [NodeWithChildren]
       embedded:
         content: expr(object.getChildren())
         groups: [NodeWithChildren]
