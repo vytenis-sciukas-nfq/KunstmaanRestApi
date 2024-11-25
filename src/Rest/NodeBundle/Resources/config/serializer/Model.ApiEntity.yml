@@ -5,9 +5,9 @@ Kunstmaan\Rest\NodeBundle\Model\ApiEntity:
     type:
       expose: true
       type: string
-      groups: [edit, create]
+      groups: [Default, edit, create]
 
     data:
       expose: true
       type: 'Kunstmaan\AdminBundle\Entity\EntityInterface'
-      groups: [edit, create]
+      groups: [Default, edit, create]

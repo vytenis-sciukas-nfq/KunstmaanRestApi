@@ -5,9 +5,9 @@ Kunstmaan\Rest\NodeBundle\Model\ApiPagePart:
     type:
       expose: true
       type: string
-      groups: [edit, create]
+      groups: [Default, edit, create]
 
     data:
       expose: true
       type: 'Kunstmaan\PagePartBundle\Helper\PagePartInterface'
-      groups: [edit, create]
+      groups: [Default, edit, create]

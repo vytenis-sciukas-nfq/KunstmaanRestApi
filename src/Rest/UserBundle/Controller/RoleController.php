@@ -80,7 +80,7 @@ class RoleController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
      * @Rest\Get("/role")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -105,7 +105,7 @@ class RoleController extends AbstractApiController
      * deletes Role
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Delete(
@@ -158,7 +158,7 @@ class RoleController extends AbstractApiController
      * create a Role
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Post(
@@ -215,7 +215,7 @@ class RoleController extends AbstractApiController
      * updates a Role
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(

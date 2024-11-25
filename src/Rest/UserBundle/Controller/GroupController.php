@@ -78,7 +78,7 @@ class GroupController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
      * @Rest\Get("/group")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -103,7 +103,7 @@ class GroupController extends AbstractApiController
      * deletes Group
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Delete(
@@ -156,7 +156,7 @@ class GroupController extends AbstractApiController
      * create a Group
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Post(
@@ -213,7 +213,7 @@ class GroupController extends AbstractApiController
      * updates a Group
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(

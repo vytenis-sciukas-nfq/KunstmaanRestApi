@@ -81,7 +81,7 @@ class MenuController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
      * @Rest\Get("/menu")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -149,7 +149,7 @@ class MenuController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
      * @Rest\Get("/menu/{id}/items")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -176,7 +176,7 @@ class MenuController extends AbstractApiController
      * deletes MenuItem
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Delete(
@@ -228,7 +228,7 @@ class MenuController extends AbstractApiController
      * deletes Menu
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Delete(
@@ -284,7 +284,7 @@ class MenuController extends AbstractApiController
      * Creates a new Menu
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Post(
@@ -353,7 +353,7 @@ class MenuController extends AbstractApiController
      * Creates a new Menu item
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Post(
@@ -436,7 +436,8 @@ class MenuController extends AbstractApiController
      * Update a menu
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"},
+     *     serializerGroups={"Default"}
      * )
      *
      * @OA\Put(
@@ -519,7 +520,7 @@ class MenuController extends AbstractApiController
      * Update a menuItem
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(

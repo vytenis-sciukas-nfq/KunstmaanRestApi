@@ -66,7 +66,7 @@ class RedirectController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
      * @Rest\Get("/redirects")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @return PaginatedRepresentation
      */

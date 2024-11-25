@@ -58,7 +58,7 @@ class ConfigController extends AbstractApiController
      * )
      *
      * @Rest\Get("/config/{internalName}")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @return AbstractConfig|Response
      */

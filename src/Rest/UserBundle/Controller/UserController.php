@@ -97,7 +97,7 @@ class UserController extends AbstractApiController
      * @QueryParam(name="groupId", nullable=true, description="the groupId to search in", requirements="\d+", strict=true)
      *
      * @Rest\Get("/user")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -131,7 +131,7 @@ class UserController extends AbstractApiController
      * updates a User
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(
@@ -243,7 +243,7 @@ class UserController extends AbstractApiController
      * create a User
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Post(
@@ -328,7 +328,7 @@ class UserController extends AbstractApiController
      * deletes User
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Delete(
@@ -381,7 +381,7 @@ class UserController extends AbstractApiController
      * toggle User
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(
@@ -435,7 +435,7 @@ class UserController extends AbstractApiController
      * refresh api key
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(

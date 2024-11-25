@@ -3,7 +3,7 @@ Kunstmaan\NodeBundle\Entity\NodeVersion:
     properties:
         owner:
             expose: true
-            groups: [edit]
+            groups: [Default, edit]
         type:
             expose: true
-            groups: [edit]
+            groups: [Default, edit]

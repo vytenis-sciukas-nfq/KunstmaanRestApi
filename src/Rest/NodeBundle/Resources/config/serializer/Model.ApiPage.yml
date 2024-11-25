@@ -5,37 +5,37 @@ Kunstmaan\Rest\NodeBundle\Model\ApiPage:
     page:
       expose: true
       type: 'Kunstmaan\Rest\NodeBundle\Model\ApiEntity'
-      groups: [edit, create]
+      groups: [Default, edit, create]
 
     node:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\Node'
-      groups: [edit, create]
+      groups: [Default, edit, create]
 
     seo:
       expose: true
       type: 'Kunstmaan\SeoBundle\Entity\Seo'
-      groups: [edit, create]
+      groups: [Default, edit, create]
 
     author:
       expose: true
       type: 'Kunstmaan\ArticleBundle\Entity\AbstractAuthor'
-      groups: [edit, create]
+      groups: [Default, edit, create]
 
     nodeTranslation:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\NodeTranslation'
-      groups: [edit, create]
+      groups: [Default, edit, create]
       serialized_name: node_translation
 
     nodeVersion:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\NodeVersion'
-      groups: [edit]
+      groups: [Default, edit]
       serialized_name: node_version
 
     pageTemplate:
       expose: true
       type: 'Kunstmaan\Rest\NodeBundle\Model\ApiPageTemplate'
-      groups: [edit, create]
+      groups: [Default, edit, create]
       serialized_name: page_template

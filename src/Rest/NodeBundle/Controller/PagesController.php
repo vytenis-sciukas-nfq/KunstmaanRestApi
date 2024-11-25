@@ -141,7 +141,7 @@ class PagesController extends AbstractApiController
      * )
      *
      * @Rest\Get("/public/pages")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page", strict=true)
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results", strict=true)
@@ -227,7 +227,7 @@ class PagesController extends AbstractApiController
      * )
      *
      * @Rest\Get("/public/pages/{id}", requirements={"id": "\d+"})
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @throws \Exception
      *
@@ -254,7 +254,8 @@ class PagesController extends AbstractApiController
      * Update a ApiPage
      *
      * @View(
-     *     statusCode=204
+     *     statusCode=204,
+     *     serializerGroups={"Default"}
      * )
      *
      * @OA\Put(
@@ -346,7 +347,8 @@ class PagesController extends AbstractApiController
      * Creates a ApiPage
      *
      * @View(
-     *     statusCode=204
+     *     statusCode=204,
+     *     serializerGroups={"Default"}
      * )
      *
      *

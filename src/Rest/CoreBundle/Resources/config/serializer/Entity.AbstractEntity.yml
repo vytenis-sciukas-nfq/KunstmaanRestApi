@@ -4,4 +4,4 @@ Kunstmaan\AdminBundle\Entity\AbstractEntity:
     id:
       expose: true
       type: integer
-      groups: [edit]
+      groups: [Default, edit]

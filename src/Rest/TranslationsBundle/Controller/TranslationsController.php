@@ -26,7 +26,8 @@ class TranslationsController extends AbstractFOSRestController
 
     /**
      * @View(
-     *     statusCode=200
+     *     statusCode=200,
+     *     serializerGroups={"Default"}
      * )
      *
      * @Rest\QueryParam(name="locale", nullable=false, description="locale")
@@ -78,7 +79,8 @@ class TranslationsController extends AbstractFOSRestController
 
     /**
      * @View(
-     *     statusCode=200
+     *     statusCode=200,
+     *     serializerGroups={"Default"}
      * )
      *
      * @Rest\QueryParam(name="locale", nullable=false, description="locale")
@@ -130,7 +132,8 @@ class TranslationsController extends AbstractFOSRestController
 
     /**
      * @View(
-     *     statusCode=200
+     *     statusCode=200,
+     *     serializerGroups={"Default"}
      * )
      *
      * @Rest\QueryParam(name="locale", nullable=false, description="locale")
@@ -201,7 +204,8 @@ class TranslationsController extends AbstractFOSRestController
 
     /**
      * @View(
-     *     statusCode=200
+     *     statusCode=200,
+     *     serializerGroups={"Default"}
      * )
      *
      * @Rest\QueryParam(name="force", nullable=false, description="Force=true will overwrite existing translations, otherwise will be skipped")
@@ -277,7 +281,8 @@ class TranslationsController extends AbstractFOSRestController
 
     /**
      * @View(
-     *     statusCode=201
+     *     statusCode=201,
+     *     serializerGroups={"Default"}
      * )
      *
      * @Rest\Put("/translations/deprecate/{domain}")
@@ -334,7 +339,8 @@ class TranslationsController extends AbstractFOSRestController
 
     /**
      * @View(
-     *     statusCode=201
+     *     statusCode=201,
+     *     serializerGroups={"Default"}
      * )
      *
      * @Rest\Put("/translations/disable/{domain}")

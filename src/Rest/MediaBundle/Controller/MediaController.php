@@ -118,7 +118,7 @@ class MediaController extends AbstractApiController
      * @QueryParam(name="folderId", nullable=true, requirements="\d+", description="folder id", strict=true)
      *
      * @Rest\Get("/media")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -182,7 +182,7 @@ class MediaController extends AbstractApiController
      * )
      *
      * @Rest\Get("/media/{id}")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param int $id
      * @return Media
@@ -240,7 +240,7 @@ class MediaController extends AbstractApiController
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results")
      *
      * @Rest\Get("/folder")
-     * @View(statusCode=200)
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param ParamFetcherInterface $paramFetcher
      *
@@ -269,9 +269,7 @@ class MediaController extends AbstractApiController
     /**
      * Creates a new Folder
      *
-     * @View(
-     *     statusCode=202
-     * )
+     * @View(statusCode=202, serializerGroups={"Default"})
      *
      * @OA\Post(
      *     path="/api/folder/{parentId}",
@@ -355,7 +353,7 @@ class MediaController extends AbstractApiController
      * Creates a new Media
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Post(
@@ -449,7 +447,7 @@ class MediaController extends AbstractApiController
      * updates a Media
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(
@@ -539,7 +537,7 @@ class MediaController extends AbstractApiController
      * updates Folder
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(
@@ -629,7 +627,7 @@ class MediaController extends AbstractApiController
      * move Folder
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Put(
@@ -700,7 +698,7 @@ class MediaController extends AbstractApiController
      * deletes Folder
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Delete(
@@ -749,7 +747,7 @@ class MediaController extends AbstractApiController
      * deletes Media
      *
      * @View(
-     *     statusCode=202
+     *     statusCode=202, serializerGroups={"Default"}
      * )
      *
      * @OA\Delete(

@@ -4,16 +4,16 @@ Kunstmaan\NodeBundle\Entity\NodeTranslation:
   properties:
     lang:
       expose: true
-      groups: [edit, create]
+      groups: [Default, edit, create]
     online:
       expose: true
-      groups: [edit, create]
+      groups: [Default, edit, create]
     title:
       expose: true
-      groups: [edit, create]
+      groups: [Default, edit, create]
     weight:
       expose: true
-      groups: [edit, create]
+      groups: [Default, edit, create]
     created:
       expose: true
     updated:

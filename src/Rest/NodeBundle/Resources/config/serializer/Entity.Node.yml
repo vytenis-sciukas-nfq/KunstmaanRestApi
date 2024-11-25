@@ -4,43 +4,43 @@ Kunstmaan\NodeBundle\Entity\Node:
   properties:
     hiddenFromNav:
       expose: true
-      groups: [get, edit, create]
+      groups: [Default, get, edit, create]
     internalName:
       expose: true
-      groups: [get, edit, create]
+      groups: [Default, get, edit, create]
     refEntityName:
       expose: true
-      groups: [get, edit, create]
+      groups: [Default, get, edit, create]
     parent:
       expose: true
       type: 'Kunstmaan\NodeBundle\Entity\Node'
-      groups: [get, create]
+      groups: [Default, get, create]
       max_depth: 1
     lft:
       expose: true
-      groups: [get, edit, create]
+      groups: [Default, get, edit, create]
     rgt:
       expose: true
-      groups: [get, edit, create]
+      groups: [Default, get, edit, create]
     lvl:
       expose: true
-      groups: [get, edit, create]
+      groups: [Default, get, edit, create]
 
   relations:
     -
       rel: self
       href: expr('/api/nodes/' ~ object.getId())
-      groups: [get]
+      groups: [Default, get]
     -
       rel: node_translations
       href: expr('/api/nodes/' ~ object.getId() ~ '/translations')
-      groups: [get]
+      groups: [Default, get]
       embedded:
           content: expr(object.getNodeTranslations())
     -
       rel: children
       href: expr('/api/nodes/' ~ object.getId() ~ '/children')
-      groups: [get]
+      groups: [Default, get]
       embedded:
         content: expr(object.getChildren())
-        groups: [with_children]
+        groups: [Default, with_children]
