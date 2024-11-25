@@ -135,9 +135,45 @@ nelmio_api_doc:
             ref_entity_name:
               type: "string"
 
+        NestedNode:
+          type: object
+          properties:
+            id:
+              type: "integer"
+            lft:
+              type: "integer"
+            rgt:
+              type: "integer"
+            lvl:
+              type: "integer"
+            nodeTranslations:
+              type: array
+              properties:
+                id:
+                  type: integer
+                lang:
+                  type: string
+                title:
+                  type: string
+                slug:
+                  type: string
+                created:
+                  type: string
+                  format: "date-time"
+                updated:
+                  type: string
+                  format: "date-time"
+
+            __children:
+              type: array
+              items:
+                $ref: '#/components/schemas/NestedNode'
+
         NestedNodeList:
-          allOf:
-            - $ref: '#/components/schemas/Node'
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/NestedNode'
 
         PaginatedNodeList:
           allOf:
