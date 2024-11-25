@@ -110,6 +110,7 @@ class NodesController extends AbstractApiController
      *
      * @QueryParam(name="internalName", nullable=true, description="The internal name of the node", requirements="[\w\d_-]+", strict=true)
      * @QueryParam(name="hiddenFromNav", nullable=true, allowBlank=true, default=null, requirements="(true|false)", description="If true, only nodes hidden from nav will be returned", strict=true)
+     * @QueryParam(name="includeChildren", nullable=true, allowBlank=true, default=null, requirements="(true|false)", description="If true, child nodes will be included recursively", strict=true)
      * @QueryParam(name="refEntityName", nullable=true, default=null, description="Which pages you want to have returned")
      * @QueryParam(name="locale", nullable=true, default=null, requirements="[a-zA-Z_-]+", strict=true, description="If you provide a locale, then only nodes with a node translation of this locale will be returned")
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page")
@@ -267,6 +268,7 @@ class NodesController extends AbstractApiController
      *     )
      * )
      *
+     * @QueryParam(name="includeChildren", nullable=true, allowBlank=true, default=null, requirements="(true|false)", description="If true, child nodes will be included recursively", strict=true)
      * @QueryParam(name="page", nullable=false, default="1", requirements="\d+", description="The current page", strict=true)
      * @QueryParam(name="limit", nullable=false, default="20", requirements="\d+", description="Amount of results", strict=true)
      *
