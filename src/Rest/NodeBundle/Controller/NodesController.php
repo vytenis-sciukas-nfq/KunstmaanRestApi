@@ -310,7 +310,7 @@ class NodesController extends AbstractApiController
      * Retrieve a nested nodes
      *
      * @OA\Get(
-     *     path="/api/nodes/{id}/nested/{locale}",
+     *     path="/api/nodes/{id}/nested",
      *     description="Retrieve a single node's children",
      *     operationId="getNodeNested",
      *     tags={"nodes"},
@@ -320,12 +320,6 @@ class NodesController extends AbstractApiController
      *         description="The node ID, if 0 will return all nodes",
      *         required=true,
      *     ),
-     *     @OA\Parameter(
-     *          name="locale",
-     *          in="path",
-     *          description="The translation locale to retrieve titles based upon",
-     *          required=true,
-     *      ),
      *     @OA\Response(
      *         response=200,
      *         description="Returned when successful",
@@ -343,7 +337,7 @@ class NodesController extends AbstractApiController
      *     )
      * )
      *
-     * @Rest\Get("/nodes/{id}/nested/{locale}")
+     * @Rest\Get("/nodes/{id}/nested")
      * @Rest\View(statusCode=200)
      *
      * @param ParamFetcher $paramFetcher
@@ -351,7 +345,7 @@ class NodesController extends AbstractApiController
      *
      * @return View
      */
-    public function getNodeNestedAction(ParamFetcher $paramFetcher, int $id, string $locale)
+    public function getNodeNestedAction(ParamFetcher $paramFetcher, int $id)
     {
         $repository = $this->em->getRepository(Node::class);
 
