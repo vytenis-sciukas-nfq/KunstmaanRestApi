@@ -284,7 +284,7 @@ class NodesController extends AbstractApiController
     {
         $page = $paramFetcher->get('page');
         $limit = $paramFetcher->get('limit');
-        $includeChildren = $paramFetcher->get('includeChildren');
+        $includeChildren = filter_var($paramFetcher->get('includeChildren'), FILTER_VALIDATE_BOOLEAN);
 
 
         /** @var Node $node */
