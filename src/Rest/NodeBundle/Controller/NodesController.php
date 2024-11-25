@@ -293,10 +293,8 @@ class NodesController extends AbstractApiController
 
 
         $context = new Context();
-        $context->addGroup('get');
-
         if ($includeChildren) {
-            $context->addGroup('with_children');
+            $context->addGroup('NodeWithChildren');
         }
 
         $view = new View(
