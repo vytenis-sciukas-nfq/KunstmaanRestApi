@@ -129,7 +129,7 @@ nelmio_api_doc:
             id:
               type: "integer"
             owner:
-              type: "id"
+              type: "string"
             ref_id:
               type: "integer"
             ref_entity_name:
