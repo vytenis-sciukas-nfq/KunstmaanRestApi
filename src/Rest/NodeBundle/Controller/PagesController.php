@@ -239,7 +239,8 @@ class PagesController extends AbstractApiController
 
         $qb = $this->em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getOnlineNodeTranslationsQueryBuilder()
             ->andWhere('nt.id = :id')
-            ->setParameter('id', $id);
+            ->setParameter('id', $id)
+        ;
 
         $nodeTranslation = $qb->getQuery()->getOneOrNullResult();
 

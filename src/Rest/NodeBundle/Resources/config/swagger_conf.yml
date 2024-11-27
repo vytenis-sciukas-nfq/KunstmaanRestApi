@@ -40,7 +40,7 @@ nelmio_api_doc:
           properties:
             page:
               $ref: '#/components/schemas/ApiEntity'
-            pageTemplate:
+            page_template:
               $ref: '#/components/schemas/ApiPageTemplate'
             node:
               $ref: '#/components/schemas/PostNode'
@@ -48,7 +48,7 @@ nelmio_api_doc:
               $ref: '#/components/schemas/Seo'
             author:
               $ref: '#/components/schemas/Author'
-            nodeTranslation:
+            node_translation:
               $ref: '#/components/schemas/PostNodeTranslation'
 
         Seo:
@@ -211,7 +211,7 @@ nelmio_api_doc:
           properties:
             name:
               type: "string"
-            pageparts:
+            page_parts:
               type: "array"
               items:
                 $ref: '#/components/schemas/ApiPagePart'
@@ -231,10 +231,8 @@ nelmio_api_doc:
           allOf:
             - $ref: '#/components/schemas/ApiPage'
           properties:
-            nodeVersion:
-              type: "object"
-              allOf:
-                - $ref: '#/components/schemas/NodeVersion'
+            node_version:
+              $ref: '#/components/schemas/NodeVersion'
 
         PostApiPage:
           allOf:
