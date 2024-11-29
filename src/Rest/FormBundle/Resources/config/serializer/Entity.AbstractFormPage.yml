@@ -1,0 +1,15 @@
+Kunstmaan\FormBundle\Entity\AbstractFormPage:
+  exclusion_policy: ALL
+  properties:
+    thanks:
+      type: string
+      groups: [Default, edit]
+    subject:
+      type: string
+      groups: [Default, edit]
+    fromEmail:
+      type: string
+      groups: [Default, edit]
+    toEmail:
+      type: string
+      groups: [Default, edit]
