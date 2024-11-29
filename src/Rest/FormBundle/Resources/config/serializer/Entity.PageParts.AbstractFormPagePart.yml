@@ -1,0 +1,6 @@
+Kunstmaan\FormBundle\Entity\PageParts\AbstractFormPagePart:
+  exclusion_policy: ALL
+  properties:
+    label:
+      type: string
+      groups: [Default, edit]
