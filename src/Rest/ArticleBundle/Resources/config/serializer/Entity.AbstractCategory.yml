@@ -1,9 +1,9 @@
-Kunstmaan\ArticleBundle\Entity\AbstractAuthor:
+Kunstmaan\ArticleBundle\Entity\AbstractCategory:
   exclusion_policy: ALL
   properties:
     name:
       type: string
       expose: true
-    link:
+    locale:
       type: string
       expose: true

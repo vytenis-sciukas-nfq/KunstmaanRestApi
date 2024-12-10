@@ -1,0 +1,9 @@
+Kunstmaan\ArticleBundle\Entity\AbstractArticlePage:
+  exclusion_policy: ALL
+  properties:
+    date:
+      type: DateTime<'Y-m-d\TH:i:sP'>
+      expose: true
+    summary:
+      type: string
+      expose: true
