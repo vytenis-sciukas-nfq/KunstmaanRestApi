@@ -5,4 +5,5 @@ Kunstmaan\AdminBundle\Entity\BaseUser:
       expose: true
     adminLocale:
       serialized_name: adminLocale
+      type: string
       expose: true
