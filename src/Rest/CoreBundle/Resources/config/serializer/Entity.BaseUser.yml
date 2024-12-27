@@ -6,6 +6,3 @@ Kunstmaan\AdminBundle\Entity\BaseUser:
     adminLocale:
       serialized_name: adminLocale
       expose: true
-    groups:
-      expose: true
-      type: array
