@@ -8,3 +8,4 @@ Kunstmaan\AdminBundle\Entity\BaseUser:
       expose: true
     groups:
       expose: true
+      type: array
