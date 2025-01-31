@@ -201,7 +201,7 @@ class PagesController extends AbstractApiController
      * @OA\Get(
      *     path="/api/public/pages/{id}",
      *     description="Get a page by node translation ID",
-     *     operationId="getPage",
+     *     operationId="getPublicPage",
      *     tags={"pages"},
      *     @OA\Parameter(
      *         name="id",
