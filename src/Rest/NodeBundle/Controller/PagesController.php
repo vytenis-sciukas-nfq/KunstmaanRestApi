@@ -234,10 +234,66 @@ class PagesController extends AbstractApiController
      * @param int $id
      * @return ApiPage
      */
-    public function getPageAction($id)
+    public function getPublicPageAction($id)
     {
 
         $qb = $this->em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getOnlineNodeTranslationsQueryBuilder()
+            ->andWhere('nt.id = :id')
+            ->setParameter('id', $id)
+        ;
+
+        $nodeTranslation = $qb->getQuery()->getOneOrNullResult();
+
+        if (!$nodeTranslation instanceof NodeTranslation) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->dataTransformer->transform($nodeTranslation);
+    }
+
+    /**
+     * Get a page by node translation ID
+     *
+     * @OA\Get(
+     *     path="/api/pages/{id}",
+     *     description="Get a page by node translation ID",
+     *     operationId="getPage",
+     *     tags={"pages"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="The node translation ID",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Returned when successful",
+     *         @OA\JsonContent(ref="#/components/schemas/GetApiPage")
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Returned when the user is not authorized to fetch nodes",
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorModel")
+     *     )
+     * )
+     *
+     * @Rest\Get("/pages/{id}", requirements={"id": "\d+"})
+     * @View(statusCode=200, serializerGroups={"Default"})
+     *
+     * @throws \Exception
+     *
+     * @param int $id
+     * @return ApiPage
+     */
+    public function getPageAction($id)
+    {
+
+        $qb = $this->em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getNodeTranslationsQueryBuilder()
             ->andWhere('nt.id = :id')
             ->setParameter('id', $id)
         ;
